@@ -1,0 +1,10 @@
+:source-highlighter: coderay
+= Duct
+
+Hello World.
+
+[,clojure]
+----
+(defn foo [x]
+  (+ x 2))
+----
