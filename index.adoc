@@ -98,3 +98,69 @@ us.
 $ duct --init
 Created duct.edn
 ----
+
+This will create a file, `duct.edn` with the content:
+
+[,clojure]
+----
+{:system {}}
+----
+
+== Fundamentals
+
+This section will introduce the fundamentals of Duct's design and
+implement a minimal '`Hello World`' application. While it may be
+tempting to skip ahead, a sound understanding of how to use Duct will
+make later sections easier to follow.
+
+As mentioned previously, Duct uses a file, `duct.edn`, to define the
+structure of your application. We'll begin by adding a new component
+key to the system:
+
+[,clojure]
+----
+{:system
+ {:tutorial.print/hello {}}}
+----
+
+If we try running Duct, it will complain about a missing namespace.
+
+[,shell]
+----
+$ duct --main
+✓ Initiating system...
+Execution error (IllegalArgumentException) at integrant.core/eval1191$fn (core.cljc:490).
+No such namespace: tutorial.print
+----
+
+Duct is searching for a definition for the component, but not finding
+anything. This is unsurprising, as we haven't written any code yet.
+Let's fix this.
+
+First we'll create the directories.
+
+[,shell]
+----
+mkdir -p src/tutorial
+----
+
+Then a minimal Clojure file at: `src/tutorial/print.clj`.
+
+[,clojure]
+----
+(ns tutorial.print)
+
+(defn hello [_options]
+  (println "Hello World"))
+----
+
+Now if we try to run the application, we get the expected output.
+
+[,shell]
+----
+$ duct --main
+✓ Initiating system...
+Hello World
+----
+
+Congratulations on your first Duct application!
