@@ -23,11 +23,12 @@ writing web applications. This documentation will take you through
 Duct's setup and operation, using a web application as an example
 project.
 
-== Project Setup
+== Setup
 
-You'll need to
-https://clojure.org/guides/install_clojure[install Clojure] before you
-can use Duct. This will add a `clojure` executable to your path.
+This section will cover setting up a new Duct project. You'll first need
+to ensure that the
+https://clojure.org/guides/install_clojure[Clojure CLI is installed].
+You can check this by running the `clojure` command.
 
 [,shell]
 ----
@@ -35,20 +36,20 @@ $ clojure --version
 Clojure CLI version 1.12.0.1479
 ----
 
-Next, you'll need to create a project directory. For the purposes of
-this example, we'll call the project `tutorial`.
+Next, create a project directory. For the purposes of this example,
+we'll call the project `tutorial`.
 
 [,shell]
 ----
 $ mkdir tutorial && cd tutorial
 ----
 
-The Clojure command-line tool looks for a file called `deps.edn`. To use
-Duct, we need to add https://github.com/duct-framework/main[Duct Main]
-as a dependency, and setup an alias to execute it.
+The Clojure CLI looks for a file called `deps.edn`. To use Duct, we need
+to add the https://github.com/duct-framework/main[Duct Main] tool as a
+dependency, and setup an alias to execute it.
 
 To achieve this, create a new `deps.edn` file with the following
-contents:
+content:
 
 [,clojure]
 ----
@@ -56,7 +57,7 @@ contents:
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
-Duct can now be run by invoking the `duct` alias.
+Duct can now be run by invoking the `:duct` alias.
 
 [,shell]
 ----
@@ -76,16 +77,16 @@ Options:
 ----
 
 We'll be using this command a lot, so it's highly recommended that you
-create an alias for it in your shell. In a POSIX shell such as Bash,
-this can be done using the `alias` command.
+also create an shell alias. In a POSIX shell such as Bash, this can be
+done using the `alias` command.
 
 [,shell]
 ----
 $ alias duct="clojure -M:duct"
 ----
 
-For the rest of this documentation, we'll assume that this alias has
-been defined.
+For the rest of this documentation, we'll assume that this shell alias
+has been defined.
 
 The final step of the setup process is to create a `duct.edn` file. This
 contains the data structure that defines your Duct application. The
