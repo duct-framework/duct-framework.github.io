@@ -1,10 +1,99 @@
+= The Duct Framework
+James Reeves
+{docdate}
+:doctype: book
+:encoding: UTF-8
+:lang: en
 :source-highlighter: coderay
-= Duct
+:sectnums:
+:toc: left
 
-Hello World.
+== Introduction
+
+Duct is a framework for developing server-side applications in the
+https://clojure.org[Clojure] programming language.
+
+Duct does not rely on a project template; the skeleton of a Duct
+application is defined by an immutable data structure. This structure
+can then be queried or modified in ways that would be difficult with a
+more traditional framework.
+
+While Duct has more general use cases, it's particularly well-suited for
+writing web applications. This documentation will take you through
+Duct's setup and operation, using a web application as an example
+project.
+
+== Project Setup
+
+You'll need to
+https://clojure.org/guides/install_clojure[install Clojure] before you
+can use Duct. This will add a `clojure` executable to your path.
+
+[,shell]
+----
+$ clojure --version
+Clojure CLI version 1.12.0.1479
+----
+
+Next, you'll need to create a project directory. For the purposes of
+this example, we'll call the project `tutorial`.
+
+[,shell]
+----
+$ mkdir tutorial && cd tutorial
+----
+
+The Clojure command-line tool looks for a file called `deps.edn`. To use
+Duct, we need to add https://github.com/duct-framework/main[Duct Main]
+as a dependency, and setup an alias to execute it.
+
+To achieve this, create a new `deps.edn` file with the following
+contents:
 
 [,clojure]
 ----
-(defn foo [x]
-  (+ x 2))
+{:deps {org.duct-framework/main {:mvn/version "0.1.0"}}
+ :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
+----
+
+Duct can now be run by invoking the `duct` alias.
+
+[,shell]
+----
+$ clojure -M:duct
+Usage:
+	clojure -M:duct [--main | --repl]
+Options:
+  -c, --cider              Start an NREPL server with CIDER middleware
+      --init               Create a blank duct.edn config file
+  -p, --profiles PROFILES  A concatenated list of profile keys
+  -n, --nrepl              Start an NREPL server
+  -m, --main               Start the application
+  -r, --repl               Start a command-line REPL
+  -s, --show               Print out the expanded configuration and exit
+  -v, --verbose            Enable verbose logging
+  -h, --help               Print this help message and exit
+----
+
+We'll be using this command a lot, so it's highly recommended that you
+create an alias for it in your shell. In a POSIX shell such as Bash,
+this can be done using the `alias` command.
+
+[,shell]
+----
+$ alias duct="clojure -M:duct"
+----
+
+For the rest of this documentation, we'll assume that this alias has
+been defined.
+
+The final step of the setup process is to create a `duct.edn` file. This
+contains the data structure that defines your Duct application. The
+Duct Main tool has a flag to generate a minimal configuration file for
+us.
+
+[,shell]
+----
+$ duct --init
+Created duct.edn
 ----
