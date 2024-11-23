@@ -115,7 +115,7 @@ implement a minimal '`Hello World`' application. While it may be
 tempting to skip ahead, a sound understanding of how to use Duct will
 make later sections easier to follow.
 
-=== Hello World
+=== First Steps
 
 As mentioned previously, Duct uses a file, `duct.edn`, to define the
 structure of your application. We'll begin by adding a new component
@@ -169,140 +169,173 @@ Hello World
 
 Congratulations on your first Duct application!
 
-=== Component Options
+=== The REPL
 
-One advantage of having a configuration file is that we can customize
-the behavior of components. Let's change our `hello` function to take
-a `:name` option.
+Duct has two ways of running your application: `--main` and `--repl`.
+
+In the previous section we started the application with `--main`, which
+will *initiate* the system defined in the configuration file, and *halt*
+the system when the process terminates.
+
+The REPL is an interactive development environment.
+
+[,shell]
+----
+$ duct --repl
+✓ Loading REPL environment...
+[Repl balance] Type :repl/help for online help info
+user=>
+----
+
+In the REPL environment the system will not be initiated automatically.
+Instead, we use the inbuilt `(go)` function.
 
 [,clojure]
 ----
-(ns tutorial.print)
-
-(defn hello [{:keys [name]}]
-  (println "Hello" name))
+user=> (go)
+Hello World
+:initiated
 ----
 
-Now that `hello` expects an option, we'll need to add it to the
-`duct.edn` file.
+The REPL can be left running while source files updated. The `(reset)`
+function will halt the running system, reload any modified source files,
+then initiate the system again.
+
+[,clojure]
+----
+user=> (reset)
+:reloading (tutorial.print)
+Hello World
+:resumed
+----
+
+The configuration defined by `duct.edn` can be accessed with `config`,
+and the running system can be accessed with `system`.
+
+[,clojure]
+----
+user=> config
+#:tutorial.print{:hello {}}
+user=> system
+#:tutorial.print{:hello nil}
+----
+
+=== Modules
+
+A *module* groups multiple components together. Duct provides a number
+of pre-written modules that implement common functionality. One of these
+modules is `:duct.module/logging`.
+
+We'll first add the dependency to `deps.edn`.
+
+[,clojure]
+----
+{:deps {org.duct-framework/main {:mvn/version "0.1.0"}
+        org.duct-framework/module.logging {:mvn/version "0.6.4"}}
+ :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
+----
+
+Then we'll add the module to the `duct.edn` configuration.
 
 [,clojure]
 ----
 {:system
- {:tutorial.print/hello {:name "World"}}}
+ {:duct.module/logging {}
+  :tutorial.print/hello {}}}
 ----
 
-Naturally this produces the same result as before when we run the
-application.
+Before the components are initiated, modules are *expanded*. We can see
+what this expansion looks like by using the `--show` flag. This will
+print out the expanded configuration instead of initiating it.
 
 [,shell]
 ----
-$ duct --main
-✓ Initiating system...
-Hello World
+$ duct --main --show
+{:duct.logger/simple {:appenders [{:type :stdout}]}
+ :tutorial.print/hello {}}
 ----
 
-=== Variables
+The logging module has been replaced with the `:duct.logger/simple`
+component.
 
-Sometimes we want to supply options from an external source, such as an
-environment variable or command line option. Duct allows variables, or
-*vars*, to be defined in the `duct.edn` configuration.
+The `--show` flag also works with the `--repl` command.
 
-Let's add a var to our configuration file.
+[,shell]
+----
+$ duct --repl --show
+{:duct.logger/simple
+ {:appenders
+  [{:type :stdout, :brief? true, :levels #{:report}}
+   {:type :file, :path "logs/repl.log"}]}
+ :tutorial.print/hello {}}
+----
+
+But wait a moment, why is the expansion of the configuration different
+depending on how we run Duct? This is because the `--main` flag has an
+implicit `:main` profile, and the `--repl` flag has an implicit `:repl`
+profile.
+
+The `:duct.module/logging` module has different behaviors depending on
+which profile is active. When run with the `:main` profile, the logs
+print to STDOUT, but this would be inconveniently noisy when using a
+REPL. So when the `:repl` profile is active, most of the logs are sent
+to a file, `logs/repl.log`.
+
+In order to use this module, we need to connect the logger to our
+'`hello`' component. This is done via a *ref*.
 
 [,clojure]
 ----
-{:vars
- {name {:arg name, :env NAME, :type :str, :default "World"
-        :doc "The name of the person to greet"}}
- :system
- {:tutorial.print/hello {:name #ig/var name}}}
+{:system
+ {:duct.module/logging {}
+  :tutorial.print/hello {:logger #ig/ref :duct/logger}}}
 ----
 
-This defines a var called `name` with two sources. In order of priority:
-
-. A command-line argument `--name` (set via `:arg`)
-. An environment variable `$NAME` (set via `:env`)
-
-This value can be inserted into the system map with the `#ig/var` data
-reader. If the variable has no value, an error will be raised, so it's a
-good idea to set a default value using the `:default` key.
+The `#ig/ref` data reader is used to give the '`hello`' component access
+to the logger. We use `:duct/logger` instead of `:duct.logger/simple`,
+as keys have a logical hierarchy, and `:duct/logger` fulfils a role
+similar to that of an interface or superclass.
 
 NOTE: The '`ig`' in `#ig/var` stands for _Integrant_. This is the
 library that Duct relies on to turn configurations into running
 applications.
 
-The `:type` of a var determines the data type it should be coerced into.
-Duct supports three types natively: `:str`, `:int` and `:float`. The
-default type when the key is omitted is `:str`.
+Now that we've connected the components together in the configuration
+file, it's time to replace the `println` function with the Duct logger.
 
-Duct integrates these vars into its help message. The `:doc` option
-specifies a description of the var.
-
-[,shell,highlight=13]
+[,clojure]
 ----
-$ duct --help
-Usage:
-	clojure -M:duct [--main | --repl]
-Options:
-  -c, --cider              Start an NREPL server with CIDER middleware
-      --init               Create a blank duct.edn config file
-  -p, --profiles PROFILES  A concatenated list of profile keys
-  -n, --nrepl              Start an NREPL server
-  -m, --main               Start the application
-  -r, --repl               Start a command-line REPL
-  -s, --show               Print out the expanded configuration and exit
-  -v, --verbose            Enable verbose logging
-  -h, --help               Print this help message and exit
-      --name NAME          The name of the person to greet
+(ns tutorial.print
+  (:require [duct.logger :as log]))
+
+(defn hello [{:keys [logger]}]
+  (log/report logger ::hello {:name "World"}))
 ----
 
-The var can then be specified at the command line to produce different
-results.
+The `duct.logger/report` function is used to emit a log at the `:report`
+level. This is a high-priority level that should be used sparingly, as
+it also prints to STDOUT when using the REPL.
+
+You may have noticed that we've replaced the `"Hello World"` string with
+a keyword and a map: `::name {:name "World"}`. This is because Duct is
+opinionated about logs being data, rather than human-readable strings. A
+Duct log message consists of an *event*, a qualified keyword, and a map
+of *event data*, which provides additional information.
+
+When we run the application, we can see what this produces.
 
 [,shell]
 ----
-$ duct --main --name=Clojurian
+$ duct --main
 ✓ Initiating system...
-Hello Clojurian
-
-$ NAME=Clojurist duct --main
-✓ Initiating system...
-Hello Clojurist
+2024-11-23T18:59:14.080Z :report :tutorial.print/hello {:name "World"}
 ----
 
-=== References
+When using the REPL, we get a more concise message.
 
-A Duct system can have multiple components, and components can
-communicate via references, which are divided into *refs* and
-*refsets*. A ref references exactly one other component; a refset
-references zero or more components.
-
-To demonstrate how refs work, we'll divide our '`Hello World`'
-application into two functions.
-
-[,clojure]
+[,shell]
 ----
-(ns tutorial.print)
-
-(defn printer [{:keys [prefix]}]
-  (partial println prefix))
-
-(defn hello [{:keys [name output]}]
-  (output "Hello" name))
-----
-
-The `printer` component returns a function that prints its arguments
-with a custom prefix. The `hello` component takes a `:output` option
-that it uses to output a message. In order to connect these two
-components in the `duct.edn` file, we use the `#ig/ref` data reader.
-
-[,clojure]
-----
-{:system
- {:tutorial.print/printer
-  {:prefix ">>"}
-  :tutorial.print/hello
-  {:name "World"
-   :output #ig/ref :tutorial.print/printer}}}
+user=> (go)
+:initiated
+:tutorial.print/hello {:name "World"}
 ----
