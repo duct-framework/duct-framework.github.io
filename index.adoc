@@ -23,6 +23,8 @@ writing web applications. This documentation will take you through
 Duct's setup and operation, using a web application as an example
 project.
 
+WARNING: This documentation assumes knowledge of Clojure.
+
 == Setup
 
 This section will cover setting up a new Duct project. You'll first need
@@ -113,6 +115,8 @@ implement a minimal '`Hello World`' application. While it may be
 tempting to skip ahead, a sound understanding of how to use Duct will
 make later sections easier to follow.
 
+=== Hello World
+
 As mentioned previously, Duct uses a file, `duct.edn`, to define the
 structure of your application. We'll begin by adding a new component
 key to the system:
@@ -164,3 +168,105 @@ Hello World
 ----
 
 Congratulations on your first Duct application!
+
+=== Component Options
+
+One advantage of having a configuration file is that we can customize
+the behavior of components. Let's change our `hello` function to take
+a `:name` option.
+
+[,clojure]
+----
+(ns tutorial.print)
+
+(defn hello [{:keys [name]}]
+  (println "Hello" name))
+----
+
+Now that `hello` expects an option, we'll need to add it to the
+`duct.edn` file.
+
+[,clojure]
+----
+{:system
+ {:tutorial.print/hello {:name "World"}}}
+----
+
+Naturally this produces the same result as before when we run the
+application.
+
+[,shell]
+----
+$ duct --main
+✓ Initiating system...
+Hello World
+----
+
+=== Variables
+
+Sometimes we want to supply options from an external source, such as an
+environment variable or command line option. Duct allows variables, or
+*vars*, to be defined in the `duct.edn` configuration.
+
+Let's add a var to our configuration file.
+
+[,clojure]
+----
+{:vars
+ {name {:arg name, :env NAME, :type :str, :default "World"
+        :doc "The name of the person to greet"}}
+ :system
+ {:tutorial.print/hello {:name #ig/var name}}}
+----
+
+This defines a var called `name` with two sources. In order of priority:
+
+. A command-line argument `--name` (set via `:arg`)
+. An environment variable `$NAME` (set via `:env`)
+
+This value can be inserted into the system map with the `#ig/var` data
+reader. If the variable has no value, an error will be raised, so it's a
+good idea to set a default value using the `:default` key.
+
+NOTE: The '`ig`' in `#ig/var` stands for _Integrant_. This is the
+library that Duct relies on to turn configurations into running
+applications.
+
+The `:type` of a var determines the data type it should be coerced into.
+Duct supports three types natively: `:str`, `:int` and `:float`. The
+default type when the key is omitted is `:str`.
+
+Duct integrates these vars into its help message. The `:doc` option
+specifies a description of the var.
+
+[,shell,highlight=13]
+----
+$ duct --help
+Usage:
+	clojure -M:duct [--main | --repl]
+Options:
+  -c, --cider              Start an NREPL server with CIDER middleware
+      --init               Create a blank duct.edn config file
+  -p, --profiles PROFILES  A concatenated list of profile keys
+  -n, --nrepl              Start an NREPL server
+  -m, --main               Start the application
+  -r, --repl               Start a command-line REPL
+  -s, --show               Print out the expanded configuration and exit
+  -v, --verbose            Enable verbose logging
+  -h, --help               Print this help message and exit
+      --name NAME          The name of the person to greet
+----
+
+The var can then be specified at the command line to produce different
+results.
+
+[,shell]
+----
+$ duct --main --name=Clojurian
+✓ Initiating system...
+Hello Clojurian
+
+$ NAME=Clojurist duct --main
+✓ Initiating system...
+Hello Clojurist
+----
