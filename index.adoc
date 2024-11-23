@@ -25,7 +25,7 @@ project.
 
 WARNING: This documentation assumes knowledge of Clojure.
 
-== Setup
+== Project Setup
 
 This section will cover setting up a new Duct project. You'll first need
 to ensure that the
@@ -269,4 +269,40 @@ Hello Clojurian
 $ NAME=Clojurist duct --main
 ✓ Initiating system...
 Hello Clojurist
+----
+
+=== References
+
+A Duct system can have multiple components, and components can
+communicate via references, which are divided into *refs* and
+*refsets*. A ref references exactly one other component; a refset
+references zero or more components.
+
+To demonstrate how refs work, we'll divide our '`Hello World`'
+application into two functions.
+
+[,clojure]
+----
+(ns tutorial.print)
+
+(defn printer [{:keys [prefix]}]
+  (partial println prefix))
+
+(defn hello [{:keys [name output]}]
+  (output "Hello" name))
+----
+
+The `printer` component returns a function that prints its arguments
+with a custom prefix. The `hello` component takes a `:output` option
+that it uses to output a message. In order to connect these two
+components in the `duct.edn` file, we use the `#ig/ref` data reader.
+
+[,clojure]
+----
+{:system
+ {:tutorial.print/printer
+  {:prefix ">>"}
+  :tutorial.print/hello
+  {:name "World"
+   :output #ig/ref :tutorial.print/printer}}}
 ----
