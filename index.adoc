@@ -25,7 +25,14 @@ project.
 
 WARNING: This documentation assumes knowledge of Clojure.
 
-== Project Setup
+== Fundamentals
+
+This section will introduce the fundamentals of Duct's design and
+implement a minimal '`Hello World`' application. While it may be
+tempting to skip ahead, a sound understanding of how to use Duct will
+make later sections easier to follow.
+
+=== Project Setup
 
 This section will cover setting up a new Duct project. You'll first need
 to ensure that the
@@ -108,14 +115,7 @@ This will create a file, `duct.edn` with the content:
 {:system {}}
 ----
 
-== Fundamentals
-
-This section will introduce the fundamentals of Duct's design and
-implement a minimal '`Hello World`' application. While it may be
-tempting to skip ahead, a sound understanding of how to use Duct will
-make later sections easier to follow.
-
-=== First Steps
+=== Hello World
 
 As mentioned previously, Duct uses a file, `duct.edn`, to define the
 structure of your application. We'll begin by adding a new component
