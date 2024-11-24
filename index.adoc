@@ -296,7 +296,8 @@ to the logger. We use `:duct/logger` instead of `:duct.logger/simple`,
 as keys have a logical hierarchy, and `:duct/logger` fulfils a role
 similar to that of an interface or superclass.
 
-NOTE: The '`ig`' in `#ig/var` stands for _Integrant_. This is the
+NOTE: The '`ig`' in `#ig/var` stands for
+https://github.com/weavejester/integrant[Integrant]. This is the
 library that Duct relies on to turn configurations into running
 applications.
 
@@ -394,3 +395,14 @@ $ NAME=Clojurist duct --main
 ✓ Initiating system...
 2024-11-24T04:45:54.211Z :report :tutorial.print/hello {:name "Clojurist"}
 ----
+
+Vars are defined as a map of symbols to maps of options. The following
+option keys are supported:
+
+[horizontal]
+`:arg`     :: a command-line argument to take the var's value from
+`:default` :: the default value if the var is not set
+`:doc`     :: a description of what the var is for
+`:env`     :: an environment variable to take the var's value from
+`:type`    :: a data type to coerce the var into (one of: `:str`, `:int`
+              or `float`)
