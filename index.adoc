@@ -331,11 +331,66 @@ $ duct --main
 2024-11-23T18:59:14.080Z :report :tutorial.print/hello {:name "World"}
 ----
 
-When using the REPL, we get a more concise message.
+But when using the REPL, we get a more concise message.
 
 [,shell]
 ----
 user=> (go)
 :initiated
 :tutorial.print/hello {:name "World"}
+----
+
+=== Variables
+
+Sometimes we want to supply options from an external source, such as an
+environment variable or command line option. Duct allows variables, or
+*vars*, to be defined in the `duct.edn` configuration.
+
+Currently our application outputs the same log message each time it's
+run. Let's create a configuration var to customize that behavior.
+
+[,clojure]
+----
+{:vars
+ {name {:arg name, :env NAME, :type :str, :default "World"
+        :doc "The name of the person to greet"}}
+ :system
+ {:duct.module/logging {}
+  :tutorial.print/hello {:logger #ig/ref :duct/logger
+                         :name   #ig/var name}}}
+----
+
+Then in the source file we can add the `:name` option that the var is
+attached to.
+
+[,clojure]
+----
+(ns tutorial.print
+  (:require [duct.logger :as log]))
+
+(defn hello [{:keys [logger name]}]
+  (log/report logger ::hello {:name name}))
+----
+
+The default ensures that the application functions the same as before.
+
+[,shell]
+----
+$ duct --main
+✓ Initiating system...
+2024-11-23T23:53:47.069Z :report :tutorial.print/hello {:name "World"}
+----
+
+But we can now customize the behavior via a command-line flag, `--name`,
+or via an environment variable, `NAME`.
+
+[,shell]
+----
+$ duct --main --name=Clojurian
+✓ Initiating system...
+2024-11-24T04:45:19.521Z :report :tutorial.print/hello {:name "Clojurian"}
+
+$ NAME=Clojurist duct --main
+✓ Initiating system...
+2024-11-24T04:45:54.211Z :report :tutorial.print/hello {:name "Clojurist"}
 ----
