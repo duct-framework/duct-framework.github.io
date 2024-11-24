@@ -406,3 +406,49 @@ option keys are supported:
 `:env`     :: an environment variable to take the var's value from
 `:type`    :: a data type to coerce the var into (one of: `:str`, `:int`
               or `float`)
+
+=== Profiles
+
+A Duct application has some number of active profiles, which are
+represented by unqualified keywords. When run via the `--main` flag, an
+implicit `:main` profile is added. When run via `(go)` at the REPL, an
+implicit `:repl` profile is added.
+
+You can add additional profiles via the `--profiles` argument. Profiles
+are an ordered list, with preceding profiles taking priority.
+
+[,shell]
+----
+$ duct --profiles=:dev --main
+----
+
+Most of the modules that Duct provides use profiles to customize their
+behavior to the environment they're being run under. We can also use the
+`#ig/profile` data reader to create our own profile behavior.
+
+Let's change our component to allow for the log level to be specified.
+
+[,clojure]
+----
+(ns tutorial.print
+  (:require [duct.logger :as log]))
+
+(defn hello [{:keys [level logger name]}]
+  (log/log logger level ::hello {:name name}))
+----
+
+In `duct.edn` we can use a profile to change the log level depending
+on whether the application uses the `:main` or `:repl` profile.
+
+[,clojure]
+----
+{:vars
+ {name {:arg name, :env NAME, :type :str, :default "World"
+        :doc "The name of the person to greet"}}
+ :system
+ {:duct.module/logging {}
+  :tutorial.print/hello
+  {:logger #ig/ref :duct/logger
+   :level  #ig/profile {:repl :report, :main :info}
+   :name   #ig/var name}}}
+----
