@@ -23,7 +23,8 @@ writing web applications. This documentation will take you through
 Duct's setup and operation, using a web application as an example
 project.
 
-WARNING: This documentation assumes knowledge of Clojure.
+WARNING: This documentation assumes knowledge of Clojure. +
+Some commands assume a Unix-like shell environment.
 
 == Fundamentals
 
@@ -62,7 +63,7 @@ content:
 
 [,clojure]
 ----
-{:deps {org.duct-framework/main {:mvn/version "0.1.0"}}
+{:deps {org.duct-framework/main {:mvn/version "0.1.1"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -230,7 +231,7 @@ We'll first add the dependency to `deps.edn`.
 
 [,clojure]
 ----
-{:deps {org.duct-framework/main {:mvn/version "0.1.0"}
+{:deps {org.duct-framework/main {:mvn/version "0.1.1"}
         org.duct-framework/module.logging {:mvn/version "0.6.4"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -451,4 +452,147 @@ on whether the application uses the `:main` or `:repl` profile.
   {:logger #ig/ref :duct/logger
    :level  #ig/profile {:repl :report, :main :info}
    :name   #ig/var name}}}
+----
+
+== Web Development
+
+While Duct can be used for any server-side application, its most common
+use-case is developing web applications and services. This section will
+take you through writing a '`todo list`' web application in Duct.
+
+=== Hello World Wide Web
+
+We'll begin by creating a new project directory.
+
+[,shell]
+----
+mkdir todo-app && cd todo-app
+----
+
+The first thing we'll need is a `deps.edn` file that to provide the
+project dependencies. This will include Duct main and three additional
+modules: logging, sql and web.
+
+https://www.sqlite.org/index.html[SQLite] will be our database, so we'll
+need the SQLite JDBC adapter as well. To give us a Clojure-friendly way
+of querying the database, we'll also add
+https://github.com/seancorfield/next-jdbc[next.jdbc].
+
+.deps.edn
+[,clojure]
+----
+{:deps {org.duct-framework/main {:mvn/version "0.1.1"}
+        org.duct-framework/module.logging {:mvn/version "0.6.4"}
+        org.duct-framework/module.sql {:mvn/version "0.7.0"}
+        org.duct-framework/module.web {:mvn/version "0.11.0"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.47.0.0"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}
+ :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
+----
+
+With that done, we need to ensure that the `src` directory exists. This
+is the default directory Clojure uses to store source files.
+
+[,shell]
+----
+$ mkdir src
+----
+
+As this is a Duct application, we'll need a `duct.edn` file. This will
+contain the three modules we added to the project's dependencies.
+
+.duct.edn
+[,clojure]
+----
+{:system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/web {}}}
+----
+
+Will this minimal configuration work? Let's find out.
+
+[,shell]
+----
+duct --main
+✓ Initiating system...
+Execution error (ExceptionInfo) at integrant.core/unbound-vars-exception (core.cljc:343).
+Unbound vars: jdbc-url
+
+Full report at:
+/tmp/clojure-14769356862243778775.edn
+----
+
+Oh dear, it looks like there's a configuration var, `jdbc-url`, that has
+not been assigned a value. But where did it come from?
+
+In this case it came from the `:duct.module/sql` module. Libraries can
+add their own vars by using Integrant's keyword annotations. We can see
+these new vars if we check the `--help`.
+
+[,shell]
+----
+$ duct --help
+Usage:
+	clojure -M:duct [--main | --repl]
+Options:
+  -c, --cider              Start an NREPL server with CIDER middleware
+      --init               Create a blank duct.edn config file
+  -p, --profiles PROFILES  A concatenated list of profile keys
+  -n, --nrepl              Start an NREPL server
+  -m, --main               Start the application
+  -r, --repl               Start a command-line REPL
+  -s, --show               Print out the expanded configuration and exit
+  -v, --verbose            Enable verbose logging
+  -h, --help               Print this help message and exit
+      --jdbc-url JDBC-URL  The JDBC database URL
+      --port PORT          The HTTP server port (default: 3000)
+----
+
+At the bottom we can see that the modules have added two new options:
+`--jdbc-url` and `--port`. The server port has a default value of 3000,
+but there's no obvious default for a database URL, at least not one
+that will suit every project.
+
+However, we can add own own default by updating the configuration.
+
+.duct.edn
+[,clojure]
+----
+{:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
+ :system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/web {}}}
+----
+
+Now when we run the application we get a more promising result.
+
+[,shell]
+----
+$ duct --main
+✓ Initiating system...
+2024-11-25T02:51:08.268Z :warn :duct.migrator.ragtime/missing-file {:path "migrations.edn"}
+2024-11-25T02:51:08.279Z :report :duct.server.http.jetty/starting-server {:port 3000}
+----
+
+The application warns about a missing `migrations.edn` file, but starts
+up the web server. The web application should now be up and running at:
+http://localhost:3000/
+
+Visiting that URL will result in a '`404 Not Found`' error page, because
+we have no routes defined. The error page will be in plaintext, because
+we haven't specified what _features_ we want for our web application.
+
+We'll fix both these issues, but before we do we should terminate the
+application with Ctrl-C and start a REPL instead.
+
+[,shell]
+----
+$ duct --repl
+✓ Loading REPL environment...
+[Repl balance] Type :repl/help for online help info
+user=> (go)
+:duct.server.http.jetty/starting-server {:port 3000}
+:initiated
 ----
