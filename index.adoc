@@ -63,7 +63,8 @@ content:
 
 [,clojure]
 ----
-{:deps {org.duct-framework/main {:mvn/version "0.1.1"}}
+{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        org.duct-framework/main {:mvn/version "0.1.3"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -133,7 +134,7 @@ If we try running Duct, it will complain about a missing namespace.
 [,shell]
 ----
 $ duct --main
-✓ Initiating system...
+✗ Initiating system...
 Execution error (IllegalArgumentException) at integrant.core/eval1191$fn (core.cljc:490).
 No such namespace: tutorial.print
 ----
@@ -184,7 +185,8 @@ The REPL is an interactive development environment.
 ----
 $ duct --repl
 ✓ Loading REPL environment...
-[Repl balance] Type :repl/help for online help info
+• Type :repl/help for REPL help, (go) to initiate the system and (reset)
+  to reload modified namespaces and restart the system (hotkey Alt-E).
 user=>
 ----
 
@@ -210,6 +212,8 @@ Hello World
 :resumed
 ----
 
+You can also use the Alt-E hotkey instead of typing `(reset)`.
+
 The configuration defined by `duct.edn` can be accessed with `config`,
 and the running system can be accessed with `system`.
 
@@ -231,8 +235,9 @@ We'll first add the dependency to `deps.edn`.
 
 [,clojure]
 ----
-{:deps {org.duct-framework/main {:mvn/version "0.1.1"}
-        org.duct-framework/module.logging {:mvn/version "0.6.4"}}
+{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        org.duct-framework/main {:mvn/version "0.1.3"}
+        org.duct-framework/module.logging {:mvn/version "0.6.5"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -481,9 +486,10 @@ https://github.com/seancorfield/next-jdbc[next.jdbc].
 .deps.edn
 [,clojure]
 ----
-{:deps {org.duct-framework/main {:mvn/version "0.1.1"}
-        org.duct-framework/module.logging {:mvn/version "0.6.4"}
-        org.duct-framework/module.sql {:mvn/version "0.7.0"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        org.duct-framework/main {:mvn/version "0.1.3"}
+        org.duct-framework/module.logging {:mvn/version "0.6.5"}
+        org.duct-framework/module.sql {:mvn/version "0.7.1"}
         org.duct-framework/module.web {:mvn/version "0.11.0"}
         org.xerial/sqlite-jdbc {:mvn/version "3.47.0.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}
@@ -515,7 +521,7 @@ Will this minimal configuration work? Let's find out.
 [,shell]
 ----
 duct --main
-✓ Initiating system...
+✗ Initiating system...
 Execution error (ExceptionInfo) at integrant.core/unbound-vars-exception (core.cljc:343).
 Unbound vars: jdbc-url
 
@@ -591,7 +597,8 @@ application with Ctrl-C and start a REPL instead.
 ----
 $ duct --repl
 ✓ Loading REPL environment...
-[Repl balance] Type :repl/help for online help info
+• Type :repl/help for REPL help, (go) to initiate the system and (reset)
+  to reload modified namespaces and restart the system (hotkey Alt-E).
 user=> (go)
 :duct.server.http.jetty/starting-server {:port 3000}
 :initiated
