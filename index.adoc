@@ -61,6 +61,7 @@ dependency, and setup an alias to execute it.
 To achieve this, create a new `deps.edn` file with the following
 content:
 
+.deps.edn
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
@@ -110,8 +111,9 @@ $ duct --init
 Created duct.edn
 ----
 
-This will create a file, `duct.edn` with the content:
+This will create a file: `duct.edn`.
 
+.duct.edn
 [,clojure]
 ----
 {:system {}}
@@ -121,8 +123,9 @@ This will create a file, `duct.edn` with the content:
 
 As mentioned previously, Duct uses a file, `duct.edn`, to define the
 structure of your application. We'll begin by adding a new component
-key to the system:
+key to the system.
 
+.duct.edn
 [,clojure]
 ----
 {:system
@@ -152,6 +155,7 @@ mkdir -p src/tutorial
 
 Then a minimal Clojure file at: `src/tutorial/print.clj`.
 
+.src/tutorial/print.clj
 [,clojure]
 ----
 (ns tutorial.print)
@@ -231,8 +235,9 @@ A *module* groups multiple components together. Duct provides a number
 of pre-written modules that implement common functionality. One of these
 modules is `:duct.module/logging`.
 
-We'll first add the dependency to `deps.edn`.
+We'll first add the new dependency:
 
+.deps.edn
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
@@ -241,8 +246,9 @@ We'll first add the dependency to `deps.edn`.
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
-Then we'll add the module to the `duct.edn` configuration.
+Then we'll add the module to the Duct configuration.
 
+.duct.edn
 [,clojure]
 ----
 {:system
@@ -290,6 +296,7 @@ to a file, `logs/repl.log`.
 In order to use this module, we need to connect the logger to our
 '`hello`' component. This is done via a *ref*.
 
+.duct.edn
 [,clojure]
 ----
 {:system
@@ -310,6 +317,7 @@ applications.
 Now that we've connected the components together in the configuration
 file, it's time to replace the `println` function with the Duct logger.
 
+.src/tutorial/print.clj
 [,clojure]
 ----
 (ns tutorial.print
@@ -356,6 +364,7 @@ environment variable or command line option. Duct allows variables, or
 Currently our application outputs the same log message each time it's
 run. Let's create a configuration var to customize that behavior.
 
+.duct.edn
 [,clojure]
 ----
 {:vars
@@ -370,6 +379,7 @@ run. Let's create a configuration var to customize that behavior.
 Then in the source file we can add the `:name` option that the var is
 attached to.
 
+.src/tutorial/print.clj
 [,clojure]
 ----
 (ns tutorial.print
@@ -434,6 +444,7 @@ behavior to the environment they're being run under. We can also use the
 
 Let's change our component to allow for the log level to be specified.
 
+.src/tutorial/print.clj
 [,clojure]
 ----
 (ns tutorial.print
@@ -446,6 +457,7 @@ Let's change our component to allow for the log level to be specified.
 In `duct.edn` we can use a profile to change the log level depending
 on whether the application uses the `:main` or `:repl` profile.
 
+.deps.edn
 [,clojure]
 ----
 {:vars
