@@ -471,6 +471,65 @@ on whether the application uses the `:main` or `:repl` profile.
    :name   #ig/var name}}}
 ----
 
+=== Integrant
+
+So far we've used functions to implement components. The
+`:tutorial.print.hello` component was defined by:
+
+.src/tutorial/print.clj
+[,clojure]
+----
+(ns tutorial.print
+  (:require [duct.logger :as log]))
+
+(defn hello [{:keys [level logger name]}]
+  (log/log logger level ::hello {:name name}))
+----
+
+But this is just convenient syntax sugar for Integrant's `init-key`
+method. The following code is equivalent to the previous component
+definition:
+
+.src/tutorial/print.clj
+[,clojure]
+----
+(ns tutorial.print
+  (:require [duct.logger :as log]
+            [integrant.core :as ig))
+
+(defmethod ig/init-key ::hello [_key {:keys [level logger name]}]
+  (log/log logger level ::hello {:name name}))
+----
+
+Duct uses Integrant for its component definitions, and Integrant
+provides several multimethods to this end. The most common one is
+`init-key`. If no such method is found, Integrant searches for a
+function of the same name.
+
+There is also `halt-key!`, which defines a teardown procedure for a key.
+This can be useful for cleaning up files, threads or connections that
+the `init-key` method (or function) opened. The return value from
+`init-key` will be passed to `halt-key!`.
+
+.src/tutorial/print.clj
+[,clojure]
+----
+(ns tutorial.print
+  (:require [duct.logger :as log]
+            [integrant.core :as ig))
+
+(defmethod ig/init-key ::hello [_key {:keys [level logger name] :as opts}]
+  (log/log logger level ::hello {:name name})
+  opts)
+
+(defmethod ig/halt-key! ::hello [_key {:keys [level logger name]}]
+  (log/log logger level ::goodbye {:name name}))
+----
+
+For more information on the multimethods that can be used, refer to the
+https://github.com/weavejester/integrant/blob/master/README.md[Integrant
+documentation].
+
 == Web Development
 
 While Duct can be used for any server-side application, its most common
