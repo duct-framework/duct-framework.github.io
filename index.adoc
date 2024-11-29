@@ -607,7 +607,7 @@ application with Ctrl-C and make a `src` directory.
 
 [,shell]
 ----
-mkdir src
+mkdir -p src/todo
 ----
 
 IMPORTANT: The source directory must be created before running the REPL.
@@ -627,3 +627,50 @@ user=> (go)
 :duct.server.http.jetty/starting-server {:port 3000}
 :initiated
 ----
+
+Clojure has many excellent libraries for writing web applications, but
+it can be difficult to put them all together. Duct's web module handles
+that for you, but like all modules, we can always override any default
+that we don't like.
+
+For now, we'll tell the web module to configure the application for use
+as a webside, using the `:site` feature. We'll also add in a single
+route to handle a web request to the root of our application.
+
+.duct.edn
+[,clojure]
+----
+{:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
+ :system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/web
+  {:features #{:site}
+   :routes [["/" {:get :todo.routes/index}]]}}}
+----
+
+Then we'll create a handler function for that route.
+
+.src/todo/routes.clj
+[,clojure]
+----
+(ns todo.routes)
+
+(defn index [_options]
+  (fn [_request]
+    [:html {:lang "en"}
+     [:head [:title "Hello World Wide Web"]]
+     [:body [:h1 "Hello World Wide Web"]]]))
+----
+
+Finally, we trigger a `(reset)` at the REPL.
+
+[,shell]
+----
+user=> (reset)
+:reloading (todo.routes)
+:resumed
+----
+
+Now when we go access http://localhost:3000/ we find a HTML page
+instead. Congratulations on your first Duct web application!
