@@ -787,4 +787,68 @@ Will expand out to:
 
 The router component uses https://github.com/metosin/reitit[Reitit], a
 popular data-driven routing library for Clojure. Other routing libreries
-can be used, but for this documentation we'll assume the default.
+can be used, but for this documentation we'll use the default.
+
+=== Handlers
+
+Let's take a closer look at function associated with the route.
+
+.src/todo/routes.clj
+[,clojure]
+----
+(ns todo.routes)
+
+(defn index [_options]
+  (fn [_request]
+    [:html {:lang "en"}
+     [:head [:title "Hello World Wide Web"]]
+     [:body [:h1 "Hello World Wide Web"]]]))
+----
+
+This function returns another function, known as a
+https://github.com/ring-clojure/ring[Ring] handler. Usually this
+function will return a response map, but in this case we're returning a
+https://github.com/weavejester/hiccup[Hiccup] vector.
+
+Hiccup is a format for representing HTML as a Clojure data structure.
+Elements are represented by a vector starting with a keyword, followed
+by an optional attribute map and then the element body.
+
+The `:site` feature of the web module adds middleware to turn Hiccup
+vectors into HTML response maps. If the response is a vector, it wraps
+the vector in response map. If the response is already a map, it checks
+the `:body` of the response for a vector.
+
+If we wanted a custom status code or headers, then the full response
+map could be returned.
+
+[,clojure]
+----
+(defn index [_options]
+  (fn [_request]
+    {:status 200
+     :headers {}
+     :body [:html {:lang "en"}
+            [:head [:title "Hello World Wide Web"]]
+            [:body [:h1 "Hello World Wide Web"]]]))
+----
+
+NOTE: The `:status` and `:headers` keys map optionally be omitted.
+
+Or we could return the string directly:
+
+[,clojure]
+----
+(defn index [_options]
+  (fn [_request]
+    {:status 200
+     :headers {"Content-Type" "text/html;charset=UTF-8"}
+     :body "<!DOCTYPE html>
+<html lang=\"en\">
+<head><title>Hello World Wide Web</title></head>
+<body><h1>Hello World Wide Web</h1></body>
+</html>
+----
+
+All of these examples are equivalent, but returning a vector is the most
+convenient and concise.
