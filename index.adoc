@@ -270,6 +270,9 @@ $ duct --main --show
 The logging module has been replaced with the `:duct.logger/simple`
 component.
 
+NOTE: Data in the configuration file will override data from
+expansions.
+
 The `--show` flag also works with the `--repl` command.
 
 [,shell]
@@ -733,3 +736,55 @@ user=> (reset)
 
 Now when we go access http://localhost:3000/ we find a HTML page
 instead. Congratulations on your first Duct web application!
+
+=== Routes
+
+In the previous section we set up a route and a handler function, but
+you may rightly wonder how the route finds the function.
+
+In the <<_fundamentals>> section we learned that key/value pairs in the
+Duct configuration have definitions in the application's source files,
+or from a library.
+
+The function we defined was called `todo.routes/index`, and therefore
+we might assume that we'd have a matching key in the configuration.
+
+[,clojure]
+----
+{:todo.routes/index {}}
+----
+
+This component key could then be connected to the routes via a **ref**.
+In other words:
+
+[,clojure]
+----
+{:duct.module/web {:routes [["/" {:get #ig/ref :todo.routes/index}]]}
+ :todo.routes/index {}}
+----
+
+And in fact, this is almost exactly what is going on behind the scenes.
+
+The Duct web module expands out to a great number of components,
+including a web server, middleware and error handlers, all which can
+be customized. Amongst these components, it creates a **router** and
+a number of **route handlers**.
+
+A web module configured the following routes:
+
+[,clojure]
+----
+{:duct.module/web {:routes [["/" {:get :todo.routes/index}]]}}
+----
+
+Will expand out to:
+
+[,clojure]
+----
+{:duct.router/reitit {:routes [["/" {:get #ig/ref :todo.routes/index}]]}
+ :todo.routes/index {}}
+----
+
+The router component uses https://github.com/metosin/reitit[Reitit], a
+popular data-driven routing library for Clojure. Other routing libreries
+can be used, but for this documentation we'll assume the default.
