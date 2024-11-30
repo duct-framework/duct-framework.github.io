@@ -65,7 +65,7 @@ content:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
-        org.duct-framework/main {:mvn/version "0.1.3"}}
+        org.duct-framework/main {:mvn/version "0.1.4"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -241,7 +241,7 @@ We'll first add the new dependency:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
-        org.duct-framework/main {:mvn/version "0.1.3"}
+        org.duct-framework/main {:mvn/version "0.1.4"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -556,7 +556,7 @@ modules: logging and web.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
-        org.duct-framework/main {:mvn/version "0.1.3"}
+        org.duct-framework/main {:mvn/version "0.1.4"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
         org.duct-framework/module.web {:mvn/version "0.11.1"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -772,8 +772,146 @@ Or we could return the string directly:
 <html lang=\"en\">
 <head><title>Hello World Wide Web</title></head>
 <body><h1>Hello World Wide Web</h1></body>
-</html>
+</html>"}))
 ----
 
 All of these examples are equivalent, but returning a vector is the most
 convenient and concise.
+
+=== SQL Database
+
+The next step is to add a database to our application. We'll use
+https://www.sqlite.org/index.html[SQLite], which means we need the
+corresponding JDBC adapter as a dependency.
+
+To give us a Clojure-friendly way of querying the database, we'll also
+add a dependency on
+https://github.com/seancorfield/next-jdbc[next.jdbc].
+
+Finally, we'll add the Duct SQL module. This will add a connection pool
+to the system that we can use to access the database.
+
+Our project dependencies should now look like this:
+
+.deps.edn
+[,clojure]
+----
+{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        org.duct-framework/main {:mvn/version "0.1.4"}
+        org.duct-framework/module.logging {:mvn/version "0.6.5"}
+        org.duct-framework/module.web {:mvn/version "0.11.1"}
+        org.duct-framework/module.sql {:mvn/version "0.7.1"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.47.0.0"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}
+ :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
+----
+
+We can load these new dependencies either by restarting the REPL, or by
+using the `sync-deps` function.
+
+[,clojure]
+----
+user=> (sync-deps)
+[...]
+----
+
+The next step is to add `:duct.module/sql` to our Duct configuration.
+
+.duct.edn
+[,clojure]
+----
+{:system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/web
+  {:features #{:site}
+   :routes [["/" {:get :todo.routes/index}]]}}}
+----
+
+Then reset via the REPL:
+
+[,shell]
+----
+user=> (reset)
+:reloading ()
+Execution error (ExceptionInfo) at integrant.core/unbound-vars-exception (core.cljc:343).
+Unbound vars: jdbc-url
+----
+
+Wait, what's this about an unbound var? Where did that come from?
+
+Modules can add vars, and the SQL module adds one called `jdbc-url`.
+This var can be set via:
+
+- A command-line argument, `--jdbc-url`
+- An environment variable, `JDBC_DATABASE_URL`
+
+We can also set a default value for this var via the configuration. As
+SQLite uses a local file for its database, we can add a default to be
+used in development.
+
+.duct.edn
+[,clojure]
+----
+{:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
+ :system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/web
+  {:features #{:site}
+   :routes [["/" {:get :todo.routes/index}]]}}}
+----
+
+If we want to change this in production, we can use the corresponding
+command-line argument or environment variable to override this default.
+
+[,shell]
+----
+user=> (reset)
+:reloading ()
+:resumed
+----
+
+The SQL module adds a database connection, but we need to add a ref to
+our route handlers in order for them to use it. We could do this
+by adding a ref to each handler:
+
+[,clojure]
+----
+{:todo.routes/index {:db #ig/ref :duct.database/sql}
+----
+
+This is useful if only some routes need to access the database. However,
+in this case, we expect that all routes will need database access in
+some fashion. To make this easier, the web module has an option,
+`:handler-opts` that applies common options to all route handlers it
+generates.
+
+.duct.edn
+[,clojure]
+----
+{:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
+ :system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/web
+  {:features #{:site}
+   :handler-opts {:db #ig/ref :duct.database/sql}
+   :routes [["/" {:get :todo.routes/index}]]}}}
+----
+
+This will add a `javax.sql.DataSource` object to the `:db` key of the
+component options. We can access this from the route handler function we
+created earlier.
+
+.src/todo/routes.clj
+[,clojure]
+----
+(ns todo.routes)
+
+(defn index [{:keys [db]}]
+  (fn [_request]
+    [:html {:lang "en"}
+     [:head [:title "Hello World Wide Web"]]
+     [:body [:h1 "Hello World Wide Web"]]]))
+----
