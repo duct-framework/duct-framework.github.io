@@ -872,9 +872,14 @@ user=> (reset)
 :resumed
 ----
 
-The SQL module adds a database connection, but we need to add a ref to
-our route handlers in order for them to use it. We could do this
-by adding a ref to each handler:
+The SQL module adds a database connection pool under the key
+`:duct.database.sql/hikaricp`, which derives from the more general
+`:duct.database/sql` key. We can use this connection pool as a
+`javax.sql.DataSource` instance.
+
+In order to give our route handlers access to this, we'll use a ref. We
+could manually add the ref to each of the handler's option map, as
+shown below.
 
 [,clojure]
 ----
@@ -900,7 +905,7 @@ generates.
    :routes [["/" {:get :todo.routes/index}]]}}}
 ----
 
-This will add a `javax.sql.DataSource` object to the `:db` key of the
+This will add the `DataSource` instance to the `:db` key of the
 component options. We can access this from the route handler function we
 created earlier.
 
@@ -915,3 +920,48 @@ created earlier.
      [:head [:title "Hello World Wide Web"]]
      [:body [:h1 "Hello World Wide Web"]]]))
 ----
+
+Before we go further, however, we should set up the database schema via
+a migration.
+
+=== SQL Migrations
+
+Part of the SQL module is to add a **migrator**, a component that will
+manage database migrations. By default the
+https://github.com/weavejester/ragtime[Ragtime] library is used, and
+looks for a `migrations.edn` file in your project directory.
+
+Let's create a migration for a table to store the todo list items.
+
+.migrations.edn
+[,clojure]
+----
+[[:create-table todo
+  [id "INTEGER PRIMARY KEY"]
+  [description "TEXT"]
+  [checked "INTEGER DEFAULT 0"]]]
+----
+
+When we reset the REPL, the migration is automatically applied.
+
+[,shell]
+----
+user=> (reset)
+:reloading (todo.routes)
+:duct.migrator.ragtime/applying {:id "create-table-todo#336f15d4"}
+:resumed
+----
+
+If the migration is modified in any way, its ID will also change. At the
+REPL, this will result in the old version of the migration being rolled
+back, and the new version applied in its place.
+
+Running the application via `--main` will also apply any new migrations
+to the database. However, if there is any mismatch between migrations,
+an error will be raised instead.
+
+This difference reflects the environments that `--main` and `--repl` are
+anticipated to be used in. During development a REPL is used and
+mistakes are expected, so the migrator will work to sync the migrations
+with the database. During production migrations need to be applied with
+more care, and so any discrepancies should halt the migration process.
