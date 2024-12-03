@@ -65,7 +65,7 @@ content:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
-        org.duct-framework/main {:mvn/version "0.1.4"}}
+        org.duct-framework/main {:mvn/version "0.1.5"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -241,7 +241,7 @@ We'll first add the new dependency:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
-        org.duct-framework/main {:mvn/version "0.1.4"}
+        org.duct-framework/main {:mvn/version "0.1.5"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -556,7 +556,7 @@ modules: logging and web.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
-        org.duct-framework/main {:mvn/version "0.1.4"}
+        org.duct-framework/main {:mvn/version "0.1.5"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
         org.duct-framework/module.web {:mvn/version "0.11.1"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -797,7 +797,7 @@ Our project dependencies should now look like this:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
-        org.duct-framework/main {:mvn/version "0.1.4"}
+        org.duct-framework/main {:mvn/version "0.1.5"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
         org.duct-framework/module.web {:mvn/version "0.11.1"}
         org.duct-framework/module.sql {:mvn/version "0.7.1"}
@@ -965,3 +965,21 @@ anticipated to be used in. During development a REPL is used and
 mistakes are expected, so the migrator will work to sync the migrations
 with the database. During production migrations need to be applied with
 more care, and so any discrepancies should halt the migration process.
+
+In some production environments, there may be multiple instances of the
+application running at any one time. In these cases, you may want to run
+the migrations separately. The `--keys` option allows you to limit the
+system to a subset of keys. We can use this option to run only the
+migrations and logging subsystems.
+
+[,shell]
+----
+$ duct --main --keys=:duct/migrator:duct/logger
+----
+
+This will run any component with a key that derives from
+`:duct/migrator` or `:duct/logger`, along with any mandatory dependants.
+
+NOTE: `:duct/logger` is often defined as an optional dependency, via a
+*refset*. Without explicitly specifying this as one of the keys, the
+migrator will run without logging.
