@@ -79,6 +79,7 @@ Usage:
 Options:
   -c, --cider              Start an NREPL server with CIDER middleware
       --init               Create a blank duct.edn config file
+  -k, --keys KEYS          Limit --main to start only the supplied keys
   -p, --profiles PROFILES  A concatenated list of profile keys
   -n, --nrepl              Start an NREPL server
   -m, --main               Start the application
@@ -869,8 +870,12 @@ command-line argument or environment variable to override this default.
 ----
 user=> (reset)
 :reloading ()
+:user/added (db sql)
 :resumed
 ----
+
+NOTE: The `:user/added` message informs you about convenience functions
+that have been added to the REPL environment in the user namespace.
 
 The SQL module adds a database connection pool under the key
 `:duct.database.sql/hikaricp`, which derives from the more general
@@ -983,3 +988,120 @@ This will run any component with a key that derives from
 NOTE: `:duct/logger` is often defined as an optional dependency, via a
 *refset*. Without explicitly specifying this as one of the keys, the
 migrator will run without logging.
+
+=== Database-Driven Todos
+
+Now that we have a database table and a web server, it's time to put the
+two together. The database we pass to the index function can be used to
+populate an unordered list. We'll change the index function accordingly.
+
+.src/todo/routes.clj
+[,clojure]
+----
+(ns todo.routes
+  (:require [next.jdbc :as jdbc]))
+
+(def list-todos "SELECT * FROM todo")
+
+(defn index [{:keys [db]}]
+  (fn [_request]
+    [:html {:lang "en"}
+     [:head [:title "Todo"]]
+     [:body
+      [:ul (for [rs (jdbc/execute! db [list-todos])]
+             [:li (:todo/description rs)])]]]))
+----
+
+TIP: It's often a good idea to factor out each SQL string into its own
+var. This allows them to be treated almost like function calls when
+combined with `execute!`.
+
+We can reset via the REPL and add some test data with the `sql`
+convenience function.
+
+[,shell]
+----
+user=> (reset)
+:reloading (todo.routes)
+:resumed
+user=> (sql "INSERT INTO todo (description) VALUES ('Test One')")
+[#:next.jdbc{:update-count 1}]
+user=> (sql "INSERT INTO todo (description) VALUES ('Test Two')")
+[#:next.jdbc{:update-count 1}]
+----
+
+If you visit http://localhost:3000/ you'll be able to see the todo items
+that were added to the database table.
+
+The next step is to allow for new todo items to be added through the web
+interface. This is a little more involved, as we'll need a HTML form and
+a route to respond to the form's POST.
+
+First, we add a new handler, `new-todo`, to the configuration to handle
+the POST.
+
+.duct.edn
+[,clojure]
+----
+{:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
+ :system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/web
+  {:features #{:site}
+   :handler-opts {:db #ig/ref :duct.database/sql}
+   :routes [["/" {:get  :todo.routes/index
+                  :post :todo.routes/new-todo}]]}}}
+----
+
+Then we need incorporate the POST handler and the form into the
+codebase.
+
+.src/todo/routes.clj
+[,clojure]
+----
+(ns todo.routes
+  (:require [next.jdbc :as jdbc]
+            [ring.middleware.anti-forgery :as af]))
+
+(def list-todos "SELECT * FROM todo")
+(def insert-todo "INSERT INTO todo (description) VALUES (?)")
+
+(defn- create-todo-form []
+  [:form {:action "/" :method "post"}
+   [:input {:type "hidden"
+            :name "__anti-forgery-token"
+            :value af/*anti-forgery-token*}]
+   [:input {:type "text", :name "description"}]
+   [:input {:type "submit", :value "Create"}]])
+
+(defn index [{:keys [db]}]
+  (fn [_request]
+    [:html {:lang "en"}
+     [:head [:title "Todo"]]
+     [:body
+      [:ul
+       (for [rs (jdbc/execute! db [list-todos])]
+         [:li (:todo/description rs)])
+       [:li (create-todo-form)]]]]))
+
+(defn new-todo [{:keys [db]}]
+  (fn [{{:keys [description]} :params}]
+    (jdbc/execute! db [insert-todo description])
+    {:status 303, :headers {"Location" "/"}}))
+----
+
+There are two new additions here. The `create-todo-form` function
+creates a form for making new todo list items. You may notice that it
+includes a hidden field for setting an anti-forgery token. This prevents
+a type of attack known as a
+https://en.wikipedia.org/wiki/Cross-site_request_forgery[Cross-site
+request forgery].
+
+The second addition is the `new-todo` function. This inserts a new row
+into the todo table, then returns a "`303 See Other`" response that will
+redirect the browser back to the index page.
+
+If we reset via the REPL and check http://localhost:3000/, you should
+see a text input box at the bottom of the todo list, allowing more todo
+items to be added.
