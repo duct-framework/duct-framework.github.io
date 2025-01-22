@@ -989,7 +989,7 @@ NOTE: `:duct/logger` is often defined as an optional dependency, via a
 *refset*. Without explicitly specifying this as one of the keys, the
 migrator will run without logging.
 
-=== Database-Driven Todos
+=== Database Integration
 
 Now that we have a database table and a web server, it's time to put the
 two together. The database we pass to the index function can be used to
@@ -1102,6 +1102,92 @@ The second addition is the `new-todo` function. This inserts a new row
 into the todo table, then returns a "`303 See Other`" response that will
 redirect the browser back to the index page.
 
-If we reset via the REPL and check http://localhost:3000/, you should
+If you reset via the REPL and check http://localhost:3000/, you should
 see a text input box at the bottom of the todo list, allowing more todo
 items to be added.
+
+=== ClojureScript
+
+At this point we're hitting the limitations of what we can do with HTML
+alone. JavaScript allows for more sophisticated user interaction, and in
+the Clojure ecosystem we have _ClojureScript_, a version of Clojure that
+compiles to JavaScript.
+
+You be unsurprised to learn that Duct has a module for compiling
+ClojureScript. As always we begin with our dependencies, and add the
+'`cljs`' module.
+
+.deps.edn
+[,clojure]
+----
+{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        org.duct-framework/main {:mvn/version "0.1.5"}
+        org.duct-framework/module.cljs {:mvn/version "0.5.0"}
+        org.duct-framework/module.logging {:mvn/version "0.6.5"}
+        org.duct-framework/module.web {:mvn/version "0.12.0"}
+        org.duct-framework/module.sql {:mvn/version "0.7.1"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.47.0.0"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}
+ :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
+----
+
+As before, we can load these dependencies by either restarting the REPL,
+or by using the `(sync-deps)` command.
+
+Next, the `:duct.module/cljs` key needs to be added to the Duct
+configuration file.
+
+.duct.edn
+[,clojure]
+----
+{:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
+ :system
+ {:duct.module/logging {}
+  :duct.module/sql {}
+  :duct.module/cljs
+  {:builds {:client todo.client}}
+  :duct.module/web
+  {:features #{:site}
+   :handler-opts {:db #ig/ref :duct.database/sql}
+   :routes [["/" {:get  :todo.routes/index
+                  :post :todo.routes/new-todo}]]}}}
+----
+
+The module requires a `:builds` option to be set. This connects a
+build name to a ClojureScript namespace, or collection of namespaces. In
+the above example, the `todo.client` namespace will be compiled to the
+`target/cljs/client.js` JavaScript file. When Duct is started, this will
+be accessible at: <http://localhost:3000/cljs/client.js>.
+
+Before `todo.client` can be compiled, we first need to write it. In
+order to check everything works, we'll have it trigger an JavaScript
+alert.
+
+.src/todo/client.cljs
+[,clojure]
+----
+(ns todo.client)
+
+(js/alert "Hello World")
+----
+
+In order to test this script compiles correct, we'll add the script to
+our `index` function in the `todo.routes` namespace.
+
+[,clojure]
+----
+(defn index [{:keys [db]}]
+  (fn [_request]
+    [:html {:lang "en"}
+     [:head
+      [:title "Todo"]
+      [:script {:src "/cljs/client.js"}]]
+     [:body
+      [:ul
+       (for [rs (jdbc/execute! db [list-todos])]
+         [:li (:todo/description rs)])
+       [:li (create-todo-form)]]]]))
+----
+
+If you restart the REPL and check http://localhost:3000, you should see
+the alert.
