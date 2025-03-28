@@ -1113,7 +1113,7 @@ alone. JavaScript allows for more sophisticated user interaction, and in
 the Clojure ecosystem we have _ClojureScript_, a version of Clojure that
 compiles to JavaScript.
 
-You be unsurprised to learn that Duct has a module for compiling
+You'll be unsurprised to learn that Duct has a module for compiling
 ClojureScript. As always we begin with our dependencies, and add the
 '`cljs`' module.
 
