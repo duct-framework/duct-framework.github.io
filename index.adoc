@@ -461,7 +461,7 @@ Let's change our component to allow for the log level to be specified.
 In `duct.edn` we can use a profile to change the log level depending
 on whether the application uses the `:main` or `:repl` profile.
 
-.deps.edn
+.duct.edn
 [,clojure]
 ----
 {:vars
