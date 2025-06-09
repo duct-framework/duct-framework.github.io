@@ -43,7 +43,7 @@ You can check this by running the `clojure` command.
 [,shell]
 ----
 $ clojure --version
-Clojure CLI version 1.12.0.1479
+Clojure CLI version 1.12.1.1550
 ----
 
 Next, create a project directory. For the purposes of this example,
@@ -64,7 +64,7 @@ content:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.1.8"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -241,7 +241,7 @@ We'll first add the new dependency:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.1.8"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -556,10 +556,10 @@ modules: logging and web.
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.1.8"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
-        org.duct-framework/module.web {:mvn/version "0.12.7"}}
+        org.duct-framework/module.web {:mvn/version "0.12.9"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -903,12 +903,12 @@ Our project dependencies should now look like this:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.1.8"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
-        org.duct-framework/module.web {:mvn/version "0.12.7"}
+        org.duct-framework/module.web {:mvn/version "0.12.9"}
         org.duct-framework/module.sql {:mvn/version "0.8.0"}
-        org.xerial/sqlite-jdbc {:mvn/version "3.49.1.0"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.50.1.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1002"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -1226,13 +1226,13 @@ ClojureScript. As always we begin with our dependencies, and add the
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.1.8"}
         org.duct-framework/module.cljs {:mvn/version "0.5.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
-        org.duct-framework/module.web {:mvn/version "0.12.7"}
+        org.duct-framework/module.web {:mvn/version "0.12.9"}
         org.duct-framework/module.sql {:mvn/version "0.8.0"}
-        org.xerial/sqlite-jdbc {:mvn/version "3.49.1.0"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.50.1.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1002"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -1429,13 +1429,13 @@ This requires us to once again update the project dependencies:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.0"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.1.8"}
         org.duct-framework/module.cljs {:mvn/version "0.5.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
-        org.duct-framework/module.web {:mvn/version "0.12.7"}
+        org.duct-framework/module.web {:mvn/version "0.12.9"}
         org.duct-framework/module.sql {:mvn/version "0.8.0"}
-        org.xerial/sqlite-jdbc {:mvn/version "3.49.1.0"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.50.1.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1002"}
         no.cjohansen/replicant {:mvn/version "2025.03.27"}
         cljs-http/cljs-http {:mvn/version "0.1.48"}}
