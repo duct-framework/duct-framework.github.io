@@ -637,7 +637,7 @@ route to handle a web request to the root of our application.
    :routes [["/" {:get :todo.routes/index}]]}}}
 ----
 
-Then we'll create a handler function for that route.
+Then we'll create a Ring **handler** function for that route.
 
 .src/todo/routes.clj
 [,clojure]
@@ -778,6 +778,112 @@ Or we could return the string directly:
 
 All of these examples are equivalent, but returning a vector is the most
 convenient and concise.
+
+
+=== Middleware
+
+Ring **middleware** are functions that transform Ring handlers. These
+are often used to parse information from the request map, such as
+encoded parameters or session data, or to transform the response map, by
+adding headers or formatting the response body.
+
+In the previous section we saw how a Hiccup data structure could be
+directly attached to the response body. This is possible because Duct
+adds default middleware to look for Hiccup and format it into HTML.
+
+Let's create some middleware that will add a map of custom headers to
+every response:
+
+.src/todo/middleware.clj
+[,clojure]
+----
+(ns todo.middleware)
+
+(defn wrap-headers [headers]
+  (fn [handler]
+    (fn [request)
+      (let [response (handler request)]
+        (update response :headers merge headers)))))
+----
+
+Once we've created the middleware function, we can give it to the web
+module via the `:middleware` key:
+
+.duct.edn
+[,clojure]
+----
+{:system
+ {:duct.module/logging {}
+  :duct.module/web
+  {:features #{:site}
+   :middleware [#ig/ref :todo.middleware/wrap-headers]
+   :routes [["/" {:get :todo.routes/index}]]}
+
+  :todo.middleware/wrap-headers {"X-Powered-By" "Duct"}}}
+----
+
+We add a new key, `:todo.middleware/wrap-headers`, which configures and
+creates the middleware function, then we use an Integrant ref to add
+that function to a vector of middleware.
+
+There three ways to apply middleware:
+
+* Middleware is applied to all requests (via `:middleware`)
+* Middleware is applied if any route matches (via `:route-middleware`)
+* Middleware is applied if a **specific** route matches (via
+  `:middleware` attached to individual routes)
+
+The previous example demonstrated how to apply middleware to all
+requests. However, sometimes you only want middleware to apply if at
+least one route matches. For example:
+
+.duct.edn
+[,clojure]
+----
+{:system
+ {:duct.module/logging {}
+  :duct.module/web
+  {:features #{:site}
+   :route-middleware [#ig/ref :todo.middleware/wrap-headers]
+   :routes [["/" {:get :todo.routes/index}]]}
+
+  :todo.middleware/wrap-headers {"X-Route-Matches" "True"}}}
+----
+
+This will add the extra header only if the route matches. It won't be
+added to the default 404 response that is returned when all routes fail
+to match.
+
+Finally, you can attach middleware to specific routes, or groups of
+nested routes by adding the `:middleware` key to the route itself:
+
+.duct.edn
+[,clojure]
+----
+{:system
+ {:duct.module/logging {}
+  :duct.module/web
+  {:features #{:site}
+   :routes [["/" {:get :todo.routes/index
+                  :middleware [#ig/ref :todo.middleware/wrap-headers]}]]}
+
+  :todo.middleware/wrap-headers {"X-Index-Route" "True"}}}
+----
+
+The web module adds a lot of its own middleware, depending on the
+`:features` you choose. Often this is enough, and so we'll remove the
+custom middleware for now; it won't be needed for the rest of this
+document.
+
+.duct.edn
+[,clojure]
+----
+{:system
+ {:duct.module/logging {}
+  :duct.module/web
+  {:features #{:site}
+   :routes [["/" {:get :todo.routes/index}]]}}}
+----
 
 === SQL Database
 
