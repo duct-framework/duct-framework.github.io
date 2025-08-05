@@ -27,6 +27,9 @@ project.
 WARNING: This documentation assumes knowledge of Clojure. +
 Some commands assume a Unix-like shell environment.
 
+Duct is currently in beta. This means *breaking changes* are possible but
+unlikely, and *bugs* are possible and likely.
+
 == Fundamentals
 
 This section will introduce the fundamentals of Duct's design and
