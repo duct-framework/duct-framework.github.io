@@ -1,4 +1,4 @@
-= The Duct Framework
+= The Duct Framework [Beta]
 James Reeves
 {docdate}
 :doctype: book
@@ -7,6 +7,7 @@ James Reeves
 :source-highlighter: coderay
 :sectnums:
 :toc: left
+:url-repo: https://github.com/duct-framework/duct-framework.github.io
 
 == Introduction
 
