@@ -1463,11 +1463,11 @@ file for the client UI.
 (defonce todos
   (js/document.getElementById "todos"))
 
-(defonce state (atom {}))
+(defonce store (atom {}))
 
 (defn update-todos []
   (a/go (let [resp (<! (http/get "/todos"))]
-          (swap! state assoc :todos (-> resp :body :results)))))
+          (swap! store assoc :todos (-> resp :body :results)))))
 
 (defn delete-todo [id]
   (a/go (<! (delete (str "/todos/" id)))
@@ -1492,9 +1492,13 @@ file for the client UI.
       [:a {:href "#" :on {:click #(delete-todo id)}} "delete"]])
    [:li (create-todo-form)]])
 
-(add-watch state ::render (fn [_ _ _ s] (r/render todos (todo-list s))))
+(add-watch store ::render (fn [_ _ _ s] (r/render todos (todo-list s))))
 (update-todos)
 ----
+
+WARNING: In the above example, the '`click`' event is bound to a function.
+This is not considered best practice for Replicant, but used in the
+example code for the sake of brevity.
 
 Here we reach the edge of Duct. This ClojureScript file is not specific
 to our framework, but would be at home in any Clojure project.
