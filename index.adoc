@@ -9,6 +9,9 @@ James Reeves
 :toc: left
 :url-repo: https://github.com/duct-framework/duct-framework.github.io
 
+IMPORTANT: Duct is currently in beta. This means *breaking changes* are
+possible but unlikely, and *bugs* are possible and likely.
+
 == Introduction
 
 Duct is a framework for developing server-side applications in the
@@ -26,9 +29,6 @@ project.
 
 WARNING: This documentation assumes knowledge of Clojure. +
 Some commands assume a Unix-like shell environment.
-
-Duct is currently in beta. This means *breaking changes* are possible but
-unlikely, and *bugs* are possible and likely.
 
 == Fundamentals
 
@@ -538,7 +538,7 @@ For more information on the multimethods that can be used, refer to the
 https://github.com/weavejester/integrant/blob/master/README.md[Integrant
 documentation].
 
-== Web Development
+== Web Applications
 
 While Duct can be used for any server-side application, its most common
 use-case is developing web applications and services. This section will
