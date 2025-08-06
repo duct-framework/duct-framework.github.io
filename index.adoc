@@ -246,7 +246,7 @@ We'll first add the new dependency:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
-        org.duct-framework/main {:mvn/version "0.1.8"}
+        org.duct-framework/main {:mvn/version "0.1.10"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -908,12 +908,12 @@ Our project dependencies should now look like this:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
-        org.duct-framework/main {:mvn/version "0.1.8"}
+        org.duct-framework/main {:mvn/version "0.1.10"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
         org.duct-framework/module.web {:mvn/version "0.12.9"}
         org.duct-framework/module.sql {:mvn/version "0.8.0"}
-        org.xerial/sqlite-jdbc {:mvn/version "3.50.1.0"}
-        com.github.seancorfield/next.jdbc {:mvn/version "1.3.1002"}}
+        org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.1048"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -1231,13 +1231,13 @@ ClojureScript. As always we begin with our dependencies, and add the
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
-        org.duct-framework/main {:mvn/version "0.1.8"}
-        org.duct-framework/module.cljs {:mvn/version "0.5.0"}
+        org.duct-framework/main {:mvn/version "0.1.10"}
+        org.duct-framework/module.cljs {:mvn/version "0.5.1"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
         org.duct-framework/module.web {:mvn/version "0.12.9"}
         org.duct-framework/module.sql {:mvn/version "0.8.0"}
-        org.xerial/sqlite-jdbc {:mvn/version "3.50.1.0"}
-        com.github.seancorfield/next.jdbc {:mvn/version "1.3.1002"}}
+        org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.1048"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -1434,14 +1434,14 @@ This requires us to once again update the project dependencies:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
-        org.duct-framework/main {:mvn/version "0.1.8"}
-        org.duct-framework/module.cljs {:mvn/version "0.5.0"}
+        org.duct-framework/main {:mvn/version "0.1.10"}
+        org.duct-framework/module.cljs {:mvn/version "0.5.1"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}
         org.duct-framework/module.web {:mvn/version "0.12.9"}
         org.duct-framework/module.sql {:mvn/version "0.8.0"}
-        org.xerial/sqlite-jdbc {:mvn/version "3.50.1.0"}
-        com.github.seancorfield/next.jdbc {:mvn/version "1.3.1002"}
-        no.cjohansen/replicant {:mvn/version "2025.03.27"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
+        com.github.seancorfield/next.jdbc {:mvn/version "1.3.1048"}
+        no.cjohansen/replicant {:mvn/version "2025.06.21"}
         cljs-http/cljs-http {:mvn/version "0.1.48"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
