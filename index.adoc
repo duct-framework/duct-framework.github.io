@@ -8,6 +8,7 @@ James Reeves
 :sectnums:
 :toc: left
 :url-repo: https://github.com/duct-framework/duct-framework.github.io
+:experimental:
 
 IMPORTANT: Duct is currently in beta. This means *breaking changes* are
 possible but unlikely, and *bugs* are possible and likely.
@@ -221,7 +222,7 @@ Hello World
 :resumed
 ----
 
-You can also use the Alt-E hotkey instead of typing `(reset)`.
+You can also use the kbd:[Alt-E] hotkey instead of typing `(reset)`.
 
 The configuration defined by `duct.edn` can be accessed with `config`,
 and the running system can be accessed with `system`.
@@ -1518,3 +1519,43 @@ used in this example for the sake of brevity.
 
 Now that we have both a server and client, we can `(reset)` the REPL
 and check the web application at: <http://localhost:3000>
+
+== Development
+
+=== Emacs
+
+https://www.gnu.org/software/emacs/[Emacs] is a popular editor for
+Clojure. https://docs.cider.mx/cider/index.html[CIDER] extends Emacs
+with support for interactive programming in Clojure.
+
+To use Emacs/CIDER with Duct, use the `--init-cider` option in your
+project directory.
+
+[,shell]
+----
+$ duct --init-cider
+Created .dir-locals.el
+----
+
+This creates a hidden file, `.dir-locals.el`, that sets up CIDER with
+Duct-specific options. To connect to the project using CIDER, open a
+file in the project (such as `duct.edn`) and type:
+kbd:[M-x] `clojure-jack-in` kbd:[RET]
+
+TIP: The '`M`' in kbd:[M-x] means '`meta`' and is often bound to the
+kbd:[Alt] key. '`C`' usually means kbd:[Ctrl].
+
+Once CIDER has connected, you can open a REPL with: kbd:[C-c] kbd:[C-z]
+
+This works in a similar way to the command-line REPL. To start up Duct,
+you can use the `(go)` command:
+
+----
+user> (go)
+----
+
+To reset the project, you can use `(reset)` at the REPL, or type:
+kbd:[M-x] `cider-ns-refresh` kbd:[RET]
+
+There's also a key binding for this command:
+kbd:[C-c] kbd:[M-n] kbd:[r]
