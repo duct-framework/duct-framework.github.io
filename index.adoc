@@ -1522,6 +1522,60 @@ and check the web application at: <http://localhost:3000>
 
 == Integrations
 
+=== Docker
+
+https://www.docker.com/[Docker] is a system for running software in
+_containers_ -- isolated and virtual environments designed to run an
+application.
+
+To create a Docker container for your Duct application, you will need a
+`Dockerfile` that describes how to build it. Duct will set one up for
+you with the `--init-docker` option.
+
+[,shell]
+----
+$ duct --init-docker
+Created Dockerfile
+----
+
+To build the container, run:
+
+[,shell]
+----
+$ docker build . -t <container-name>
+----
+
+This will create a container with all the dependencies downloaded. It
+will also handle any compilation from keys deriving from
+`:duct/compiler`. This means that your ClojureScript will be compiled,
+if you're using the ClojureScript module.
+
+To run the container:
+
+[,shell]
+----
+$ docker run -p 3000:3000 <container-name>
+----
+
+This will start the Duct application and bind the container port 3000 to
+the host machine's port 3000 so you can access your application at:
+<http://localhost:3000>
+
+This container is configured to only run keys deriving from
+`:duct/daemon` (and those it references). This includes keys like
+`:duct.server.http/jetty` provided by the web module. This will exclude
+migrations in order avoid multiple containers behind a load balancer all
+trying to update the database at once.
+
+In order to run the migrations, you'll need to run Duct in your
+deployment environment with only the `:duct/migrator` keys. This should
+be part of your deployment scripts and run *once* each time you deploy.
+
+[,shell]
+----
+clojure -M:duct -mvk :duct/migrator
+----
+
 === Emacs
 
 https://www.gnu.org/software/emacs/[Emacs] is a popular editor for
