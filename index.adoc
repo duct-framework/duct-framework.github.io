@@ -1520,7 +1520,7 @@ used in this example for the sake of brevity.
 Now that we have both a server and client, we can `(reset)` the REPL
 and check the web application at: <http://localhost:3000>
 
-== Development
+== Integrations
 
 === Emacs
 
@@ -1559,3 +1559,39 @@ kbd:[M-x] `cider-ns-refresh` kbd:[RET]
 
 There's also a key binding for this command:
 kbd:[C-c] kbd:[M-n] kbd:[r]
+
+=== Visual Studio Code
+
+https://code.visualstudio.com/[Visual Studio Code] is a popular modern
+editor, and the https://calva.io/[Calva] plugin gives it full Clojure
+support.
+
+To setup Calva for Duct, use the `--init-calva` option in your project
+directory.
+
+[,shell]
+----
+$ duct --init-calva
+Created .vscode/settings.json
+----
+
+This creates a project settings file for VS Code. To connect to the
+project, you can either:
+
+- Click the '`REPL'` button at the bottom of the window.
+- Run the *Calva: Start a Project REPL and Connect* command.
+- Use the keyboard shortcut: kbd:[Ctrl-Alt-C] kbd:[Ctrl-Alt-J]
+
+Then choose the '`Duct`' project type.
+
+TIP: Use kbd:[Ctrl-Shift-P] to open the command palette.
+
+You'll be presented with a REPL where you can start the application
+with `(go)`
+
+----
+clj꞉user꞉> (go)
+----
+
+To reset the project, you can use `(reset)` at the REPL, or run the
+command: *Calva: Refresh All Namespaces*.
