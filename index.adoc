@@ -1532,7 +1532,7 @@ Can Duct provide any benefit in that case?
 If you use Integrant, you can use parts of Duct. This section will cover
 common use-cases.
 
-=== Integrant '`main`' replacement
+=== Integrant '`main`' Replacement
 
 A common pattern for using Integrant have a `-main` function that loads
 and initiates an Integrant configuration. In many cases, you can use
@@ -1611,6 +1611,24 @@ To run your application, use `clojure -M:duct`, or the `duct` alias
 defined in the <<Project Setup>> section. If your project uses
 Leiningen rather than tools.deps, check out the section on <<Leiningen>>
 integration.
+
+=== Piecemeal Components
+
+You may be using Integrant in such a way that Duct is not suitable for
+your project. However, you may be able to still take advantage of Duct's
+libraries.
+
+Many of the libraries Duct provides can be used independently as part
+of any Integrant configuration. Here are three of the most useful
+outside of Duct:
+
+- https://github.com/duct-framework/database.sql.hikaricp[database.sql.hikaricp] -
+  creates a database connection pool using HikariCP.
+- https://github.com/duct-framework/logger.simple[logger.simple] -
+  a simple buffered logger that can write to a file or STDOUT.
+- https://github.com/duct-framework/server.http.jetty[server.http.jetty] -
+  starts a Ring adapter based on the Jetty webserver.
+
 
 == Integrations
 
