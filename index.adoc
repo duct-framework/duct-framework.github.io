@@ -1523,6 +1523,93 @@ used in this example for the sake of brevity.
 Now that we have both a server and client, we can `(reset)` the REPL
 and check the web application at: <http://localhost:3000>
 
+== Existing Applications
+
+So far we have worked on the assumption that you are building a Duct
+application from scratch, but what if you have an existing application?
+Can Duct provide any benefit in that case?
+
+If you use Integrant, you can use parts of Duct. This section will cover
+common use-cases.
+
+=== Integrant '`main`' replacement
+
+A common pattern for using Integrant have a `-main` function that loads
+and initiates an Integrant configuration. In many cases, you can use
+Duct to replace this with a data-driven approach.
+
+For example, suppose you've written an application with a custom server
+and worker queue component. You may have an Integrant configuration file
+that looks like this:
+
+.resources/example/app/config.edn
+[,clojure]
+----
+{:example.app/server
+ {:queue #ig/ref :example.app/worker-queue}
+
+ :example.app/worker-queue
+ {:worker-threads 32}}
+----
+
+In order to run this configuration, you have a main function that loads
+in the config file and populates the it with additional values from the
+environment. In the example below, the server port number is pulled from
+the `PORT` environment variable.
+
+.src/example/app/main.clj
+[,clojure]
+----
+(ns example.app.main
+  (:require [clojure.java.io :as io]
+            [integrant.core :as ig]))
+
+(defn -main [& _args]
+  (let [port (some-> (System/getenv "PORT")
+                     (Integer/parseInt)
+                     (or 3000))
+        config (-> (io/resource "example/app/config.edn")
+                   (slurp)
+                   (ig/read-string)
+                   (assoc-in [:example.app/server :port] port))]
+    (ig/load-namespaces config)
+    (ig/init config)))
+----
+
+Duct can be used to replace all this with a data-driven configuration.
+In your `deps.edn` file, add a Duct alias:
+
+.deps.edn
+[,clojure]
+----
+{:aliases
+ {:duct {:extra-deps {org.duct-framework/main {:mvn/version "0.1.11"}}
+         :main-opts ["-m" "duct.main"]}
+ ;; rest of your deps.edn
+ }}
+----
+
+Then move your configuration into `duct.edn` under the `:system` key.
+Use the `:vars` key to define the options you want to pull from the
+environment or from command-line options.
+
+.duct.edn
+[,clojure]
+----
+{:vars
+ {port {:env PORT, :type :int, :default 3000}
+ :system
+ {:example.app/server
+  {:port  #ig/var port
+   :queue #ig/ref :example.app/worker-queue}
+
+  :example.app/worker-queue
+  {:worker-threads 32}}}
+----
+
+To run your application, use `clojure -M:duct`, or the `duct` alias
+defined in the <<Project Setup>> section.
+
 == Integrations
 
 === Docker
