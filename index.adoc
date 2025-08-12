@@ -1608,7 +1608,9 @@ environment or from command-line options.
 ----
 
 To run your application, use `clojure -M:duct`, or the `duct` alias
-defined in the <<Project Setup>> section.
+defined in the <<Project Setup>> section. If your project uses
+Leiningen rather than tools.deps, check out the section on <<Leiningen>>
+integration.
 
 == Integrations
 
@@ -1703,6 +1705,34 @@ kbd:[M-x] `cider-ns-refresh` kbd:[RET]
 
 There's also a key binding for this command:
 kbd:[C-c] kbd:[M-n] kbd:[r]
+
+=== Leiningen
+
+It's recommended that you use Duct with `deps.edn`, however it is
+possible to use Duct with Leiningen.
+
+To do so, you'll need to update your project file with profile for Duct,
+and an alias to run it:
+
+.project
+[,clojure]
+----
+(defproject org.example/app "0.1.0-SNAPSHOT"
+  ;; the rest of your project file goes here
+  :aliases  {"duct" ["trampoline" "with-profile" "+duct" "run"]}
+  :profiles {:duct {:dependencies [[org.duct-framework/main "0.1.11"]]
+                    :main duct.main}})
+----
+
+Now you can run Duct with:
+
+[,shell]
+----
+lein duct
+----
+
+Note that the startup time suffers somewhat. In local tests using
+Leiningen increased startup time from 900ms to 1400ms.
 
 === Visual Studio Code
 
