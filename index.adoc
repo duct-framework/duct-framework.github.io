@@ -1532,7 +1532,7 @@ Can Duct provide any benefit in that case?
 If you use Integrant, you can use parts of Duct. This section will cover
 common use-cases.
 
-=== Integrant '`main`' Replacement
+=== Integrant Runner
 
 A common pattern for using Integrant have a `-main` function that loads
 and initiates an Integrant configuration. In many cases, you can use
@@ -1623,11 +1623,11 @@ of any Integrant configuration. Here are three of the most useful
 outside of Duct:
 
 - https://github.com/duct-framework/database.sql.hikaricp[database.sql.hikaricp] -
-  creates a database connection pool using HikariCP.
+  creates a database connection pool using HikariCP
 - https://github.com/duct-framework/logger.simple[logger.simple] -
-  a simple buffered logger that can write to a file or STDOUT.
+  a simple buffered logger that can write to a file or STDOUT
 - https://github.com/duct-framework/server.http.jetty[server.http.jetty] -
-  starts a Ring adapter based on the Jetty webserver.
+  starts a Ring adapter based on the Jetty webserver
 
 
 == Integrations
