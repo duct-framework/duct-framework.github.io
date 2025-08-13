@@ -1626,6 +1626,8 @@ outside of Duct:
   creates a database connection pool using HikariCP
 - https://github.com/duct-framework/logger.simple[logger.simple] -
   a simple buffered logger that can write to a file or STDOUT
+- https://github.com/duct-framework/scheduler.simple[scheduler.simple] -
+  a component for running periodic tasks via a pool of workers
 - https://github.com/duct-framework/server.http.jetty[server.http.jetty] -
   starts a Ring adapter based on the Jetty webserver
 
