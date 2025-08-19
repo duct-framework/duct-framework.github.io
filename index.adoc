@@ -542,6 +542,47 @@ For more information on the multimethods that can be used, refer to the
 https://github.com/weavejester/integrant/blob/master/README.md[Integrant
 documentation].
 
+=== Includes
+
+As a configuration grows, it may become useful to split it up into
+several smaller files. We can do this via the `#duct/include` reader
+tag.
+
+If you tag a filepath string with `#duct/include`, it indicates to Duct
+that it should replace the tagged string with the corresponding edn
+file. You can place this anywhere in the your `duct.edn` configuration.
+
+For example, suppose we want to factor out all of the vars into their
+own configuration file, and also have a separate configuration for the
+'`hello`' component.
+
+.duct.edn
+[,clojure]
+----
+{:vars #duct/include "vars.edn"
+ :system
+ {:duct.module/logging {}
+  :tutorial.print/hello #duct.include "hello.edn"}}
+----
+
+.vars.edn
+[,clojure]
+----
+{name {:arg name, :env NAME, :type :str, :default "World"
+       :doc "The name of the person to greet"}}
+----
+
+.hello.edn
+[,clojure]
+----
+{:logger #ig/ref :duct/logger
+ :level  #ig/profile {:repl :report, :main :info}
+ :name   #ig/var name}
+----
+
+The path of the includes is always relative to the root configuration
+file -- in this case, `duct.edn`.
+
 == Web Applications
 
 While Duct can be used for any server-side application, its most common
