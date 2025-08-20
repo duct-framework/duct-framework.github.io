@@ -238,6 +238,76 @@ user=> system
 #:tutorial.print{:hello nil}
 ----
 
+=== Testing
+
+Duct includes a test runner based on
+https://github.com/lambdaisland/kaocha[Kaocha]. By default it looks for
+test files in the `test` directory.
+
+We can write a unit test for our '`Hello World`' function.
+
+.test/tutorial/print_test.clj
+[,clojure]
+----
+(ns tutorial.print-test
+  (:require [clojure.test :refer [deftest is]]
+            [tutorial.print :as tp]))
+
+(deftest unit-test
+  (is (= "Hello World\n"
+         (with-out-str (tp/hello {})))))
+----
+
+And then run it with the `--test` option.
+
+[,shell]
+----
+$ duct --test
+✓ Loading test environment
+[(.)]
+1 tests, 1 assertions, 0 failures.
+----
+
+Duct also provides a `test` library for running tests on your entire
+system.
+
+Add the dependency:
+
+.deps.edn
+[,clojure]
+----
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
+        org.duct-framework/main {:mvn/version "0.2.0"}
+        org.duct-framework/test {:mvn/version "0.1.0"}
+ :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
+----
+
+This provides a function, `duct.test/run`, which will start the system.
+Our '`hello`' component doesn't need cleaning up after itself, but it's
+good practice to use the `duct.test/with-system` macro. This will
+**halt** the system after the macro's body completes (see the
+<<Integrant>> section for more information on halting).
+
+
+.test/tutorial/print_test.clj
+[,clojure]
+----
+(ns tutorial.print-test
+  (:require [clojure.test :refer [deftest is]]
+            [duct.test :as dt]
+            [tutorial.print :as tp]))
+
+(deftest unit-test
+  (is (= "Hello World\n"
+         (with-out-str (tp/hello {})))))
+
+(deftest system-test
+  (is (= "Hello World\nGoodbye.\n"
+         (with-out-str
+           (dt/with-system [_sys (dt/run)]
+             (println "Goodbye.")))))
+----
+
 === Modules
 
 A *module* groups multiple components together. Duct provides a number
@@ -251,6 +321,7 @@ We'll first add the new dependency:
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.2.0"}
+        org.duct-framework/test {:mvn/version "0.1.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.5"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -440,7 +511,8 @@ option keys are supported:
 A Duct application has some number of active profiles, which are
 represented by unqualified keywords. When run via the `--main` flag, an
 implicit `:main` profile is added. When run via `(go)` at the REPL, an
-implicit `:repl` profile is added.
+implicit `:repl` profile is added. When run via `(duct.test/run)`, an
+implicit `:test` profile is added.
 
 You can add additional profiles via the `--profiles` argument. Profiles
 are an ordered list, with preceding profiles taking priority.
