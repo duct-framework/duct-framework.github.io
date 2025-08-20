@@ -308,6 +308,21 @@ good practice to use the `duct.test/with-system` macro. This will
              (println "Goodbye.")))))
 ----
 
+As `--test` uses Kaocha under the hood, you can customize how the tests
+are run via a `tests.edn` file. See the
+https://cljdoc.org/d/lambdaisland/kaocha/1.91.1392/doc/3-configuration[Kaocha
+documentation] for a full explanation of how this works.
+
+Finally, there are a few options you can use at the command line to
+filter which tests will be run.
+
+[horizontal]
+`--test-config FILE` :: use a custom test config file
+`--test-focus ID` :: limit tests to a single test ID, namespace or symbol
+`--test-skip ID` :: skip tests with the test ID, namespace or symbol
+`--test-focus-meta KEY` :: only run tests with the supplied metadata key
+`--test-skip-meta KEY` :: skip tests with the supplied metadata key
+
 === Modules
 
 A *module* groups multiple components together. Duct provides a number
