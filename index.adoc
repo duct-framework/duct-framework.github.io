@@ -1839,6 +1839,29 @@ kbd:[M-x] `cider-ns-refresh` kbd:[RET]
 There's also a key binding for this command:
 kbd:[C-c] kbd:[M-n] kbd:[r]
 
+
+=== Hashp
+
+https://github.com/weavejester/hashp[Hashp] is a small debugging library
+that is integrated by default in Duct.
+
+To use it, you can put `#p` in front of any expression, and it will
+print the expression, its value, and its location in your project.
+
+For example, at the REPL:
+
+[,clojure]
+----
+user=> (* 2 #p (+ 1 1))
+#p[user/eval11138:1] (+ 1 1) => 2
+4
+----
+
+However, under `--main` **nothing will be printed**. In fact, `#p` will
+be completely ignored at compile time and incur no additional
+performance cost. This is because `--main` is intended for production
+use, and `--repl` for development and debugging.
+
 === Leiningen
 
 It's recommended that you use Duct with `deps.edn`, however it is
