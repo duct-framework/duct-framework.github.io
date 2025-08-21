@@ -278,7 +278,7 @@ Add the dependency:
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
         org.duct-framework/main {:mvn/version "0.2.0"}
-        org.duct-framework/test {:mvn/version "0.1.0"}
+        org.duct-framework/test {:mvn/version "0.1.0"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -322,6 +322,46 @@ filter which tests will be run.
 `--test-skip ID` :: skip tests with the test ID, namespace or symbol
 `--test-focus-meta KEY` :: only run tests with the supplied metadata key
 `--test-skip-meta KEY` :: skip tests with the supplied metadata key
+
+=== Dependencies
+
+So far all of our dependencies have been listed under the `:deps` key,
+including `org.duct-framework/test`, which is only used in tests.
+
+While this isn't necessarily bad -- your test dependencies are unlikely
+to be large enough to matter -- it is good practice to separate out
+dependencies used for developing or testing into a separate alias in
+your `deps.edn` file.
+
+.deps.edn
+[,clojure]
+----
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
+        org.duct-framework/main {:mvn/version "0.2.0"}
+ :aliases
+ {:duct {:main-opts ["-m" "duct.main"]}
+  :test {:extra-deps {org.duct-framework/test {:mvn/version "0.1.0"}}}}}
+----
+
+Then to run the tests you'd use:
+
+[,shell]
+----
+$ clojure -M:duct:test --test
+----
+
+As this is quite a lot to type, you may want to add an shell alias. For
+example, `ductt` with an extra '`t`' for '`test`'.
+
+[,shell]
+----
+$ alias ductt="clojure -M:duct:test --test"
+----
+
+For the remainder of this document we'll only use the root-level
+`:deps` and the `duct` alias we defined in the <<Project Setup>>.
+However, it's important to keep in mind that you can customize your own
+project to suit your particular requirements and preferences.
 
 === Modules
 
