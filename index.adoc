@@ -1994,7 +1994,7 @@ Created .vscode/settings.json
 This creates a project settings file for VS Code. To connect to the
 project, you can either:
 
-- Click the '`REPL'` button at the bottom of the window.
+- Click the '`REPL`' button at the bottom of the window.
 - Run the *Calva: Start a Project REPL and Connect* command.
 - Use the keyboard shortcut: kbd:[Ctrl-Alt-C] kbd:[Ctrl-Alt-J]
 
