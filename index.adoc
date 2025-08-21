@@ -1802,6 +1802,37 @@ outside of Duct:
 
 == Integrations
 
+=== Babashka
+
+https://babashka.org/[Babashka] is a fast, native Clojure scripting
+runtime, and it includes a task runner that can be configured with a
+`bb.edn` file.
+
+Duct can set up a basic `bb.edn` file for you with the `--init-bb`
+option.
+
+[,shell]
+----
+$ duct --init-bb
+Created bb.edn
+----
+
+This sets up three tasks: `main`, `test` and `repl` that correspond
+to running `--main`, `--test` and `--repl`.
+
+[,shell]
+----
+$ bb test
+✓ Loading test environment
+[(..)]
+2 tests, 2 assertions, 0 failures.
+----
+
+One advantage of using a task runner like Babashka is that you can
+specify different dependencies for task. Another advantage is that a new
+developer doesn't have to set up a `duct` alias as long as they have
+Babashka installed.
+
 === Docker
 
 https://www.docker.com/[Docker] is a system for running software in
