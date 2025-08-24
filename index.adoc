@@ -305,7 +305,7 @@ good practice to use the `duct.test/with-system` macro. This will
   (is (= "Hello World\nGoodbye.\n"
          (with-out-str
            (dt/with-system [_sys (dt/run)]
-             (println "Goodbye.")))))
+             (println "Goodbye."))))))
 ----
 
 As `--test` uses Kaocha under the hood, you can customize how the tests
@@ -337,7 +337,7 @@ your `deps.edn` file.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
-        org.duct-framework/main {:mvn/version "0.2.1"}
+        org.duct-framework/main {:mvn/version "0.2.1"}}
  :aliases
  {:duct {:main-opts ["-m" "duct.main"]}
   :test {:extra-deps {org.duct-framework/test {:mvn/version "0.1.0"}}}}}
@@ -470,7 +470,7 @@ level. This is a high-priority level that should be used sparingly, as
 it also prints to STDOUT when using the REPL.
 
 You may have noticed that we've replaced the `"Hello World"` string with
-a keyword and a map: `::name {:name "World"}`. This is because Duct is
+a keyword and a map: `::hello {:name "World"}`. This is because Duct is
 opinionated about logs being data, rather than human-readable strings. A
 Duct log message consists of an *event*, a qualified keyword, and a map
 of *event data*, which provides additional information.
