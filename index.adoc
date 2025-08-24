@@ -337,7 +337,7 @@ your `deps.edn` file.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.1"}
-        org.duct-framework/main {:mvn/version "0.2.1"}
+        org.duct-framework/main {:mvn/version "0.2.1"}}
  :aliases
  {:duct {:main-opts ["-m" "duct.main"]}
   :test {:extra-deps {org.duct-framework/test {:mvn/version "0.1.0"}}}}}
