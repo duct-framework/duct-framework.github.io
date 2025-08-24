@@ -305,7 +305,7 @@ good practice to use the `duct.test/with-system` macro. This will
   (is (= "Hello World\nGoodbye.\n"
          (with-out-str
            (dt/with-system [_sys (dt/run)]
-             (println "Goodbye.")))))
+             (println "Goodbye."))))))
 ----
 
 As `--test` uses Kaocha under the hood, you can customize how the tests
