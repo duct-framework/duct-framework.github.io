@@ -470,7 +470,7 @@ level. This is a high-priority level that should be used sparingly, as
 it also prints to STDOUT when using the REPL.
 
 You may have noticed that we've replaced the `"Hello World"` string with
-a keyword and a map: `::name {:name "World"}`. This is because Duct is
+a keyword and a map: `::hello {:name "World"}`. This is because Duct is
 opinionated about logs being data, rather than human-readable strings. A
 Duct log message consists of an *event*, a qualified keyword, and a map
 of *event data*, which provides additional information.
