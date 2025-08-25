@@ -932,7 +932,7 @@ map could be returned.
      :headers {}
      :body [:html {:lang "en"}
             [:head [:title "Hello World Wide Web"]]
-            [:body [:h1 "Hello World Wide Web"]]]))
+            [:body [:h1 "Hello World Wide Web"]]]}))
 ----
 
 NOTE: The `:status` and `:headers` keys map optionally be omitted.
@@ -977,7 +977,7 @@ every response:
 
 (defn wrap-headers [headers]
   (fn [handler]
-    (fn [request)
+    (fn [request]
       (let [response (handler request)]
         (update response :headers merge headers)))))
 ----
@@ -1499,7 +1499,7 @@ default this should be placed in the `static` subdirectory.
   </head>
   <body>
     <div id="todos"></div>
-    <script src="/cljs/client.cljs"></script>
+    <script src="/cljs/client.js"></script>
   </body>
 </html>
 ----
