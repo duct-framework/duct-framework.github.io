@@ -1,0 +1,2 @@
+{:tasks
+ {build (shell "asciidoctor -D build -b html5 index.adoc")}}
