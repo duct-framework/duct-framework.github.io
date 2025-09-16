@@ -1,12 +1,17 @@
 (ns build
-  (:require [clojure.java.io :as io]
+  (:require [clojure.java.shell :as sh]
+            [clojure.java.io :as io]
             [clojure.string :as str]
             [integrant.core :as ig]))
 
 (defn- ->asciidoc [s]
-  (-> s
-      (str/replace #"(?m)^  " "")
-      (str/replace #"(\n[^-][^\n]*)\n-" "$1\n\n-")))
+  (:out (sh/sh "pandoc" "-t" "asciidoc" :in s)))
+
+(defn- space-out-lists [s]
+  (str/replace s #"(\n[^-][^\n]*)\n-" "$1\n\n-"))
+
+(defn- trim-indent [s]
+  (str/replace s #"(?m)^  " ""))
 
 (def keywords
   [:duct.database/sql
@@ -21,9 +26,11 @@
 (ig/load-annotations)
 
 (with-open [writer (io/writer "keywords.adoc")]
-  (binding [*out* writer]
-    (doseq [kw (sort keywords)]
-      (println (str "=== " kw))
-      (newline)
-      (println (->asciidoc (:doc (ig/describe kw))))
-      (newline))))
+  (doseq [kw (sort keywords)]
+    (let [doc (-> kw ig/describe :doc trim-indent space-out-lists ->asciidoc)]
+      (binding [*out* writer]
+        (println "###" kw)
+        (newline)
+        (println doc)))))
+
+(shutdown-agents)
