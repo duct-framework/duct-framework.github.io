@@ -23,8 +23,11 @@ jobs:
         with:
           bb: latest
       - name: Install AsciiDoctor
-        run: sudo apt install -y asciidoctor
-      - name: Run ASCIIDoc
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: asciidoctor
+          version: 1.0
+      - name: Build AsciiDoc
         id: adocbuild
         run: bb build
       - name: Print execution time
