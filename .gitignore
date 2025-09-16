@@ -1,2 +1,4 @@
 build/
 .clj-kondo/
+.cpcache/
+keywords.adoc

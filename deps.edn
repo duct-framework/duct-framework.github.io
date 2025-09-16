@@ -1,0 +1,4 @@
+{:paths ["."]
+ :deps {org.clojure/clojure {:mvn/version "1.12.2"}
+        integrant/integrant {:mvn/version "1.0.0"}
+        org.duct-framework/module.logging {:mvn/version "0.6.6"}}}

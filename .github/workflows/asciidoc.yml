@@ -18,11 +18,15 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@13.4
+        with:
+          bb: latest
+      - name: Install AsciiDoctor
+        run: sudo apt install -y asciidoctor
       - name: Run ASCIIDoc
         id: adocbuild
-        uses: tonynv/asciidoctor-action@master
-        with:
-          program: "asciidoctor -D build index.adoc"
+        run: bb build
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
       - name: Upload artifact

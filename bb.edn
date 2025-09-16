@@ -1,2 +1,6 @@
 {:tasks
- {build (shell "asciidoctor -D build -b html5 index.adoc")}}
+ {docstrings
+  {:task (clojure "-M" "build.clj")}
+  build
+  {:depends [docstrings]
+   :task (shell "asciidoctor -D build -b html5 index.adoc")}}}
