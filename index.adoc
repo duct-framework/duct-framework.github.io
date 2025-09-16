@@ -80,21 +80,28 @@ Duct can now be run by invoking the `:duct` alias.
 ----
 $ clojure -M:duct
 Usage:
-	clojure -M:duct [--init | --main | --nrepl | --repl]
+	clojure -M:duct [--init | --main | --nrepl | --repl | --test]
 Options:
-  -c, --cider              Add CIDER middleware (used with --nrepl)
-      --init               Create a blank duct.edn config file
-      --init-calva         Create a .vscode/settings.json file for Calva
-      --init-cider         Create a .dir-locals.el Emacs file for CIDER
-      --init-docker        Create a Dockerfile
-  -k, --keys KEYS          Limit --main to start only the supplied keys
-  -p, --profiles PROFILES  A concatenated list of profile keys
-  -n, --nrepl              Start an nREPL server
-  -m, --main               Start the application
-  -r, --repl               Start a command-line REPL
-  -s, --show               Print out the expanded configuration and exit
-  -v, --verbose            Enable verbose logging
-  -h, --help               Print this help message and exit
+  -c, --cider                Add CIDER middleware (used with --nrepl)
+      --init                 Create a blank duct.edn config file
+      --init-bb              Create a Babashka bb.edn file
+      --init-calva           Create a .vscode/settings.json file for Calva
+      --init-cider           Create a .dir-locals.el Emacs file for CIDER
+      --init-docker          Create a Dockerfile
+  -k, --keys KEYS            Limit --main to start only the supplied keys
+  -p, --profiles PROFILES    A concatenated list of profile keys
+  -n, --nrepl                Start an nREPL server
+  -m, --main                 Start the application
+  -r, --repl                 Start a command-line REPL
+  -s, --show                 Print out the expanded configuration and exit
+  -t, --test                 Run the test suite
+      --test-config FILE     Use a custom test config file
+      --test-focus ID        Limit tests to run only this one
+      --test-skip ID         Skip this test
+      --test-focus-meta KEY  Limit tests to ones with this metadata
+      --test-skip-meta KEY   Skip tests with this metadata
+  -v, --verbose              Enable verbose logging
+  -h, --help                 Print this help message and exit
 ----
 
 We'll be using this command a lot, so it's highly recommended that you
