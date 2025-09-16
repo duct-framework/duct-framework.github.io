@@ -493,6 +493,10 @@ user=> (go)
 :tutorial.print/hello {:name "World"}
 ----
 
+TIP: At the Duct REPL you can use the `doc` macro to get information
+about keywords annotated by Integrant. For example, evaluated the
+expression `(doc :duct.module/logging)` will describe the logging module.
+
 === Variables
 
 Sometimes we want to supply options from an external source, such as an
