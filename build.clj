@@ -8,15 +8,25 @@
   (:out (sh/sh "pandoc" "-t" "asciidoc" :in s)))
 
 (defn- space-out-lists [s]
-  (str/replace s #"(\n[^-][^\n]*)\n-" "$1\n\n-"))
+  (str/replace s #"(?m)^([^-][^\n]*)\n-" "$1\n\n-"))
 
 (defn- trim-indent [s]
   (str/replace s #"(?m)^  " ""))
 
 (def keywords
-  [:duct.database/sql
+  [:duct.compiler.cljs.shadow/release
+   :duct.compiler.cljs.shadow/server
+   :duct.database/sql
    :duct.database.sql/hikaricp
    :duct.logger/simple
+   :duct.middleware.web/log-requests
+   :duct.middleware.web/log-errors
+   :duct.middleware.web/hide-errors
+   :duct.middleware.web/defaults
+   :duct.middleware.web/webjars
+   :duct.middleware.web/stacktrace
+   :duct.middleware.web/hiccup
+   :duct.migrator/ragtime
    :duct.module/cljs
    :duct.module/logging
    :duct.module/sql

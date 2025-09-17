@@ -2023,6 +2023,6 @@ clj꞉user꞉> (go)
 To reset the project, you can use `(reset)` at the REPL, or run the
 command: *Calva: Refresh All Namespaces*.
 
-== Keywords
+== Component Directory
 
 include::keywords.adoc[]
