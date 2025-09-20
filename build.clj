@@ -18,7 +18,15 @@
    :duct.compiler.cljs.shadow/server
    :duct.database/sql
    :duct.database.sql/hikaricp
+   :duct.handler/file
    :duct.handler/reitit
+   :duct.handler/resource
+   :duct.handler/static
+   :duct.handler.static/ok
+   :duct.handler.static/bad-request
+   :duct.handler.static/not-found
+   :duct.handler.static/method-not-allowed
+   :duct.handler.static/internal-server-error
    :duct.logger/simple
    :duct.middleware.web/log-requests
    :duct.middleware.web/log-errors
