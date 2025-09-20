@@ -67,6 +67,7 @@
   (doseq [kw (sort keywords)]
     (let [doc (-> kw ig/describe :doc trim-indent space-out-lists ->asciidoc)]
       (binding [*out* writer]
+        (println "[discrete]")
         (println "###" kw)
         (newline)
         (println "[sidebar]")
