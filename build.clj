@@ -18,6 +18,7 @@
    :duct.compiler.cljs.shadow/server
    :duct.database/sql
    :duct.database.sql/hikaricp
+   :duct.handler/reitit
    :duct.logger/simple
    :duct.middleware.web/log-requests
    :duct.middleware.web/log-errors
@@ -31,6 +32,7 @@
    :duct.module/logging
    :duct.module/sql
    :duct.module/web
+   :duct.router/reitit
    :duct.server.http/jetty])
 
 (ig/load-annotations)
