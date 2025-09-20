@@ -746,7 +746,7 @@ modules: logging and web.
 {:deps {org.clojure/clojure {:mvn/version "1.12.2"}
         org.duct-framework/main {:mvn/version "0.2.3"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
-        org.duct-framework/module.web {:mvn/version "0.12.13"}}
+        org.duct-framework/module.web {:mvn/version "0.13.0"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -811,8 +811,10 @@ that for you, but like all modules, we can always override any default
 that we don't like.
 
 For now, we'll tell the web module to configure the application for use
-as a webside, using the `:site` feature. We'll also add in a single
-route to handle a web request to the root of our application.
+as a webside, using the `:site` feature, and to use the
+https://github.com/weavejester/hiccup[Hiccup] format for representing
+HTML, using the `:hiccup` feature. We'll also add in a single route to
+handle a web request to the root of our application.
 
 .duct.edn
 [,clojure]
@@ -820,11 +822,12 @@ route to handle a web request to the root of our application.
 {:system
  {:duct.module/logging {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :routes [["/" {:get :todo.routes/index}]]}}}
 ----
 
-Then we'll create a Ring **handler** function for that route.
+Then we'll create a Ring **handler** function for that route that
+returns a Hiccup data structure.
 
 .src/todo/routes.clj
 [,clojure]
@@ -927,7 +930,7 @@ Hiccup is a format for representing HTML as a Clojure data structure.
 Elements are represented by a vector starting with a keyword, followed
 by an optional attribute map and then the element body.
 
-The `:site` feature of the web module adds middleware to turn Hiccup
+The `:hiccup` feature of the web module adds middleware to turn Hiccup
 vectors into HTML response maps. If the response is a vector, it wraps
 the vector in response map. If the response is already a map, it checks
 the `:body` of the response for a vector.
@@ -1002,7 +1005,7 @@ module via the `:middleware` key:
 {:system
  {:duct.module/logging {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :middleware [#ig/ref :todo.middleware/wrap-headers]
    :routes [["/" {:get :todo.routes/index}]]}
 
@@ -1030,7 +1033,7 @@ least one route matches. For example:
 {:system
  {:duct.module/logging {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :route-middleware [#ig/ref :todo.middleware/wrap-headers]
    :routes [["/" {:get :todo.routes/index}]]}
 
@@ -1050,7 +1053,7 @@ nested routes by adding the `:middleware` key to the route itself:
 {:system
  {:duct.module/logging {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :routes [["/" {:get :todo.routes/index
                   :middleware [#ig/ref :todo.middleware/wrap-headers]}]]}
 
@@ -1068,7 +1071,7 @@ document.
 {:system
  {:duct.module/logging {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :routes [["/" {:get :todo.routes/index}]]}}}
 ----
 
@@ -1093,7 +1096,7 @@ Our project dependencies should now look like this:
 {:deps {org.clojure/clojure {:mvn/version "1.12.2"}
         org.duct-framework/main {:mvn/version "0.2.3"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
-        org.duct-framework/module.web {:mvn/version "0.12.13"}
+        org.duct-framework/module.web {:mvn/version "0.13.0"}
         org.duct-framework/module.sql {:mvn/version "0.8.1"}
         org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1070"}}
@@ -1118,7 +1121,7 @@ The next step is to add `:duct.module/sql` to our Duct configuration.
  {:duct.module/logging {}
   :duct.module/sql {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :routes [["/" {:get :todo.routes/index}]]}}}
 ----
 
@@ -1152,7 +1155,7 @@ used in development.
  {:duct.module/logging {}
   :duct.module/sql {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :routes [["/" {:get :todo.routes/index}]]}}}
 ----
 
@@ -1198,7 +1201,7 @@ generates.
  {:duct.module/logging {}
   :duct.module/sql {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :handler-opts {:db #ig/ref :duct.database/sql}
    :routes [["/" {:get :todo.routes/index}]]}}}
 ----
@@ -1341,7 +1344,7 @@ the POST.
  {:duct.module/logging {}
   :duct.module/sql {}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :handler-opts {:db #ig/ref :duct.database/sql}
    :routes [["/" {:get  :todo.routes/index
                   :post :todo.routes/new-todo}]]}}}
@@ -1417,7 +1420,7 @@ ClojureScript. As always we begin with our dependencies, and add the
         org.duct-framework/main {:mvn/version "0.2.3"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
-        org.duct-framework/module.web {:mvn/version "0.12.13"}
+        org.duct-framework/module.web {:mvn/version "0.13.0"}
         org.duct-framework/module.sql {:mvn/version "0.8.1"}
         org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1070"}}
@@ -1440,7 +1443,7 @@ configuration file.
   :duct.module/cljs
   {:builds {:client todo.client}}
   :duct.module/web
-  {:features #{:site}
+  {:features #{:site :hiccup}
    :handler-opts {:db #ig/ref :duct.database/sql}
    :routes [["/" {:get  :todo.routes/index
                   :post :todo.routes/new-todo}]]}}}
@@ -1515,8 +1518,10 @@ default this should be placed in the `static` subdirectory.
 </html>
 ----
 
-We then need to change the routes and add the `:api` feature to the web
-module.
+We then need to change the routes and the module's features. The
+`:hiccup` feature is no longer needed as we'll be handling all that from
+the client itself, and we'll add the `:api` feature to allow the client
+to communicate with the server.
 
 .duct.edn
 [,clojure]
@@ -1621,7 +1626,7 @@ This requires us to once again update the project dependencies:
         org.duct-framework/main {:mvn/version "0.2.3"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
-        org.duct-framework/module.web {:mvn/version "0.12.13"}
+        org.duct-framework/module.web {:mvn/version "0.13.0"}
         org.duct-framework/module.sql {:mvn/version "0.8.1"}
         org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1070"}
