@@ -105,9 +105,9 @@ Options:
   -h, --help                 Print this help message and exit
 ----
 
-We'll be using this command a lot, so it's highly recommended that you
-also create an shell alias. In a POSIX shell such as Bash, this can be
-done using the `alias` command.
+We'll be using this command a lot, so it's recommended that you also
+create either a shell script or shell alias. In a POSIX shell such as
+Bash, a shell alias can be created using the `alias` command.
 
 [,shell]
 ----
@@ -116,6 +116,9 @@ $ alias duct="clojure -M:duct"
 
 For the rest of this documentation, we'll assume that this shell alias
 has been defined.
+
+NOTE: Alternatively, you could create a Babashka `bb.edn` file with
+tasks to run Duct. The section on <<Babashka>> Integration explains how.
 
 The final step of the setup process is to create a `duct.edn` file. This
 contains the data structure that defines your Duct application. The
