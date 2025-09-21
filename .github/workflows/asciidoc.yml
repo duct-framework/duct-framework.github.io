@@ -25,7 +25,7 @@ jobs:
       - name: Install AsciiDoctor
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: asciidoctor pandoc
+          packages: asciidoctor pandoc ruby-coderay
           version: 1.0
       - name: Build AsciiDoc
         id: adocbuild
