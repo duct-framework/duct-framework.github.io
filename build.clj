@@ -68,6 +68,8 @@
 
 (with-open [writer (io/writer "keywords.adoc")]
   (binding [*out* writer]
+    (println "[.concise-index]")
+    (println ".Index")
     (println "****")
     (doseq [kw keywords]
       (println (str "- <<" (get-fragment kw) ">>")))

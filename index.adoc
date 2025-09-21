@@ -9,6 +9,7 @@ James Reeves
 :toc: left
 :url-repo: https://github.com/duct-framework/duct-framework.github.io
 :experimental:
+:docinfo: shared
 
 IMPORTANT: Duct is currently in beta. This means *breaking changes* are
 possible but unlikely, and *bugs* are possible and likely.
