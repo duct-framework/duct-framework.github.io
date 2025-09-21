@@ -14,34 +14,34 @@
   (str/replace s #"(?m)^  " ""))
 
 (def keywords
-  [:duct.compiler.cljs.shadow/release
-   :duct.compiler.cljs.shadow/server
-   :duct.database/sql
-   :duct.database.sql/hikaricp
-   :duct.handler/file
-   :duct.handler/reitit
-   :duct.handler/resource
-   :duct.handler/static
-   :duct.handler.static/ok
-   :duct.handler.static/bad-request
-   :duct.handler.static/not-found
-   :duct.handler.static/method-not-allowed
-   :duct.handler.static/internal-server-error
-   :duct.logger/simple
-   :duct.middleware.web/log-requests
-   :duct.middleware.web/log-errors
-   :duct.middleware.web/hide-errors
-   :duct.middleware.web/defaults
-   :duct.middleware.web/webjars
-   :duct.middleware.web/stacktrace
-   :duct.middleware.web/hiccup
-   :duct.migrator/ragtime
-   :duct.module/cljs
-   :duct.module/logging
-   :duct.module/sql
-   :duct.module/web
-   :duct.router/reitit
-   :duct.server.http/jetty])
+  (sort [:duct.compiler.cljs.shadow/release
+         :duct.compiler.cljs.shadow/server
+         :duct.database/sql
+         :duct.database.sql/hikaricp
+         :duct.handler/file
+         :duct.handler/reitit
+         :duct.handler/resource
+         :duct.handler/static
+         :duct.handler.static/ok
+         :duct.handler.static/bad-request
+         :duct.handler.static/not-found
+         :duct.handler.static/method-not-allowed
+         :duct.handler.static/internal-server-error
+         :duct.logger/simple
+         :duct.middleware.web/log-requests
+         :duct.middleware.web/log-errors
+         :duct.middleware.web/hide-errors
+         :duct.middleware.web/defaults
+         :duct.middleware.web/webjars
+         :duct.middleware.web/stacktrace
+         :duct.middleware.web/hiccup
+         :duct.migrator/ragtime
+         :duct.module/cljs
+         :duct.module/logging
+         :duct.module/sql
+         :duct.module/web
+         :duct.router/reitit
+         :duct.server.http/jetty]))
 
 (defn- namespace->path [kw]
   (-> (namespace kw) (str/replace #"\." "/") (str/replace #"-" "_")))
@@ -61,12 +61,21 @@
     (str (str/replace group #"/" ".") "/" artifact
          " {:mvn/version \"" version "\"}")))
 
+(defn- get-fragment [kw]
+  (-> kw str (str/replace #"[:.-]" "_") (str/replace #"/" "")))
+
 (ig/load-annotations)
 
 (with-open [writer (io/writer "keywords.adoc")]
-  (doseq [kw (sort keywords)]
-    (let [doc (-> kw ig/describe :doc trim-indent space-out-lists ->asciidoc)]
-      (binding [*out* writer]
+  (binding [*out* writer]
+    (println "****")
+    (doseq [kw keywords]
+      (println (str "- <<" (get-fragment kw) ">>")))
+    (println "****")
+    (newline)
+    (doseq [kw keywords]
+      (let [doc (-> kw ig/describe :doc trim-indent
+                    space-out-lists ->asciidoc)]
         (println "[discrete]")
         (println "###" kw)
         (newline)
