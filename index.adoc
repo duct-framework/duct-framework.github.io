@@ -1846,9 +1846,9 @@ $ bb test
 ----
 
 One advantage of using a task runner like Babashka is that you can
-specify different dependencies for task. Another advantage is that a new
-developer doesn't have to set up a `duct` alias as long as they have
-Babashka installed.
+specify different dependencies for each task. Another advantage is that
+a new developer doesn't have to set up a `duct` alias as long as they
+have Babashka installed.
 
 === Docker
 
