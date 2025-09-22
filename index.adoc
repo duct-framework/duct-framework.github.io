@@ -361,13 +361,15 @@ Then to run the tests you'd use:
 $ clojure -M:duct:test --test
 ----
 
-As this is quite a lot to type, you may want to add an shell alias. For
-example, `ductt` with an extra '`t`' for '`test`'.
+As this is quite a lot to type, you may want to add an exta shell alias.
+For example, `ductt` with an extra '`t`' for '`test`'.
 
 [,shell]
 ----
 $ alias ductt="clojure -M:duct:test --test"
 ----
+
+Alternatively, you could use a task runner like <<Babashka>>.
 
 For the remainder of this document we'll only use the root-level
 `:deps` and the `duct` alias we defined in the <<Project Setup>>.
