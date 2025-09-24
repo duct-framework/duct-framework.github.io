@@ -41,6 +41,7 @@
          :duct.module/sql
          :duct.module/web
          :duct.router/reitit
+         :duct.scheduler/simple
          :duct.server.http/jetty]))
 
 (defn- namespace->path [kw]
