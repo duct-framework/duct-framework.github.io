@@ -1,4 +1,4 @@
-= The Duct Framework [Beta]
+= The Duct Framework
 James Reeves
 {docdate}
 :doctype: book
@@ -10,9 +10,6 @@ James Reeves
 :url-repo: https://github.com/duct-framework/duct-framework.github.io
 :experimental:
 :docinfo: shared
-
-IMPORTANT: Duct is currently in beta. This means *breaking changes* are
-possible but unlikely, and *bugs* are possible and likely.
 
 == Introduction
 
