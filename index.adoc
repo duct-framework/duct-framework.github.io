@@ -1103,7 +1103,7 @@ Our project dependencies should now look like this:
         org.duct-framework/main {:mvn/version "0.3.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.2"}
-        org.duct-framework/module.sql {:mvn/version "0.8.1"}
+        org.duct-framework/module.sql {:mvn/version "0.9.0"}
         org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1070"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -1233,12 +1233,32 @@ a migration.
 
 === SQL Migrations
 
-Part of the SQL module is to add a **migrator**, a component that will
-manage database migrations. By default the
-https://github.com/weavejester/ragtime[Ragtime] library is used, and
-looks for a `migrations.edn` file in your project directory.
+One of the things the SQL module adds is a **migrator**, a component
+that will manage database migrations. By default the
+https://github.com/weavejester/ragtime[Ragtime] migration library is
+used.
 
-Let's create a migration for a table to store the todo list items.
+The migrations are supplied via the `:migrations` key on the module. As
+there may be many migrations, it's worth separating these out into their
+own file via the `#duct/include` tag.
+
+.duct.edn
+[,clojure]
+----
+{:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
+ :system
+ {:duct.module/logging {}
+  :duct.module/sql
+  {:migrations #duct/include "migrations.edn"}
+  :duct.module/web
+  {:features #{:site :hiccup}
+   :handler-opts {:db #ig/ref :duct.database/sql}
+   :routes [["/" {:get :todo.routes/index}]]}}}
+----
+
+In the above case, we've separated out the migrations into the
+`migrations.edn` file. Let's add a migration to this file that will
+create a table to store the todo list items.
 
 .migrations.edn
 [,clojure]
@@ -1348,7 +1368,8 @@ the POST.
 {:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
  :system
  {:duct.module/logging {}
-  :duct.module/sql {}
+  :duct.module/sql
+  {:migrations #duct/include "migrations.edn"}
   :duct.module/web
   {:features #{:site :hiccup}
    :handler-opts {:db #ig/ref :duct.database/sql}
@@ -1427,7 +1448,7 @@ ClojureScript. As always we begin with our dependencies, and add the
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.2"}
-        org.duct-framework/module.sql {:mvn/version "0.8.1"}
+        org.duct-framework/module.sql {:mvn/version "0.9.0"}
         org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1070"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -1445,7 +1466,8 @@ configuration file.
 {:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
  :system
  {:duct.module/logging {}
-  :duct.module/sql {}
+  :duct.module/sql
+  {:migrations #duct/include "migrations.edn"}
   :duct.module/cljs
   {:builds {:client todo.client}}
   :duct.module/web
@@ -1535,7 +1557,8 @@ to communicate with the server.
 {:vars {jdbc-url {:default "jdbc:sqlite:todo.db"}}
  :system
  {:duct.module/logging {}
-  :duct.module/sql {}
+  :duct.module/sql
+  {:migrations #duct/include "migrations.edn"}
   :duct.module/cljs {:builds {:client todo.client}}
   :duct.module/web
   {:features #{:site :api}
@@ -1633,7 +1656,7 @@ This requires us to once again update the project dependencies:
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.2"}
-        org.duct-framework/module.sql {:mvn/version "0.8.1"}
+        org.duct-framework/module.sql {:mvn/version "0.9.0"}
         org.xerial/sqlite-jdbc {:mvn/version "3.50.3.0"}
         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1070"}
         no.cjohansen/replicant {:mvn/version "2025.06.21"}}
