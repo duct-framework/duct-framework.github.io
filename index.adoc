@@ -1974,6 +1974,21 @@ kbd:[M-x] `cider-ns-refresh` kbd:[RET]
 There's also a key binding for this command:
 kbd:[C-c] kbd:[M-n] kbd:[r]
 
+=== Git
+
+https://git-scm.com[Git] is a version control system that needs no
+introduction.
+
+Duct has a `--init-git` option that adds a `.gitignore` file suitable
+for Duct projects. It will also initiate an empty Git repository in the
+current directory if no repository already exists.
+
+[,shell]
+----
+$ duct --init-git
+Created empty Git repository in .git
+Created .gitignore
+----
 
 === Hashp
 
