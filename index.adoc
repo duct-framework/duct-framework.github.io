@@ -61,8 +61,15 @@ The Clojure CLI looks for a file called `deps.edn`. To use Duct, we need
 to add the https://github.com/duct-framework/main[Duct Main] tool as a
 dependency, and setup an alias to execute it.
 
-To achieve this, create a new `deps.edn` file with the following
-content:
+A basic `deps.edn` file can be downloaded using curl.
+
+[,shell]
+----
+$ curl -O duct.now/deps.edn
+----
+
+This creates a `deps.edn` file with a minimal set of dependencies and
+aliases:
 
 .deps.edn
 [,clojure]
