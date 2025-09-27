@@ -1,6 +1,14 @@
 {:tasks
- {docstrings
+ {:requires ([babashka.fs :as fs])
+  clean
+  {:task (fs/delete-tree "build")}
+  mkdirs
+  {:task (fs/create-dirs "build")}
+  docstrings
   {:task (clojure "-M" "build.clj")}
+  images
+  {:depends [mkdirs]
+   :task (fs/copy "logo.svg" "build/logo.svg" {:replace-existing true})}
   build
-  {:depends [docstrings]
+  {:depends [docstrings images]
    :task (shell "asciidoctor -D build -b html5 index.adoc")}}}
