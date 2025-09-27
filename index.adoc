@@ -93,6 +93,7 @@ Options:
       --init-calva           Create a .vscode/settings.json file for Calva
       --init-cider           Create a .dir-locals.el Emacs file for CIDER
       --init-docker          Create a Dockerfile
+      --init-git             Create a .gitignore and initiate Git
   -k, --keys KEYS            Limit --main to start only the supplied keys
   -p, --profiles PROFILES    A concatenated list of profile keys
   -n, --nrepl                Start an nREPL server
