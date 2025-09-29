@@ -327,10 +327,22 @@ filter which tests will be run.
 
 [horizontal]
 `--test-config FILE` :: use a custom test config file
-`--test-focus ID` :: limit tests to a single test ID, namespace or symbol
-`--test-skip ID` :: skip tests with the test ID, namespace or symbol
-`--test-focus-meta KEY` :: only run tests with the supplied metadata key
-`--test-skip-meta KEY` :: skip tests with the supplied metadata key
+`--test-focus ID` :: limit tests to a single test ID, namespace, symbol
+                     or metadata keyword
+`--test-skip ID` :: skip tests with the test ID, namespace, symbol
+                    or metadata keyword
+
+For example, if you wanted to run tests with the `:unit` metadata key,
+but exclude the `example.long-tests` namespace:
+
+[,shell]
+----
+$ duct --test --test-focus ^:unit --test-skip example.long-tests
+----
+
+The `--test-focus` and `--test-skip` options may be specified multiple
+times.
+
 
 === Dependencies
 
