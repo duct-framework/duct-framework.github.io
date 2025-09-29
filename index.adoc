@@ -75,7 +75,7 @@ aliases:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.3.2"}}
+        org.duct-framework/main {:mvn/version "0.4.1"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -85,29 +85,22 @@ Duct can now be run by invoking the `:duct` alias.
 ----
 $ clojure -M:duct
 Usage:
-	clojure -M:duct [--init | --main | --nrepl | --repl | --test]
+	clojure -M:duct [--main | --nrepl | --repl | --setup KEYS | --test]
 Options:
-  -c, --cider                Add CIDER middleware (used with --nrepl)
-      --init                 Create a blank duct.edn config file
-      --init-bb              Create a Babashka bb.edn file
-      --init-calva           Create a .vscode/settings.json file for Calva
-      --init-cider           Create a .dir-locals.el Emacs file for CIDER
-      --init-docker          Create a Dockerfile
-      --init-git             Create a .gitignore and initiate Git
-  -k, --keys KEYS            Limit --main to start only the supplied keys
-  -p, --profiles PROFILES    A concatenated list of profile keys
-  -n, --nrepl                Start an nREPL server
-  -m, --main                 Start the application
-  -r, --repl                 Start a command-line REPL
-  -s, --show                 Print out the expanded configuration and exit
-  -t, --test                 Run the test suite
-      --test-config FILE     Use a custom test config file
-      --test-focus ID        Limit tests to run only this one
-      --test-skip ID         Skip this test
-      --test-focus-meta KEY  Limit tests to ones with this metadata
-      --test-skip-meta KEY   Skip tests with this metadata
-  -v, --verbose              Enable verbose logging
-  -h, --help                 Print this help message and exit
+  -c, --cider                  Add CIDER middleware (used with --nrepl)
+  -k, --keys KEYS              Limit --main to start only the supplied keys
+  -p, --profiles PROFILES      A concatenated list of profile keys
+  -n, --nrepl                  Start an nREPL server
+  -m, --main                   Start the application
+  -r, --repl                   Start a command-line REPL
+      --setup KEYS             Run setup scripts (see --setup help)
+  -s, --show                   Print out the expanded configuration and exit
+  -t, --test                   Run the test suite
+      --test-config FILE       Use a custom test config file
+      --test-focus ID      []  Limit tests to only this ID or metadata ^:key
+      --test-skip ID       []  Skip tests with this ID or metadata ^:key
+  -v, --verbose                Enable verbose logging
+  -h, --help                   Print this help message and exit
 ----
 
 We'll be using this command a lot, so it's recommended that you also
@@ -132,7 +125,7 @@ us.
 
 [,shell]
 ----
-$ duct --init
+$ duct --setup :duct
 Created duct.edn
 ----
 
@@ -293,7 +286,7 @@ Add the dependency:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.3.2"}
+        org.duct-framework/main {:mvn/version "0.4.1"}
         org.duct-framework/test {:mvn/version "0.1.0"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -353,7 +346,7 @@ your `deps.edn` file.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.3.2"}}
+        org.duct-framework/main {:mvn/version "0.4.1"}}
  :aliases
  {:duct {:main-opts ["-m" "duct.main"]}
   :test {:extra-deps {org.duct-framework/test {:mvn/version "0.1.0"}}}}}
@@ -393,7 +386,7 @@ We'll first add the new dependency:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.3.2"}
+        org.duct-framework/main {:mvn/version "0.4.1"}
         org.duct-framework/test {:mvn/version "0.1.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -755,7 +748,7 @@ modules: logging and web.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.3.2"}
+        org.duct-framework/main {:mvn/version "0.4.1"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.2"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -1105,7 +1098,7 @@ Our project dependencies should now look like this:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.3.2"}
+        org.duct-framework/main {:mvn/version "0.4.1"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.2"}
         org.duct-framework/module.sql {:mvn/version "0.9.0"}
@@ -1449,7 +1442,7 @@ ClojureScript. As always we begin with our dependencies, and add the
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.3.2"}
+        org.duct-framework/main {:mvn/version "0.4.1"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.2"}
@@ -1657,7 +1650,7 @@ This requires us to once again update the project dependencies:
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
         org.duct-framework/client.http {:mvn/version "0.1.0"}
-        org.duct-framework/main {:mvn/version "0.3.2"}
+        org.duct-framework/main {:mvn/version "0.4.1"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.2"}
@@ -1801,7 +1794,7 @@ In your `deps.edn` file, add a Duct alias:
 [,clojure]
 ----
 {:aliases
- {:duct {:extra-deps {org.duct-framework/main {:mvn/version "0.3.2"}}
+ {:duct {:extra-deps {org.duct-framework/main {:mvn/version "0.4.1"}}
          :main-opts ["-m" "duct.main"]}
  ;; rest of your deps.edn
  }}
@@ -1858,12 +1851,11 @@ https://babashka.org/[Babashka] is a fast, native Clojure scripting
 runtime, and it includes a task runner that can be configured with a
 `bb.edn` file.
 
-Duct can set up a basic `bb.edn` file for you with the `--init-bb`
-option.
+Duct can set up a basic `bb.edn` file for you with `--setup :bb`.
 
 [,shell]
 ----
-$ duct --init-bb
+$ duct --setup :bb
 Created bb.edn
 ----
 
@@ -1891,11 +1883,11 @@ application.
 
 To create a Docker container for your Duct application, you will need a
 `Dockerfile` that describes how to build it. Duct will set one up for
-you with the `--init-docker` option.
+you with `--setup :docker`.
 
 [,shell]
 ----
-$ duct --init-docker
+$ duct --setup :docker
 Created Dockerfile
 ----
 
@@ -1943,12 +1935,12 @@ https://www.gnu.org/software/emacs/[Emacs] is a popular editor for
 Clojure. https://docs.cider.mx/cider/index.html[CIDER] extends Emacs
 with support for interactive programming in Clojure.
 
-To use Emacs/CIDER with Duct, use the `--init-cider` option in your
-project directory.
+To use Emacs/CIDER with Duct, use the `--setup :cider` in your project
+directory.
 
 [,shell]
 ----
-$ duct --init-cider
+$ duct --setup :cider
 Created .dir-locals.el
 ----
 
@@ -1980,13 +1972,13 @@ kbd:[C-c] kbd:[M-n] kbd:[r]
 https://git-scm.com[Git] is a version control system that needs no
 introduction.
 
-Duct has a `--init-git` option that adds a `.gitignore` file suitable
-for Duct projects. It will also initiate an empty Git repository in the
-current directory if no repository already exists.
+The `--setup :git` command adds a `.gitignore` file suitable for Duct
+projects. It will also initiate an empty Git repository in the current
+directory if no repository already exists.
 
 [,shell]
 ----
-$ duct --init-git
+$ duct --setup :git
 Created empty Git repository in .git
 Created .gitignore
 ----
@@ -2027,7 +2019,7 @@ and an alias to run it:
 (defproject org.example/app "0.1.0-SNAPSHOT"
   ;; the rest of your project file goes here
   :aliases  {"duct" ["trampoline" "with-profile" "+duct" "run"]}
-  :profiles {:duct {:dependencies [[org.duct-framework/main "0.3.2"]]
+  :profiles {:duct {:dependencies [[org.duct-framework/main "0.4.1"]]
                     :main duct.main}})
 ----
 
@@ -2047,12 +2039,11 @@ https://code.visualstudio.com/[Visual Studio Code] is a popular modern
 editor, and the https://calva.io/[Calva] plugin gives it full Clojure
 support.
 
-To setup Calva for Duct, use the `--init-calva` option in your project
-directory.
+To setup Calva for Duct, use `--setup :calva` in your project directory.
 
 [,shell]
 ----
-$ duct --init-calva
+$ duct --setup :calva
 Created .vscode/settings.json
 ----
 
