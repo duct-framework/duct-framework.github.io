@@ -1,0 +1,10 @@
+.hero .title {
+  font-family: "Special Gothic Condensed One", sans-serif;
+  font-weight: bold;
+  font-size: 128px;
+}
+
+.hero .title .logo {
+  width: 92px;
+  height: 92px;
+}
