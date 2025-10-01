@@ -1,10 +1,24 @@
 .hero .title {
-  font-family: "Special Gothic Condensed One", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
-  font-size: 128px;
+  font-size: 126px;
+}
+
+.hero .subtitle {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 26px;
+  margin-top: -15px;
 }
 
 .hero .title .logo {
   width: 92px;
   height: 92px;
+}
+
+.hero .hero-body {
+  background: #292929;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
 }
