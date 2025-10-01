@@ -28,9 +28,13 @@
     </section>
     <section class="section">
       <div class="container is-max-tablet">
-        <p class="is-size-5">
-          Define the structure of your application as pure data in
-          <strong>duct.edn</strong>.
+        <p class="is-size-4">
+          Duct defines the structure of your application as <strong>pure
+          data</strong>.
+        </p>
+        <p>
+          A data structure is far more powerful than a prescribed
+          file tree from an application template.
         </p>
         <pre class="highlight"><code class="language-clojure">{:system
  {:duct.module/logging {}
@@ -38,13 +42,16 @@
   :duct.module/web {:features #{:api}
                     :routes [["/items" #ig/ref :demo.routes/items]]}
   :demo.routes/items {:db #ig/ref :duct.database/sql}}}</code></pre>
-        <p class="is-size-6">
-          <strong>Modules</strong> remove repetition while still allowing you
-          to override any data they add.
+      </div>
+    </section>
+    <section class="section">
+      <div class="container is-max-tablet">
+        <p class="is-size-4">
+          Instead of templates and generators, Duct has <strong>modules</strong>.
         </p>
-        <p class="is-size-6">
-          Use <strong>functions</strong> and <strong>multimethods</strong> to
-          define the behavior of your components.
+        <p>
+          Modules expand out into extra configuration that you can inspect and
+          optionally override.
         </p>
         <pre class="highlight"><code class="language-clojure">(ns demo.routes
   (:require [next.jdbc :as jdbc]))

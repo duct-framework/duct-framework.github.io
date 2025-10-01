@@ -30,11 +30,12 @@
 
 section.section {
   padding-top: 2rem;
+  padding-bottom: 0.5rem;
 }
 
 p {
   font-family: "Open Sans", sans-serif;
-  margin-bottom: 1em;
+  padding: 0.1rem 0;
 }
 
 pre.highlight {
