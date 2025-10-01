@@ -7,7 +7,7 @@
    viewBox="0 0 160 160"
    version="1.1"
    id="SVGRoot"
-   sodipodi:docname="duct3.svg"
+   sodipodi:docname="logo.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    inkscape:export-filename="../Public/duct/duct-framework.github.io/logo.svg"
    inkscape:export-xdpi="96"
@@ -27,12 +27,12 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="2.0249695"
-     inkscape:cx="149.13805"
-     inkscape:cy="221.2379"
+     inkscape:zoom="4.1299677"
+     inkscape:cx="59.443564"
+     inkscape:cy="62.470222"
      inkscape:window-width="1685"
      inkscape:window-height="1406"
-     inkscape:window-x="490"
+     inkscape:window-x="561"
      inkscape:window-y="49"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
@@ -50,22 +50,17 @@
     <path
        id="rect136"
        style="color:#000000;fill:#5881d8;fill-opacity:1;-inkscape-stroke:none"
-       d="m 40,120 h 20 60 V 110 40 l -20,20 v 40 H 40 Z"
-       sodipodi:nodetypes="ccccccccc" />
+       d="m 0,0 v 120 c -1,0 120,0 120,0 V 40 l -20,20 v 40 H 20 V 20 H 120 L 130,30 145,15 130,0 Z"
+       sodipodi:nodetypes="ccccccccccccc" />
     <path
        id="path9914"
        style="color:#000000;fill:#75d23b;fill-opacity:1;-inkscape-stroke:none"
-       d="m 145,15 -15,15 c -0.17907,-1.198924 10,10 10,10 V 140 H 60 l 0.22847,-20.18541 H 40.228471 L 40,160 H 160 V 30 Z"
+       d="m 145,15 -15,15 c -0.17907,-1.198924 10,10 10,10 V 140 H 60 V 120 H 40 v 40 H 160 V 30 Z"
        sodipodi:nodetypes="ccccccccccc" />
     <path
        id="path9697"
        style="color:#000000;fill:#75d23b;fill-opacity:1;-inkscape-stroke:none"
        d="M 60,100 V 60 h 40 L 120,40 H 40 v 60 z"
        sodipodi:nodetypes="ccccccc" />
-    <path
-       id="path9909"
-       style="color:#000000;fill:#5881d8;fill-opacity:1;-inkscape-stroke:none"
-       d="M 0,0 V 120 H 40 V 100 H 20 V 20 H 120 L 130,30 145,15 130,0 Z"
-       sodipodi:nodetypes="ccccccccccc" />
   </g>
 </svg>
