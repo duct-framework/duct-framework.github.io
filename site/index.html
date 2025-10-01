@@ -26,6 +26,11 @@
         </div>
       </div>
     </section>
+    <div class="nav-buttons">
+      <div class="container has-text-centered">
+        <a class="button is-primary is-rounded is-size-6" href="#">Read the docs</a>
+      </div>
+    </div>
     <section class="section">
       <div class="container is-max-tablet">
         <p class="is-size-4">
@@ -59,10 +64,6 @@
 (defn list-items [{:keys [db]}]
   (fn handler [_request]
     {:body {:results (jdbc/execute! db ["SELECT * FROM items"])}}))</code></pre>
-      </div>
-
-      <div class="container has-text-centered">
-        <a class="button is-primary is-rounded is-size-5" href="#">Read the docs</a>
       </div>
     </section>
   </body>

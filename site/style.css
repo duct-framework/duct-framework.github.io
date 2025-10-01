@@ -20,6 +20,14 @@
   background: #292929;
 }
 
+.nav-buttons {
+  margin-top: -22px;
+}
+
+.is-size-4 {
+  font-size: 1.55rem !important;
+}
+
 .is-size-5 {
   font-size: 1.35rem !important;
 }
