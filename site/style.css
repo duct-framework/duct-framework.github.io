@@ -8,6 +8,7 @@
   font-family: "Barlow Condensed", sans-serif;
   font-size: 26px;
   margin-top: -15px;
+  margin-bottom: 0;
 }
 
 .hero .title .logo {
@@ -19,6 +20,32 @@
   background: #292929;
 }
 
+.is-size-5 {
+  font-size: 1.35rem !important;
+}
+
+.is-size-6 {
+  font-size: 1.1rem !important;
+}
+
+section.section {
+  padding-top: 2rem;
+}
+
 p {
-  font-family: "Roboto", sans-serif;
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 1em;
+}
+
+pre.highlight {
+  padding: 0;
+  margin: 1rem 0;
+  background: transparent;
+  margin-bottom: 20px;
+}
+
+pre.highlight code {
+  border-radius: 10px;
+  background: #292929;
+  padding: 15px;
 }
