@@ -54,6 +54,8 @@ pre.highlight {
 }
 
 pre.highlight code {
+  font-family: JetBrains Mono, monospace;
+  font-size: 1rem;
   border: 1px solid #2e8665;
   border-radius: 10px;
   background: #292929;
