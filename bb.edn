@@ -3,12 +3,15 @@
   clean
   {:task (fs/delete-tree "build")}
   mkdirs
-  {:task (fs/create-dirs "build")}
+  {:task (fs/create-dirs "build/docs")}
   docstrings
   {:task (clojure "-M" "build.clj")}
-  images
+  files
   {:depends [mkdirs]
-   :task (fs/copy "logo.svg" "build/logo.svg" {:replace-existing true})}
+   :task (doseq [[src dest] {"site/logo.svg"   "build/logo.svg"
+                             "site/index.html" "build/index.html"
+                             "site/style.css"  "build/style.css"}]
+           (fs/copy src dest {:replace-existing true}))}
   build
-  {:depends [docstrings images]
-   :task (shell "asciidoctor -D build -b html5 index.adoc")}}}
+  {:depends [docstrings files]
+   :task (shell "asciidoctor -D build/docs -b html5 index.adoc")}}}
