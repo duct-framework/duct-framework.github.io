@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/clojure.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/shell.min.js"></script>
     <script>hljs.highlightAll();</script>
   </head>
   <body>
@@ -28,7 +29,7 @@
     </section>
     <div class="nav-buttons">
       <div class="container has-text-centered">
-        <a class="button is-primary is-rounded is-size-6" href="#">Read the docs</a>
+        <a class="button is-primary is-rounded is-size-6" href="/docs">Read the docs</a>
       </div>
     </div>
     <section class="section">
@@ -97,6 +98,22 @@
 (defn items [{:keys [db]}]
   (fn handler [_request]
     {:body {:items (jdbc/execute! db ["SELECT * FROM items"])}}))</code></pre>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container is-max-tablet">
+        <p class="is-size-4">
+          Get a Duct project started in only <strong>a few commands</strong>.
+        </p>
+        <p>
+          Duct makes it easy to get going. All you need is the
+          <code>clojure</code> command-line tool installed.
+          Once you're set up, read the extensive
+          <a href="/docs">documentation</a> to learn how to use this framework.
+        </p>
+        <pre class="highlight"><code class="language-shell">$ mkdir demo &amp;&amp; cd demo
+$ curl -Os duct.now/deps.edn
+$ clojure -M:duct --setup :duct:git</code></pre>
       </div>
     </section>
     <footer class="footer">
