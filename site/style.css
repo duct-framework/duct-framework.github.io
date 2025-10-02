@@ -54,6 +54,7 @@ pre.highlight {
 }
 
 pre.highlight code {
+  border: 1px solid #2e8665;
   border-radius: 10px;
   background: #292929;
   padding: 15px;
@@ -64,11 +65,12 @@ pre.highlight code {
 }
 
 .split-view .column {
-  padding: 1px;
+  padding: 0;
 }
 
 .split-view .left pre.highlight code {
   border-radius: 10px 0 0 10px;
+  border-right: none;
 }
 
 .split-view .right pre.highlight code {
