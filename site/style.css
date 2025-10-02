@@ -16,8 +16,17 @@
   height: 92px;
 }
 
-.hero .hero-body {
+body {
+  background: #14161a;
+}
+
+html, .hero .hero-body, .footer {
   background: #292929;
+}
+
+.footer {
+  margin-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .nav-buttons {
