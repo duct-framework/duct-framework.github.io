@@ -58,6 +58,30 @@
           Modules expand out into extra configuration that you can inspect and
           optionally override.
         </p>
+        <div class="columns split-view">
+          <div class="column left">
+            <pre class="highlight"><code class="language-clojure">
+{:duct.module/logging {}}
+
+            </code></pre>
+          </div>
+          <div class="column right">
+            <pre class="highlight"><code class="language-clojure">{:duct.logger/simple
+ {:appenders
+  [{:type :stdout, :brief? true, :levels #{:report}}
+   {:type :file, :path "logs/repl.log"}]}}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container is-max-tablet">
+        <p class="is-size-4">
+          Lorem ipsum
+        </p>
+        <p>
+          Lorem ipsum dolar.
+        </p>
         <pre class="highlight"><code class="language-clojure">(ns demo.routes
   (:require [next.jdbc :as jdbc]))
 

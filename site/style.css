@@ -58,3 +58,19 @@ pre.highlight code {
   background: #292929;
   padding: 15px;
 }
+
+.split-view {
+  margin: 0;
+}
+
+.split-view .column {
+  padding: 1px;
+}
+
+.split-view .left pre.highlight code {
+  border-radius: 10px 0 0 10px;
+}
+
+.split-view .right pre.highlight code {
+  border-radius: 0 10px 10px 0;
+}
