@@ -38,8 +38,8 @@
         </p>
         <p>
           Instead of a prescribed file tree, Duct uses a Clojure data structure
-          to describe how the components of your application are connected and
-          configured.
+          in a <code>duct.edn</code> file to describe how the components of your
+          application are connected and configured.
         </p>
         <pre class="highlight"><code class="language-clojure">{:system
  {:duct.module/logging {}
@@ -87,8 +87,8 @@
           Write the rest of your code in idiomatic <strong>Clojure</strong>.
         </p>
         <p>
-          The top-level keywords in your system are linked to normal Clojure
-          functions or multimethods. This code is <em>simpler</em> as it
+          The top-level keywords in <code>duct.edn</code> are linked to normal
+          Clojure functions or multimethods. This code is <em>simpler</em> as it
           doesn't need to know how it's connected to the rest of the system.
         </p>
         <pre class="highlight"><code class="language-clojure">(ns demo.routes

@@ -51,6 +51,10 @@ p strong {
   color: white;
 }
 
+code {
+  font-family: JetBrains Mono, monospace;
+}
+
 pre.highlight {
   padding: 0;
   margin: 1rem 0;
@@ -59,7 +63,6 @@ pre.highlight {
 }
 
 pre.highlight code {
-  font-family: JetBrains Mono, monospace;
   font-size: 1rem;
   border: 1px solid #666;
   border-radius: 10px;
