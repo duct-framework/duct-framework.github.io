@@ -25,7 +25,8 @@
 }
 
 .is-size-4 {
-  font-size: 1.55rem !important;
+  font-size: 1.75rem !important;
+  color: #d0d0d0;
 }
 
 .is-size-5 {
@@ -46,6 +47,10 @@ p {
   padding: 0.1rem 0;
 }
 
+p strong {
+  color: white;
+}
+
 pre.highlight {
   padding: 0;
   margin: 1rem 0;
@@ -56,7 +61,7 @@ pre.highlight {
 pre.highlight code {
   font-family: JetBrains Mono, monospace;
   font-size: 1rem;
-  border: 1px solid #2e8665;
+  border: 1px solid #666;
   border-radius: 10px;
   background: #292929;
   padding: 15px;
@@ -68,6 +73,10 @@ pre.highlight code {
 
 .split-view .column {
   padding: 0;
+}
+
+.split-view .left {
+  max-width: 18rem;
 }
 
 .split-view .left pre.highlight code {

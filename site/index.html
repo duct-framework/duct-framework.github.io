@@ -34,12 +34,12 @@
     <section class="section">
       <div class="container is-max-tablet">
         <p class="is-size-4">
-          Duct defines the structure of your application as <strong>pure
-          data</strong>.
+          Define the structure of your application as <strong>pure data</strong>.
         </p>
         <p>
-          A data structure is far more powerful than a prescribed
-          file tree from an application template.
+          Instead of a prescribed file tree, Duct uses a Clojure data structure
+          to describe how the components of your application are connected and
+          configured.
         </p>
         <pre class="highlight"><code class="language-clojure">{:system
  {:duct.module/logging {}
@@ -52,11 +52,12 @@
     <section class="section">
       <div class="container is-max-tablet">
         <p class="is-size-4">
-          Instead of templates and generators, Duct has <strong>modules</strong>.
+          Factor out common configuration with <strong>modules</strong>.
         </p>
         <p>
           Modules expand out into extra configuration that you can inspect and
-          optionally override.
+          optionally override. These fulfil a similar role to templates and
+          generators in frameworks based around a file tree.
         </p>
         <div class="columns split-view">
           <div class="column left">
@@ -83,17 +84,19 @@
     <section class="section">
       <div class="container is-max-tablet">
         <p class="is-size-4">
-          Lorem ipsum
+          Write the rest of your code in idiomatic <strong>Clojure</strong>.
         </p>
         <p>
-          Lorem ipsum dolar.
+          The top-level keywords in your system are linked to normal Clojure
+          functions or multimethods. This code is <em>simpler</em> as it
+          doesn't need to know how it's connected to the rest of the system.
         </p>
         <pre class="highlight"><code class="language-clojure">(ns demo.routes
   (:require [next.jdbc :as jdbc]))
 
 (defn items [{:keys [db]}]
   (fn handler [_request]
-    {:body {:results (jdbc/execute! db ["SELECT * FROM items"])}}))</code></pre>
+    {:body {:items (jdbc/execute! db ["SELECT * FROM items"])}}))</code></pre>
       </div>
     </section>
   </body>
