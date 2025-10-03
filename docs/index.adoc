@@ -6,6 +6,7 @@ James Reeves
 :lang: en
 :source-highlighter: coderay
 :sectnums:
+:stylesheet: style.css
 :toc: left
 :url-repo: https://github.com/duct-framework/duct-framework.github.io
 :experimental:

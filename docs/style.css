@@ -1,0 +1,22 @@
+#header {
+  background-image: url(../logo.svg);
+  background-repeat: no-repeat;
+  background-size: 66px;
+  background-position: 0px 46px;
+  padding-left: 80px;
+  margin-left: .9375em;
+}
+.concise-index ul {
+  columns: 19em;
+  margin: 0;
+  font-size: 90%;
+}
+.concise-index li {
+  display: block;
+}
+.concise-index li p {
+  margin: 0;
+}
+.components h3 {
+  margin-top: 2em;
+}
