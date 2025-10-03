@@ -1,11 +1,43 @@
-#header {
-  background-image: url(../logo.svg);
-  background-repeat: no-repeat;
-  background-size: 66px;
-  background-position: 0px 46px;
-  padding-left: 80px;
-  margin-left: .9375em;
+body {
+  background: #14161a;
+  color: #abb1bf;
+  font-family: "Open Sans", sans-serif;
+  padding-left: 15em;
 }
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+  background: #292929;
+  width: 15em;
+}
+
+#header ul li {
+  display: block;
+}
+
+#content {
+  margin: 0 auto;
+  max-width: 62.5em;
+  padding-left: 0.9em;
+  padding-right: 0.9em;
+}
+
+pre.CodeRay.highlight {
+  background: #292929;
+  border-radius: 5px;
+  border: 1px solid #666;
+  padding: 5px;
+}
+
+a {
+  color: #93dd56;
+}
+
 .concise-index ul {
   columns: 19em;
   margin: 0;

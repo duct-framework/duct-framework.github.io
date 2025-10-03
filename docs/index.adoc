@@ -1,4 +1,4 @@
-= The Duct Framework
+= Duct
 James Reeves
 {docdate}
 :doctype: book
@@ -8,6 +8,7 @@ James Reeves
 :sectnums:
 :stylesheet: style.css
 :toc: left
+:title: The Duct Framework
 :url-repo: https://github.com/duct-framework/duct-framework.github.io
 :experimental:
 :docinfo: shared
