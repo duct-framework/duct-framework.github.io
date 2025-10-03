@@ -67,7 +67,7 @@
 
 (ig/load-annotations)
 
-(with-open [writer (io/writer "keywords.adoc")]
+(with-open [writer (io/writer "docs/keywords.adoc")]
   (binding [*out* writer]
     (println "[.concise-index]")
     (println ".Index")

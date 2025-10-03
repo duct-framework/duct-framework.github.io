@@ -14,4 +14,4 @@
            (fs/copy src dest {:replace-existing true}))}
   build
   {:depends [docstrings files]
-   :task (shell "asciidoctor -D build/docs -b html5 index.adoc")}}}
+   :task (shell "asciidoctor -D build/docs -b html5 docs/index.adoc")}}}
