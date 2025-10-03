@@ -26,6 +26,9 @@ html, .hero .hero-body, .footer {
 
 :root {
   --bulma-link-text: #93dd56;
+  --bulma-code-background: transparent;
+  --bulma-code-padding: 0;
+  --bulma-code: #67d4ff;
 }
 
 p a:hover {
