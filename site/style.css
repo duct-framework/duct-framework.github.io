@@ -37,7 +37,8 @@ p a:hover {
 
 .footer {
   margin-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 1.5em;
+  padding-bottom: 5rem;
 }
 
 .nav-buttons {
@@ -58,8 +59,8 @@ p a:hover {
 }
 
 section.section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
 }
 
 p {
