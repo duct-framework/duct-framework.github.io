@@ -56,7 +56,7 @@ p a:hover {
 
 section.section {
   padding-top: 2rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 2rem;
 }
 
 p {
@@ -93,6 +93,18 @@ pre.highlight code {
 
 .split-view .column {
   padding: 0;
+}
+
+.split-view h5 {
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #ddd;
+  margin-top: 1rem;
+}
+
+.split-view pre.highlight {
+  margin-top: 0;
 }
 
 .split-view .left {
