@@ -123,11 +123,17 @@ a {
   color: #93dd56;
 }
 
+.admonitionblock {
+  margin: 1.5rem 0 1.5rem 0;
+}
+
 .admonitionblock .icon:before {
   font-family: FontAwesome;
   font-size: 24pt;
   display: block;
   vertical-align: center;
+  text-align: center;
+  width: 2rem;
 }
 
 .admonitionblock .icon {
@@ -145,9 +151,14 @@ a {
   color: #ccd1df;
 }
 
-.warning .icon:before {
-  color: #ffff55;
+.warning .icon:before, .important .icon:before {
+  color: #ffdd55;
   content: '\f071';
+}
+
+.note .icon:before, .tip .icon:before {
+  color: #33aaff;
+  content: '\f05a';
 }
 
 .concise-index ul {
