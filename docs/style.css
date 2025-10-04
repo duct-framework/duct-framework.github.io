@@ -22,7 +22,7 @@ body {
   background-image: url(../logo.svg);
   background-size: 40px;
   background-repeat: no-repeat;
-  background-position: 0 10px;
+  background-position: 0 19px;
   padding-left: 48px;
   margin: 0.3rem 0.6rem 0 0.6rem;
 }
@@ -92,6 +92,7 @@ pre.CodeRay.highlight {
 p {
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+  margin-bottom: 1.4rem;
 }
 
 a {

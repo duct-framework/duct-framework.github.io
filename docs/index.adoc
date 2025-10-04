@@ -6,7 +6,8 @@ James Reeves
 :lang: en
 :source-highlighter: coderay
 :sectnums:
-:stylesheet: style.css
+:linkcss:
+:stylesheet: reset.css
 :toc: left
 :title: The Duct Framework
 :url-repo: https://github.com/duct-framework/duct-framework.github.io
