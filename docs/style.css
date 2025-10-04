@@ -56,9 +56,8 @@ body {
 
 #content {
   margin: 0 auto;
-  max-width: 62.5em;
-  padding-left: 0.9em;
-  padding-right: 0.9em;
+  max-width: 54rem;
+  padding: 0 2rem 0 2rem;
   font-size: 13pt;
   color: #bbc1cf;
 }
@@ -73,8 +72,10 @@ body {
 
 #content h3 {
   font-size: 24pt;
-  font-weight: normal;
-  color: #ddd;
+  font-weight: 300;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  color: #eee;
 }
 
 #content .sect1:first-child h2 {
@@ -83,20 +84,50 @@ body {
 
 pre.CodeRay.highlight {
   font-family: JetBrains Mono, monospace;
+  font-size: 12pt;
+  color: #ddd;
   background: #292929;
   border-radius: 5px;
   border: 1px solid #666;
   padding: 1rem;
+  margin: 1rem 0 2rem 0;
 }
 
 p {
   line-height: 1.6;
   text-rendering: optimizeLegibility;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1rem;
 }
 
 a {
   color: #93dd56;
+}
+
+.admonitionblock .icon:before {
+  font-family: FontAwesome;
+  font-size: 24pt;
+  display: block;
+  vertical-align: center;
+}
+
+.admonitionblock .icon {
+  border-right: 1px solid #777;
+  padding-right: 1rem;
+}
+
+.admonitionblock .icon .title {
+  display: none;
+}
+
+.admonitionblock .content {
+  padding-left: 1rem;
+  font-size: 90%;
+  color: #ccd1df;
+}
+
+.warning .icon:before {
+  color: #ffff55;
+  content: '\f071';
 }
 
 .concise-index ul {
