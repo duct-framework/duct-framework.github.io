@@ -1,7 +1,11 @@
+:root {
+  --sidebar-width: 17rem;
+}
+
 body {
   background: #14161a;
   font-family: "Open Sans", sans-serif;
-  padding-left: 17rem;
+  padding-left: var(--sidebar-width);
 }
 
 #header {
@@ -12,7 +16,7 @@ body {
   overflow: auto;
   margin: 0;
   background: #292929;
-  width: 17rem;
+  width: var(--sidebar-width);
 }
 
 #header h1 {
@@ -88,9 +92,25 @@ pre.CodeRay.highlight {
   color: #ddd;
   background: #292929;
   border-radius: 5px;
-  border: 1px solid #666;
+  border: 1px solid #555;
   padding: 1rem;
-  margin: 1rem 0 2rem 0;
+  margin: 2rem 0 2rem 0;
+  overflow: scroll;
+}
+
+.listingblock .title {
+  font-size: 10pt;
+  margin: 0;
+  background: #555;
+  color: white;
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 3px 3px 0 0;
+}
+
+.title + .content pre.CodeRay.highlight {
+  margin-top: 0;
+  border-radius: 0 5px 5px 5px;
 }
 
 p {
