@@ -2,7 +2,7 @@ body {
   background: #14161a;
   color: #abb1bf;
   font-family: "Open Sans", sans-serif;
-  padding-left: 15em;
+  padding-left: 17rem;
 }
 
 #header {
@@ -13,11 +13,45 @@ body {
   overflow: auto;
   margin: 0;
   background: #292929;
-  width: 15em;
+  width: 17rem;
+}
+
+#header h1 {
+  font-family: "Bebas Neue", sans-serif;
+  color: white;
+  font-size: 56px;
+  background-image: url(../logo.svg);
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 0 10px;
+  padding-left: 48px;
+  margin: 0.3rem 0.6rem 0 0.6rem;
+}
+
+#header .details, #toctitle {
+  display: none;
+}
+
+#header ul {
+  padding: 0 1rem;
+  margin: 0;
+}
+
+#header ul ul {
+  padding-left: 1rem;
 }
 
 #header ul li {
   display: block;
+  margin: 0.3rem 0;
+}
+
+#header ul a {
+  color: #ddd;
+}
+
+#header ul a:hover {
+  color: #93dd56;
 }
 
 #content {
@@ -36,6 +70,7 @@ pre.CodeRay.highlight {
 
 a {
   color: #93dd56;
+  text-decoration: none;
 }
 
 .concise-index ul {
