@@ -1,6 +1,5 @@
 body {
   background: #14161a;
-  color: #abb1bf;
   font-family: "Open Sans", sans-serif;
   padding-left: 17rem;
 }
@@ -48,6 +47,7 @@ body {
 
 #header ul a {
   color: #ddd;
+  text-decoration: none;
 }
 
 #header ul a:hover {
@@ -59,18 +59,43 @@ body {
   max-width: 62.5em;
   padding-left: 0.9em;
   padding-right: 0.9em;
+  font-size: 13pt;
+  color: #bbc1cf;
+}
+
+#content h2 {
+  font-size: 34pt;
+  font-weight: 300;
+  color: white;
+  margin: 3rem 0 1rem 0;
+  padding: 0;
+}
+
+#content h3 {
+  font-size: 24pt;
+  font-weight: normal;
+  color: #ddd;
+}
+
+#content .sect1:first-child h2 {
+  margin-top: 0;
 }
 
 pre.CodeRay.highlight {
+  font-family: JetBrains Mono, monospace;
   background: #292929;
   border-radius: 5px;
   border: 1px solid #666;
-  padding: 5px;
+  padding: 1rem;
+}
+
+p {
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
 }
 
 a {
   color: #93dd56;
-  text-decoration: none;
 }
 
 .concise-index ul {
