@@ -94,6 +94,19 @@ body {
   margin-top: 0;
 }
 
+code {
+  font-family: JetBrains Mono, monospace;
+  font-size: 12pt;
+}
+
+p code, .admonitionblock code {
+  color: white;
+}
+
+.admonitionblock code {
+  font-size: 90%;
+}
+
 pre.highlight {
   background: #292929;
   border-radius: 5px;
@@ -105,8 +118,6 @@ pre.highlight {
 
 pre.highlight code.hljs {
   background: transparent;
-  font-family: JetBrains Mono, monospace;
-  font-size: 12pt;
 }
 
 .listingblock .title {
@@ -159,7 +170,7 @@ a {
 .admonitionblock .content {
   padding-left: 1rem;
   font-size: 90%;
-  color: #ccd1df;
+  color: #dde1ef;
 }
 
 .warning .icon:before, .important .icon:before {
