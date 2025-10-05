@@ -60,14 +60,22 @@ body {
 
 #content {
   margin: 0 auto;
-  max-width: 54rem;
+  max-width: 55rem;
   padding: 0 2rem 0 2rem;
   font-size: 13pt;
   color: #bbc1cf;
 }
 
+#content h1 {
+  font-size: 38pt;
+  font-weight: 400;
+  color: white;
+  margin-bottom: -3rem;
+  padding: 0;
+}
+
 #content h2 {
-  font-size: 34pt;
+  font-size: 30pt;
   font-weight: 300;
   color: white;
   margin: 3rem 0 1rem 0;

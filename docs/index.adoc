@@ -16,6 +16,9 @@ James Reeves
 :experimental:
 :docinfo: shared
 
+[discrete]
+= The Duct Framework
+
 == Introduction
 
 Duct is a framework for developing server-side applications in the
