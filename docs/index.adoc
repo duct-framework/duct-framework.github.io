@@ -4,7 +4,9 @@ James Reeves
 :doctype: book
 :encoding: UTF-8
 :lang: en
-:source-highlighter: coderay
+:source-highlighter: highlight.js
+:highlightjs-theme: ir-black
+:highlightjs-languages: clojure, clojure-repl, json, shell
 :sectnums:
 :linkcss:
 :stylesheet: reset.css
@@ -218,7 +220,7 @@ user=>
 In the REPL environment the system will not be initiated automatically.
 Instead, we use the inbuilt `(go)` function.
 
-[,clojure]
+[,clojure-repl]
 ----
 user=> (go)
 Hello World
@@ -229,7 +231,7 @@ The REPL can be left running while source files updated. The `(reset)`
 function will halt the running system, reload any modified source files,
 then initiate the system again.
 
-[,clojure]
+[,clojure-repl]
 ----
 user=> (reset)
 :reloading (tutorial.print)
@@ -242,7 +244,7 @@ You can also use the kbd:[Alt-E] hotkey instead of typing `(reset)`.
 The configuration defined by `duct.edn` can be accessed with `config`,
 and the running system can be accessed with `system`.
 
-[,clojure]
+[,clojure-repl]
 ----
 user=> config
 #:tutorial.print{:hello {}}
@@ -512,7 +514,7 @@ $ duct --main
 
 But when using the REPL, we get a more concise message.
 
-[,shell]
+[,clojure-repl]
 ----
 user=> (go)
 :initiated
@@ -862,7 +864,7 @@ returns a Hiccup data structure.
 
 Finally, we trigger a `(reset)` at the REPL.
 
-[,shell]
+[,clojure-repl]
 ----
 user=> (reset)
 :reloading (todo.routes)
@@ -1121,7 +1123,7 @@ Our project dependencies should now look like this:
 We can load these new dependencies either by restarting the REPL, or by
 using the `sync-deps` function.
 
-[,clojure]
+[,clojure-repl]
 ----
 user=> (sync-deps)
 [...]
@@ -1142,7 +1144,7 @@ The next step is to add `:duct.module/sql` to our Duct configuration.
 
 Then reset via the REPL:
 
-[,shell]
+[,clojure-repl]
 ----
 user=> (reset)
 :reloading ()
@@ -1177,7 +1179,7 @@ used in development.
 If we want to change this in production, we can use the corresponding
 command-line argument or environment variable to override this default.
 
-[,shell]
+[,clojure-repl]
 ----
 user=> (reset)
 :reloading ()
@@ -1280,7 +1282,7 @@ create a table to store the todo list items.
 
 When we reset the REPL, the migration is automatically applied.
 
-[,shell]
+[,clojure-repl]
 ----
 user=> (reset)
 :reloading (todo.routes)
@@ -1350,7 +1352,7 @@ combined with `execute!`.
 We can reset via the REPL and add some test data with the `sql`
 convenience function.
 
-[,shell]
+[,clojure-repl]
 ----
 user=> (reset)
 :reloading (todo.routes)
@@ -2004,7 +2006,7 @@ print the expression, its value, and its location in your project.
 
 For example, at the REPL:
 
-[,clojure]
+[,clojure-repl]
 ----
 user=> (* 2 #p (+ 1 1))
 #p[user/eval11138:1] (+ 1 1) => 2
@@ -2024,7 +2026,7 @@ possible to use Duct with Leiningen.
 To do so, you'll need to update your project file with profile for Duct,
 and an alias to run it:
 
-.project
+.project.clj
 [,clojure]
 ----
 (defproject org.example/app "0.1.0-SNAPSHOT"

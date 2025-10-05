@@ -86,16 +86,19 @@ body {
   margin-top: 0;
 }
 
-pre.CodeRay.highlight {
-  font-family: JetBrains Mono, monospace;
-  font-size: 12pt;
-  color: #ddd;
+pre.highlight {
   background: #292929;
   border-radius: 5px;
   border: 1px solid #555;
-  padding: 1rem;
+  padding: 0.5rem;
   margin: 2rem 0 2rem 0;
   overflow: scroll;
+}
+
+pre.highlight code.hljs {
+  background: transparent;
+  font-family: JetBrains Mono, monospace;
+  font-size: 12pt;
 }
 
 .listingblock .title {
@@ -108,7 +111,7 @@ pre.CodeRay.highlight {
   border-radius: 3px 3px 0 0;
 }
 
-.title + .content pre.CodeRay.highlight {
+.title + .content pre.highlight {
   margin-top: 0;
   border-radius: 0 5px 5px 5px;
 }
