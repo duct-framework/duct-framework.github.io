@@ -99,7 +99,7 @@ code {
   font-size: 12pt;
 }
 
-p code, .admonitionblock code {
+p code, .admonitionblock code, .hdlist code {
   color: white;
 }
 
@@ -181,6 +181,26 @@ a {
 .note .icon:before, .tip .icon:before {
   color: #33aaff;
   content: '\f05a';
+}
+
+.hdlist, .ulist {
+  margin: 1.2rem 0 1.2rem 0.5em;
+}
+
+.hdlist td {
+  padding-right: 1rem;
+}
+
+.hdlist p, .ulist p {
+  margin: 0;
+}
+
+.ulist ul li {
+  margin: 0.2em 0 0.2em 0;
+}
+
+.ulist ul li::marker {
+  color: white;
 }
 
 .concise-index ul {
