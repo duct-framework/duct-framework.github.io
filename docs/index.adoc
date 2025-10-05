@@ -1973,6 +1973,7 @@ Once CIDER has connected, you can open a REPL with: kbd:[C-c] kbd:[C-z]
 This works in a similar way to the command-line REPL. To start up Duct,
 you can use the `(go)` command:
 
+[,clojure]
 ----
 user> (go)
 ----
