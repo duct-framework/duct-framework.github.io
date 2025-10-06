@@ -70,7 +70,7 @@ body {
   font-size: 38pt;
   font-weight: 400;
   color: white;
-  margin-bottom: -3rem;
+  margin: 0.5rem 0 0 0;
   padding: 0;
 }
 
@@ -78,20 +78,24 @@ body {
   font-size: 30pt;
   font-weight: 300;
   color: white;
-  margin: 3rem 0 1rem 0;
+  margin: 0 0 1rem 0;
   padding: 0;
 }
 
 #content h3 {
   font-size: 24pt;
   font-weight: 300;
-  padding: 1rem 0 1rem 0;
+  padding: 1.5rem 0 1rem 0;
   margin: 0;
   color: #eee;
 }
 
-#content .sect1:first-child h2 {
-  margin-top: 0;
+#content .sect1 ~ .sect1 h2 {
+  margin-top: 3.5rem;
+}
+
+#content .sect2 ~ .sect2 h3 {
+  padding-top: 2.5rem;
 }
 
 code {
@@ -122,7 +126,7 @@ pre.highlight code.hljs {
 
 .listingblock .title {
   font-size: 10pt;
-  margin: 0;
+  margin: 1rem 0 0 0;
   background: #555;
   color: white;
   display: inline-block;
