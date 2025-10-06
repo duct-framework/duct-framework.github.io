@@ -145,6 +145,17 @@ a {
   color: #93dd56;
 }
 
+kbd {
+  box-shadow: 2px 2px 0 #eeeeff;
+  border: 1px solid #889;
+  border-radius: 4px;
+  box-shadow: 1px 1px 0 #889;
+  padding: 1px 4px;
+  margin: 0px 3px;
+  color: #eee;
+  font-size: 12pt;
+}
+
 .admonitionblock {
   margin: 1.5rem 0 1.5rem 0;
 }

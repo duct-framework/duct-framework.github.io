@@ -814,9 +814,9 @@ we have no routes defined. The error page will be in plaintext, because
 we haven't specified what _features_ we want for our web application.
 
 We'll fix both these issues, but before we do we should terminate the
-application with Ctrl-C and start a REPL. We'll keep this running while
-we develop the application to avoid costly restarts and to give us a way
-of querying the running system.
+application with kbd:[Ctrl-C] and start a REPL. We'll keep this running
+while we develop the application to avoid costly restarts and to give
+us a way of querying the running system.
 
 [,shell]
 ----
