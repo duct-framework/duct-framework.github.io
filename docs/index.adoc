@@ -2078,6 +2078,7 @@ TIP: Use kbd:[Ctrl-Shift-P] to open the command palette.
 You'll be presented with a REPL where you can start the application
 with `(go)`
 
+[,clojure]
 ----
 clj꞉user꞉> (go)
 ----

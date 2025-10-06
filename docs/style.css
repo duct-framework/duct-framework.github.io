@@ -49,12 +49,12 @@ body {
   margin: 0.3rem 0;
 }
 
-#header ul a {
+#header ul a, .concise-index ul a {
   color: #ddd;
   text-decoration: none;
 }
 
-#header ul a:hover {
+#header ul a:hover, .concise-index ul a:hover {
   color: #93dd56;
 }
 
@@ -214,17 +214,46 @@ kbd {
   color: white;
 }
 
-.concise-index ul {
-  columns: 19em;
-  margin: 0;
-  font-size: 90%;
+.concise-index {
+  width: 36em;
+  margin-bottom: 1rem;
 }
+
+.concise-index .title {
+  display: none;
+}
+
+.concise-index .ulist {
+  margin: 0;
+}
+
+.concise-index ul {
+  columns: 2;
+  column-gap: 1rem;
+  margin: 0;
+  padding: 0;
+  font-size: 11pt;
+}
+
 .concise-index li {
   display: block;
 }
+
 .concise-index li p {
   margin: 0;
 }
-.components h3 {
-  margin-top: 2em;
+
+#content .components h3 {
+  margin: 2em 0 0 0;
+  padding: 0;
+}
+
+#content .components h3 + .paragraph {
+  color: #ccc;
+  margin-top: -0.3em;
+}
+
+#content .components h3 + .paragraph code {
+  color: #ccc;
+  font-size: 10pt;
 }

@@ -82,8 +82,7 @@
         (println "[discrete]")
         (println "###" kw)
         (newline)
-        (println (str "*Dependency:* `"
-                      (get-dependency (find-resource kw)) "`"))
+        (println (str "`" (get-dependency (find-resource kw)) "`"))
         (newline)
         (println doc)))))
 
