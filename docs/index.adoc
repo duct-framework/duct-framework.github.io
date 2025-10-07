@@ -1,4 +1,4 @@
-= Duct
+= https://duct-framework.org[Duct]
 James Reeves
 {docdate}
 :doctype: book
