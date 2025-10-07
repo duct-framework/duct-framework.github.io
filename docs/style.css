@@ -107,6 +107,10 @@ p code, .admonitionblock code, .hdlist code {
   color: white;
 }
 
+strong {
+  color: #ccd1df;
+}
+
 .admonitionblock code {
   font-size: 90%;
 }
@@ -128,7 +132,7 @@ pre.highlight code.hljs {
   font-size: 10pt;
   margin: 1rem 0 0 0;
   background: #555;
-  color: white;
+  color: #f2f2f2;
   display: inline-block;
   padding: 0.1rem 0.5rem;
   border-radius: 3px 3px 0 0;
