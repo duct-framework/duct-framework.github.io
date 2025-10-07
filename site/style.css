@@ -39,6 +39,7 @@ p a:hover {
   margin-top: 3rem;
   padding-top: 1.5em;
   padding-bottom: 5rem;
+  font-size: 90%;
 }
 
 .nav-buttons {
@@ -59,13 +60,13 @@ p a:hover {
 }
 
 section.section {
-  padding-top: 2.5rem;
+  padding-top: 2.0rem;
   padding-bottom: 1rem;
 }
 
 p {
   font-family: "Open Sans", sans-serif;
-  padding: 0.1rem 0;
+  padding: 0.5rem 0;
 }
 
 p strong {
@@ -74,6 +75,7 @@ p strong {
 
 code {
   font-family: JetBrains Mono, monospace;
+  color: white;
 }
 
 pre.highlight {
@@ -85,8 +87,8 @@ pre.highlight {
 
 pre.highlight code {
   font-size: 1rem;
-  border: 1px solid #666;
-  border-radius: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
   background: #292929;
   padding: 15px;
 }

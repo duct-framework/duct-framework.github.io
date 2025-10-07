@@ -67,7 +67,7 @@
 
 (ig/load-annotations)
 
-(with-open [writer (io/writer "keywords.adoc")]
+(with-open [writer (io/writer "docs/keywords.adoc")]
   (binding [*out* writer]
     (println "[.concise-index]")
     (println ".Index")
@@ -82,8 +82,7 @@
         (println "[discrete]")
         (println "###" kw)
         (newline)
-        (println (str "*Dependency:* `"
-                      (get-dependency (find-resource kw)) "`"))
+        (println (str "`" (get-dependency (find-resource kw)) "`"))
         (newline)
         (println doc)))))
 

@@ -10,8 +10,10 @@
   {:depends [mkdirs]
    :task (doseq [[src dest] {"site/logo.svg"   "build/logo.svg"
                              "site/index.html" "build/index.html"
-                             "site/style.css"  "build/style.css"}]
+                             "site/style.css"  "build/style.css"
+                             "docs/style.css"  "build/docs/style.css"
+                             "docs/reset.css"  "build/docs/reset.css"}]
            (fs/copy src dest {:replace-existing true}))}
   build
   {:depends [docstrings files]
-   :task (shell "asciidoctor -D build/docs -b html5 index.adoc")}}}
+   :task (shell "asciidoctor -D build/docs -b html5 docs/index.adoc")}}}
