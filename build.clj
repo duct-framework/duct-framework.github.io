@@ -40,6 +40,7 @@
          :duct.module/logging
          :duct.module/sql
          :duct.module/web
+         :duct.repl/refers
          :duct.router/reitit
          :duct.scheduler/simple
          :duct.server.http/jetty]))
