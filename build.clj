@@ -43,7 +43,8 @@
          :duct.repl/refers
          :duct.router/reitit
          :duct.scheduler/simple
-         :duct.server.http/jetty]))
+         :duct.server.http/jetty
+         :duct.session-store/cookie]))
 
 (defn- namespace->path [kw]
   (-> (namespace kw) (str/replace #"\." "/") (str/replace #"-" "_")))
