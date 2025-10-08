@@ -3,7 +3,7 @@
         integrant/integrant {:mvn/version "1.0.1"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
-        org.duct-framework/module.web {:mvn/version "0.13.3"}
+        org.duct-framework/module.web {:mvn/version "0.13.4"}
         org.duct-framework/module.sql {:mvn/version "0.9.0"}
         org.duct-framework/scheduler.simple {:mvn/version "0.2.1"}
         org.duct-framework/repl.refers {:mvn/version "0.1.1"}}}
