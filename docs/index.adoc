@@ -123,8 +123,9 @@ $ alias duct="clojure -M:duct"
 For the rest of this documentation, we'll assume that this shell alias
 has been defined.
 
-NOTE: Alternatively, you could create a Babashka `bb.edn` file with
-tasks to run Duct. The section on <<Babashka>> Integration explains how.
+NOTE: Alternatively, if you have **Babashka** installed, you can take
+advantage of its inbuilt task runner to run Duct. The section on
+<<Babashka,Babashka Integration>> explains how.
 
 The final step of the setup process is to create a `duct.edn` file. This
 contains the data structure that defines your Duct application. The
