@@ -1862,6 +1862,9 @@ outside of Duct:
 
 == Integrations
 
+Duct makes an effort to integrate nicely with many existing tools,
+editors and libraries within the Clojure ecosystem.
+
 === Babashka
 
 https://babashka.org/[Babashka] is a fast, native Clojure scripting
