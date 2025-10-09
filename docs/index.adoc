@@ -1751,6 +1751,62 @@ used in this example for the sake of brevity.
 Now that we have both a server and client, we can `(reset)` the REPL
 and check the web application at: <http://localhost:3000>
 
+=== Deployment
+
+During development we typically run every key int the system, but when
+we deploy, it's often useful to run a subset.
+
+We can specify which keys to run with the `--keys` option. This will
+run all the keys we specify, along with their *descendent* and
+*dependent* keys.
+
+NOTE: A key is _descendent_ on another if it is derived from that key
+via Clojure's `derive` function. A key is _dependent_ on another if it
+is linked via an Integrant ref or refset.
+
+Duct defines a hierarchy of keys, with many descending from a small
+selection of ancestor keys:
+
+[horizontal]
+`:duct/compiler` :: compile static assets
+`:duct/migrator` :: migrate the database schema
+`:duct/daemon`   :: run daemon process such as a server
+
+When deploying, we need to initiate all three of these lineages.
+
+Compilation typically takes place once on the build server. In the web
+application we've been building, this will compile ClojureScript into
+static JavaScript.
+
+[,shell]
+----
+$ duct --main --keys :duct/compiler  # compiles static resources
+----
+
+Migration requires access to the database, and typically must be run
+by a single machine. If two machines attempt to migrate the database
+at the same time we're likely to run into conflicts. Thus, as part of
+the deployment, a single machine should be designated to run the
+migration.
+
+[,shell]
+----
+$ duct --main --keys :duct/migrator  # migrates the database
+----
+
+Finally we run the daemon processes of our application. This includes
+the web server, `:duct.server.http/jetty`, which is added as part of
+the web module.
+
+[,shell]
+----
+$ duct --main --keys :duct/daemon    # runs the application
+----
+
+Daemons may be run on multiple machines, and may be started and stopped
+by the host environment at any time.
+
+
 == Existing Applications
 
 So far we have worked on the assumption that you are building a Duct
