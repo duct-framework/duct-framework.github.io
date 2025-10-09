@@ -1847,7 +1847,7 @@ your project. However, you may be able to still take advantage of Duct's
 libraries.
 
 Many of the libraries Duct provides can be used independently as part
-of any Integrant configuration. Here are three of the most useful
+of any Integrant configuration. Here are some of the most useful
 outside of Duct:
 
 - https://github.com/duct-framework/database.sql.hikaricp[database.sql.hikaricp] -
