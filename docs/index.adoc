@@ -46,9 +46,9 @@ make later sections easier to follow.
 
 === Project Setup
 
-This section will cover setting up a new Duct project. You'll first need
-to ensure that the
-https://clojure.org/guides/install_clojure[Clojure CLI is installed].
+We'll begin by setting up a new Duct project. You'll first need to
+ensure that the
+https://clojure.org/guides/install_clojure[Clojure CLI] is installed.
 You can check this by running the `clojure` command.
 
 [,shell]
@@ -69,7 +69,7 @@ The Clojure CLI looks for a file called `deps.edn`. To use Duct, we need
 to add the https://github.com/duct-framework/main[Duct Main] tool as a
 dependency, and setup an alias to execute it.
 
-A basic `deps.edn` file can be downloaded using curl.
+A minimal `deps.edn` file for Duct can be downloaded using curl.
 
 [,shell]
 ----
