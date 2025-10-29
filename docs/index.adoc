@@ -83,7 +83,7 @@ aliases:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.4.3"}}
+        org.duct-framework/main {:mvn/version "0.4.4"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
 
@@ -295,7 +295,7 @@ Add the dependency:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.4.3"}
+        org.duct-framework/main {:mvn/version "0.4.4"}
         org.duct-framework/test {:mvn/version "0.1.0"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -367,7 +367,7 @@ your `deps.edn` file.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.4.3"}}
+        org.duct-framework/main {:mvn/version "0.4.4"}}
  :aliases
  {:duct {:main-opts ["-m" "duct.main"]}
   :test {:extra-deps {org.duct-framework/test {:mvn/version "0.1.0"}}}}}
@@ -407,7 +407,7 @@ We'll first add the new dependency:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.4.3"}
+        org.duct-framework/main {:mvn/version "0.4.4"}
         org.duct-framework/test {:mvn/version "0.1.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -769,7 +769,7 @@ modules: logging and web.
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.4.3"}
+        org.duct-framework/main {:mvn/version "0.4.4"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -1115,7 +1115,7 @@ Our project dependencies should now look like this:
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.4.3"}
+        org.duct-framework/main {:mvn/version "0.4.4"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}
         org.duct-framework/module.sql {:mvn/version "0.9.0"}
@@ -1459,7 +1459,7 @@ ClojureScript. As always we begin with our dependencies, and add the
 [,clojure]
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
-        org.duct-framework/main {:mvn/version "0.4.3"}
+        org.duct-framework/main {:mvn/version "0.4.4"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}
@@ -1667,7 +1667,7 @@ This requires us to once again update the project dependencies:
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.3"}
         org.duct-framework/client.http {:mvn/version "0.1.0"}
-        org.duct-framework/main {:mvn/version "0.4.3"}
+        org.duct-framework/main {:mvn/version "0.4.4"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}
@@ -1867,7 +1867,7 @@ In your `deps.edn` file, add a Duct alias:
 [,clojure]
 ----
 {:aliases
- {:duct {:extra-deps {org.duct-framework/main {:mvn/version "0.4.3"}}
+ {:duct {:extra-deps {org.duct-framework/main {:mvn/version "0.4.4"}}
          :main-opts ["-m" "duct.main"]}
  ;; rest of your deps.edn
  }}
@@ -2096,7 +2096,7 @@ and an alias to run it:
 (defproject org.example/app "0.1.0-SNAPSHOT"
   ;; the rest of your project file goes here
   :aliases  {"duct" ["trampoline" "with-profile" "+duct" "run"]}
-  :profiles {:duct {:dependencies [[org.duct-framework/main "0.4.3"]]
+  :profiles {:duct {:dependencies [[org.duct-framework/main "0.4.4"]]
                     :main duct.main}})
 ----
 
