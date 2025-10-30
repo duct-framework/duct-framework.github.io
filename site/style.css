@@ -113,15 +113,19 @@ pre.highlight code {
   margin-top: 0;
 }
 
-.split-view .left {
-  max-width: 18rem;
-}
+@media screen and (width > 769px) {
+  .split-view .left {
+    max-width: 18rem;
+  }
 
-.split-view .left pre.highlight code {
-  border-radius: 10px 0 0 10px;
-  border-right: none;
-}
+  .split-view .left pre.highlight code {
+    border-radius: 10px 0 0 10px;
+    border-right: none;
+    min-height: 12.5em;
+    padding-top: 5.5em;
+  }
 
-.split-view .right pre.highlight code {
-  border-radius: 0 10px 10px 0;
+  .split-view .right pre.highlight code {
+    border-radius: 0 10px 10px 0;
+  }
 }
