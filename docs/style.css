@@ -19,6 +19,15 @@ body {
   width: var(--sidebar-width);
 }
 
+@media screen and (width <= 768px) {
+  body {
+    padding-left: 0;
+  }
+  #header {
+    display: none;
+  }
+}
+
 #header h1 {
   font-family: "Bebas Neue", sans-serif;
   color: white;
