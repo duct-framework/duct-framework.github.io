@@ -17,7 +17,6 @@ body {
   margin: 0;
   background: #292929;
   width: var(--sidebar-width);
-  border-right: #404040 1px solid;
 }
 
 #header h1 {
@@ -117,12 +116,16 @@ body {
     display: none;
   }
 
+  #header #toc > ul {
+    column-width: 12em;
+    margin-bottom: 1em;
+  }
+
   #header {
     width: auto;
     right: 0;
     height: 44px;
     border-right: none;
-    border-bottom: #404040 1px solid;
   }
 
   #header h1 {
