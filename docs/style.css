@@ -64,6 +64,10 @@ body {
   color: #93dd56;
 }
 
+#header .menu-icon {
+  display: none;
+}
+
 #content {
   margin: 0 auto;
   max-width: 55rem;
@@ -114,9 +118,9 @@ body {
   }
 
   #header {
-    width: 100%;
+    width: auto;
+    right: 0;
     height: 44px;
-    overflow: hidden;
     border-right: none;
     border-bottom: #404040 1px solid;
   }
@@ -127,10 +131,40 @@ body {
     font-size: 30px;
     margin: 0;
     padding-top: 2px;
+    width: 100px;
   }
 
   #header h1 a {
     padding-left: 44px;
+  }
+
+  #header .menu-icon {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: white;
+    display: block;
+    float: right;
+    margin: 5px 10px 0 0;
+  }
+
+  #header .menu-icon:before {
+    content: '\f0c9';
+  }
+
+  #header.is-open {
+    height: auto;
+  }
+
+  #header.is-open #toc {
+    display: block;
+    height: 100%;
+    overflow: scroll;
+  }
+
+  #header.is-open .menu-icon:before {
+    content: '\f00d';
   }
 
   #content {
@@ -263,7 +297,6 @@ kbd {
 }
 
 .concise-index {
-  width: 36em;
   margin-bottom: 1rem;
 }
 
@@ -276,7 +309,7 @@ kbd {
 }
 
 .concise-index ul {
-  columns: 2;
+  column-width: 13rem;
   column-gap: 1rem;
   margin: 0;
   padding: 0;

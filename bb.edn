@@ -12,7 +12,8 @@
                              "site/index.html" "build/index.html"
                              "site/style.css"  "build/style.css"
                              "docs/style.css"  "build/docs/style.css"
-                             "docs/reset.css"  "build/docs/reset.css"}]
+                             "docs/reset.css"  "build/docs/reset.css"
+                             "docs/ui.js"      "build/docs/ui.js"}]
            (fs/copy src dest {:replace-existing true}))}
   build
   {:depends [docstrings files]
