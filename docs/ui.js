@@ -7,4 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     icon.addEventListener('click', () => {
       header.classList.toggle('is-open');
     });
+
+    header.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        header.classList.remove('is-open');
+      }
+    });
 });
