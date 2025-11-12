@@ -13,4 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.remove('is-open');
       }
     });
+
+    document.addEventListener('click', (event) => {
+      if (!header.contains(event.target)) {
+        header.classList.remove('is-open');
+      }
+    });
 });
