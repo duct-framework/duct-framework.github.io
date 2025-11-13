@@ -1346,7 +1346,7 @@ populate an unordered list. We'll change the index function accordingly.
             [:head [:title "Todo"]]
             [:body
              [:ul (for [rs (jdbc/execute! db [list-todos])]
-              [:li (:todo/description rs)])]]]}))
+                    [:li (:todo/description rs)])]]]}))
 ----
 
 TIP: It's often a good idea to factor out each SQL string into its own
