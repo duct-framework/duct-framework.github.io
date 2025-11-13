@@ -1,5 +1,5 @@
 :root {
-  --sidebar-width: 16rem;
+  --sidebar-width: 15rem;
 }
 
 body {
@@ -17,23 +17,25 @@ body {
   margin: 0;
   background: #292929;
   width: var(--sidebar-width);
+  font-size: 11pt;
+  line-height: 1.6;
 }
 
 #header h1 {
   font-family: "Bebas Neue", sans-serif;
   color: white;
-  font-size: 56px;
+  font-size: 48px;
   background-image: url(../logo.svg);
-  background-size: 40px;
+  background-size: 34px;
   background-repeat: no-repeat;
-  background-position: 0 19px;
+  background-position: 0 18px;
   margin: 0 0 -0.8rem 1rem;
 }
 
 #header h1 a {
   color: white;
   text-decoration: none;
-  padding-left: 48px;
+  padding-left: 44px;
 }
 
 #header .details, #toctitle {
@@ -55,7 +57,7 @@ body {
 }
 
 #header ul a, .concise-index ul a {
-  color: #ddd;
+  color: #e6e6e6;
   text-decoration: none;
 }
 
