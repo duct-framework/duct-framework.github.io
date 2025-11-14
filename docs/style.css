@@ -72,7 +72,7 @@ body {
 #content {
   margin: 0 auto;
   max-width: 55rem;
-  padding: 0 2rem 0 2rem;
+  padding: 0 1rem 0 1rem;
   font-size: 13pt;
   color: #bbc1cf;
 }
@@ -120,13 +120,12 @@ body {
   }
 
   #header #toc > ul {
-    column-width: 12em;
+    column-width: 14em;
     margin-bottom: 1em;
   }
 
   #header {
-    width: auto;
-    right: 0;
+    width: 100%;
     height: 44px;
     border-right: none;
   }
@@ -134,9 +133,9 @@ body {
   #header h1 {
     background-size: 24px;
     background-position: 8px 10px;
-    font-size: 30px;
+    font-size: 32px;
     margin: 0;
-    padding-top: 2px;
+    padding: 0;
     width: 100px;
   }
 
@@ -175,7 +174,11 @@ body {
   }
 
   #content {
-    margin-top: 44px;
+    margin-top: 52px;
+  }
+
+  pre.highlight code {
+    font-size: 11pt;
   }
 }
 
