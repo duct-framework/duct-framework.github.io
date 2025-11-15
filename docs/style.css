@@ -1,9 +1,33 @@
 :root {
   --sidebar-width: 15rem;
+  --sidebar-text-color: #e6e6e6;
+  --content-background: #14161a;
+  --content-text-color: #bbc1cf;
+  --content-h1-color: white;
+  --content-h2-color: white;
+  --content-h3-color: #eee;
+  --header-background: #292929;
+  --header-text-color: white;
+  --header-icon-color: white;
+  --code-text-color: white;
+  --pre-background: #292929;
+  --pre-border-color: #555;
+  --pre-header-background: #555;
+  --pre-header-text-color: #f2f2f2;
+  --strong-text-color: #ccd1df;
+  --link-text-color: #93dd56;
+  --kbd-border-color: #889;
+  --kbd-text-color: #eee;
+  --list-bullet-color: white;
+  --warning-icon-color: #ffdd55;
+  --note-icon-color: #33aaff;
+  --admonition-text-color: #dde1ef;
+  --admonition-border-color: #777;
+  --component-dependency-color: #ccc;
 }
 
 body {
-  background: #14161a;
+  background: var(--content-background);
   font-family: "Open Sans", sans-serif;
   padding-left: var(--sidebar-width);
 }
@@ -15,7 +39,7 @@ body {
   height: 100%;
   overflow: auto;
   margin: 0;
-  background: #292929;
+  background: var(--header-background);
   width: var(--sidebar-width);
   font-size: 11pt;
   line-height: 1.6;
@@ -23,7 +47,7 @@ body {
 
 #header h1 {
   font-family: "Bebas Neue", sans-serif;
-  color: white;
+  color: var(--header-text-color);
   font-size: 48px;
   background-image: url(../logo.svg);
   background-size: 34px;
@@ -33,7 +57,7 @@ body {
 }
 
 #header h1 a {
-  color: white;
+  color: var(--header-text-color);
   text-decoration: none;
   padding-left: 44px;
 }
@@ -57,12 +81,12 @@ body {
 }
 
 #header ul a, .concise-index ul a {
-  color: #e6e6e6;
+  color: var(--sidebar-text-color);
   text-decoration: none;
 }
 
 #header ul a:hover, .concise-index ul a:hover {
-  color: #93dd56;
+  color: var(--link-text-color);
 }
 
 #header .menu-icon {
@@ -74,13 +98,13 @@ body {
   max-width: 55rem;
   padding: 0 1rem 0 1rem;
   font-size: 13pt;
-  color: #bbc1cf;
+  color: var(--content-text-color);
 }
 
 #content h1 {
   font-size: 38pt;
   font-weight: 400;
-  color: white;
+  color: var(--content-h1-color);
   margin: 0.5rem 0 0.5em 0;
   line-height: 1.1;
   padding: 0;
@@ -89,7 +113,7 @@ body {
 #content h2 {
   font-size: 30pt;
   font-weight: 300;
-  color: white;
+  color: var(--content-h2-color);
   margin: 0 0 1rem 0;
   padding: 0;
 }
@@ -99,7 +123,7 @@ body {
   font-weight: 300;
   padding: 1.5rem 0 1rem 0;
   margin: 0;
-  color: #eee;
+  color: var(--content-h3-color);
 }
 
 #content .sect1 ~ .sect1 h2 {
@@ -128,7 +152,7 @@ body {
     width: 100%;
     height: 48px;
     border-right: none;
-    border-bottom: 1px solid #14161a;
+    border-bottom: 1px solid var(--content-background);
   }
 
   #header h1 {
@@ -149,7 +173,7 @@ body {
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
-    color: white;
+    color: var(--header-icon-color);
     display: block;
     float: right;
     margin: 5px 10px 0 0;
@@ -189,11 +213,11 @@ code {
 }
 
 p code, .admonitionblock code, .hdlist code {
-  color: white;
+  color: var(--code-text-color);
 }
 
 strong {
-  color: #ccd1df;
+  color: var(--strong-text-color);
 }
 
 .admonitionblock code {
@@ -201,9 +225,9 @@ strong {
 }
 
 pre.highlight {
-  background: #292929;
+  background: var(--pre-background);
   border-radius: 5px;
-  border: 1px solid #555;
+  border: 1px solid var(--pre-border-color);
   padding: 0.5rem;
   margin: 2rem 0 2rem 0;
   overflow: scroll;
@@ -216,8 +240,8 @@ pre.highlight code.hljs {
 .listingblock .title {
   font-size: 10pt;
   margin: 1rem 0 0 0;
-  background: #555;
-  color: #f2f2f2;
+  background: var(--pre-header-background);
+  color: var(--pre-header-text-color);
   display: inline-block;
   padding: 0.1rem 0.5rem;
   border-radius: 3px 3px 0 0;
@@ -235,17 +259,16 @@ p {
 }
 
 a {
-  color: #93dd56;
+  color: var(--link-text-color);
 }
 
 kbd {
-  box-shadow: 2px 2px 0 #eeeeff;
-  border: 1px solid #889;
+  border: 1px solid var(--kbd-border-color);
   border-radius: 4px;
-  box-shadow: 1px 1px 0 #889;
+  box-shadow: 1px 1px 0 var(--kbd-border-color);
   padding: 1px 4px;
   margin: 0px 3px;
-  color: #eee;
+  color: var(--kbd-text-color);
   font-size: 12pt;
 }
 
@@ -263,7 +286,7 @@ kbd {
 }
 
 .admonitionblock .icon {
-  border-right: 1px solid #777;
+  border-right: 1px solid var(--admonition-border-color);
   padding-right: 1rem;
 }
 
@@ -274,16 +297,16 @@ kbd {
 .admonitionblock .content {
   padding-left: 1rem;
   font-size: 90%;
-  color: #dde1ef;
+  color: var(--admonition-text-color);
 }
 
 .warning .icon:before, .important .icon:before {
-  color: #ffdd55;
+  color: var(--warning-icon-color);
   content: '\f071';
 }
 
 .note .icon:before, .tip .icon:before {
-  color: #33aaff;
+  color: var(--note-icon-color);
   content: '\f05a';
 }
 
@@ -304,7 +327,7 @@ kbd {
 }
 
 .ulist ul li::marker {
-  color: white;
+  color: var(--list-bullet-color);
 }
 
 .concise-index {
@@ -341,11 +364,11 @@ kbd {
 }
 
 #content .components h3 + .paragraph {
-  color: #ccc;
+  color: var(--component-dependency-color);
   margin-top: -0.3em;
 }
 
 #content .components h3 + .paragraph code {
-  color: #ccc;
+  color: var(--component-dependency-color);
   font-size: 10pt;
 }
