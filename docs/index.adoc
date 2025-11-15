@@ -670,7 +670,7 @@ definition:
 ----
 (ns tutorial.print
   (:require [duct.logger :as log]
-            [integrant.core :as ig))
+            [integrant.core :as ig]))
 
 (defmethod ig/init-key ::hello [_key {:keys [level logger name]}]
   (log/log logger level ::hello {:name name}))
@@ -691,7 +691,7 @@ the `init-key` method (or function) opened. The return value from
 ----
 (ns tutorial.print
   (:require [duct.logger :as log]
-            [integrant.core :as ig))
+            [integrant.core :as ig]))
 
 (defmethod ig/init-key ::hello [_key {:keys [level logger name] :as opts}]
   (log/log logger level ::hello {:name name})
