@@ -2023,7 +2023,7 @@ Created .dir-locals.el
 This creates a hidden file, `.dir-locals.el`, that sets up CIDER with
 Duct-specific options. To connect to the project using CIDER, open a
 file in the project (such as `duct.edn`) and type:
-kbd:[M-x] `clojure-jack-in` kbd:[RET]
+kbd:[M-x] `cider-jack-in` kbd:[RET]
 
 TIP: The '`M`' in kbd:[M-x] means '`meta`' and is often bound to the
 kbd:[Alt] key. '`C`' usually means kbd:[Ctrl].
