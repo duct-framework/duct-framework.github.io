@@ -725,7 +725,7 @@ own configuration file, and also have a separate configuration for the
 {:vars #duct/include "vars.edn"
  :system
  {:duct.module/logging {}
-  :tutorial.print/hello #duct.include "hello.edn"}}
+  :tutorial.print/hello #duct/include "hello.edn"}}
 ----
 
 .vars.edn
