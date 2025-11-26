@@ -1037,7 +1037,7 @@ We add a new key, `:todo.middleware/wrap-headers`, which configures and
 creates the middleware function, then we use an Integrant ref to add
 that function to a vector of middleware.
 
-There three ways to apply middleware:
+There are three ways to apply middleware:
 
 * Middleware is applied to all requests (via `:middleware`)
 * Middleware is applied if any route matches (via `:route-middleware`)
