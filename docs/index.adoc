@@ -1993,7 +1993,7 @@ the host machine's port 3000 so you can access your application at:
 This container is configured to only run keys deriving from
 `:duct/daemon` (and those it references). This includes keys like
 `:duct.server.http/jetty` provided by the web module. This will exclude
-migrations in order avoid multiple containers behind a load balancer all
+migrations in order to avoid multiple containers behind a load balancer all
 trying to update the database at once.
 
 In order to run the migrations, you'll need to run Duct in your
