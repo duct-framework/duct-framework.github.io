@@ -1837,7 +1837,7 @@ that looks like this:
 ----
 
 In order to run this configuration, you have a main function that loads
-in the config file and populates the it with additional values from the
+in the config file and populates it with additional values from the
 environment. In the example below, the server port number is pulled from
 the `PORT` environment variable.
 
