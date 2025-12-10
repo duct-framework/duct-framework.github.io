@@ -1753,7 +1753,7 @@ and check the web application at: <http://localhost:3000>
 
 === Deployment
 
-During development we typically run every key int the system, but when
+During development we typically run every key in the system, but when
 we deploy, it's often useful to run a subset.
 
 We can specify which keys to run with the `--keys` option. This will
