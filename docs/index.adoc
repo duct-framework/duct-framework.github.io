@@ -725,7 +725,7 @@ own configuration file, and also have a separate configuration for the
 {:vars #duct/include "vars.edn"
  :system
  {:duct.module/logging {}
-  :tutorial.print/hello #duct.include "hello.edn"}}
+  :tutorial.print/hello #duct/include "hello.edn"}}
 ----
 
 .vars.edn
@@ -1037,7 +1037,7 @@ We add a new key, `:todo.middleware/wrap-headers`, which configures and
 creates the middleware function, then we use an Integrant ref to add
 that function to a vector of middleware.
 
-There three ways to apply middleware:
+There are three ways to apply middleware:
 
 * Middleware is applied to all requests (via `:middleware`)
 * Middleware is applied if any route matches (via `:route-middleware`)
@@ -1753,7 +1753,7 @@ and check the web application at: <http://localhost:3000>
 
 === Deployment
 
-During development we typically run every key int the system, but when
+During development we typically run every key in the system, but when
 we deploy, it's often useful to run a subset.
 
 We can specify which keys to run with the `--keys` option. This will
@@ -1837,7 +1837,7 @@ that looks like this:
 ----
 
 In order to run this configuration, you have a main function that loads
-in the config file and populates the it with additional values from the
+in the config file and populates it with additional values from the
 environment. In the example below, the server port number is pulled from
 the `PORT` environment variable.
 
@@ -1993,7 +1993,7 @@ the host machine's port 3000 so you can access your application at:
 This container is configured to only run keys deriving from
 `:duct/daemon` (and those it references). This includes keys like
 `:duct.server.http/jetty` provided by the web module. This will exclude
-migrations in order avoid multiple containers behind a load balancer all
+migrations in order to avoid multiple containers behind a load balancer all
 trying to update the database at once.
 
 In order to run the migrations, you'll need to run Duct in your
