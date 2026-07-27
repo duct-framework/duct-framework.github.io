@@ -14,8 +14,8 @@
   (str/replace s #"(?m)^  " ""))
 
 (def keywords
-  (sort [:duct.compiler.cljs.shadow/release
-         :duct.compiler.cljs.shadow/server
+  (sort [:duct.compiler.cljs.simple/build
+         :duct.compiler.cljs.simple/server
          :duct.database/sql
          :duct.database.sql/hikaricp
          :duct.handler/file

@@ -1460,7 +1460,7 @@ ClojureScript. As always we begin with our dependencies, and add the
 ----
 {:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}
-        org.duct-framework/module.cljs {:mvn/version "0.5.2"}
+        org.duct-framework/module.cljs {:mvn/version "0.6.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}
         org.duct-framework/module.sql {:mvn/version "0.9.0"}
@@ -1484,7 +1484,7 @@ configuration file.
   :duct.module/sql
   {:migrations #duct/include "migrations.edn"}
   :duct.module/cljs
-  {:builds {:client todo.client}}
+  {:main todo.client :output-file "client.js"}
   :duct.module/web
   {:features #{:site :hiccup}
    :handler-opts {:db #ig/ref :duct.database/sql}
@@ -1492,15 +1492,18 @@ configuration file.
                   :post :todo.routes/new-todo}]]}}}
 ----
 
-The module requires a `:builds` option to be set. This connects a
-build name to a ClojureScript namespace, or collection of namespaces. In
-the above example, the `todo.client` namespace will be compiled to the
-`target/cljs/client.js` JavaScript file. When Duct is started, this will
+The module requires two options to be set: `:main`, which references the
+main namespace to compile, and `:output-file`, which is the JavaScript
+file that the ClojureScript will be compiled to. The `:output-file` is
+appended to `:output-path`, which by default is `target/cljs`.
+
+In the above example, this means that the `todo.client` namespace will
+be compiled to `target/cljs/client.js`. When Duct is started, this will
 be accessible at: <http://localhost:3000/cljs/client.js>.
 
-Before `todo.client` can be compiled, we first need to write it. In
-order to check everything works, we'll have it trigger an JavaScript
-alert.
+However, before `todo.client` can be compiled, we first need to write
+it. In order to check everything works, we'll just have it trigger a
+JavaScript alert.
 
 .src/todo/client.cljs
 [,clojure]
@@ -1510,8 +1513,8 @@ alert.
 (js/alert "Hello World")
 ----
 
-In order to test this script compiles correct, we'll add the script to
-our `index` function in the `todo.routes` namespace.
+To test this script compiles correct, we'll add the script to our
+`index` function in the `todo.routes` namespace.
 
 [,clojure]
 ----
@@ -1574,7 +1577,8 @@ to communicate with the server.
  {:duct.module/logging {}
   :duct.module/sql
   {:migrations #duct/include "migrations.edn"}
-  :duct.module/cljs {:builds {:client todo.client}}
+  :duct.module/cljs
+  {:main todo.client :output-file "client.js"}
   :duct.module/web
   {:features #{:site :api}
    :handler-opts {:db #ig/ref :duct.database/sql}
@@ -1668,7 +1672,7 @@ This requires us to once again update the project dependencies:
 {:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/client.http {:mvn/version "0.1.0"}
         org.duct-framework/main {:mvn/version "0.4.6"}
-        org.duct-framework/module.cljs {:mvn/version "0.5.2"}
+        org.duct-framework/module.cljs {:mvn/version "0.6.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}
         org.duct-framework/module.sql {:mvn/version "0.9.0"}
