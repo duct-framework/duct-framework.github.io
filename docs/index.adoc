@@ -54,7 +54,7 @@ You can check this by running the `clojure` command.
 [,shell]
 ----
 $ clojure --version
-Clojure CLI version 1.12.3.1577
+Clojure CLI version 1.12.5.1654
 ----
 
 Next, create a project directory. For the purposes of this example,
@@ -82,7 +82,7 @@ aliases:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
 ----
@@ -294,7 +294,7 @@ Add the dependency:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}
         org.duct-framework/test {:mvn/version "0.1.0"}}
  :aliases {:duct {:main-opts ["-m" "duct.main"]}}}
@@ -366,7 +366,7 @@ your `deps.edn` file.
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}}
  :aliases
  {:duct {:main-opts ["-m" "duct.main"]}
@@ -406,7 +406,7 @@ We'll first add the new dependency:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}
         org.duct-framework/test {:mvn/version "0.1.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}}
@@ -768,7 +768,7 @@ modules: logging and web.
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}}
@@ -1114,7 +1114,7 @@ Our project dependencies should now look like this:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}
@@ -1458,7 +1458,7 @@ ClojureScript. As always we begin with our dependencies, and add the
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/main {:mvn/version "0.4.6"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
@@ -1665,7 +1665,7 @@ This requires us to once again update the project dependencies:
 .deps.edn
 [,clojure]
 ----
-{:deps {org.clojure/clojure {:mvn/version "1.12.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.12.5"}
         org.duct-framework/client.http {:mvn/version "0.1.0"}
         org.duct-framework/main {:mvn/version "0.4.6"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}

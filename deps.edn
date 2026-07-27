@@ -1,5 +1,5 @@
 {:paths ["."]
- :deps {org.clojure/clojure {:mvn/version "1.12.3"}
+ :deps {org.clojure/clojure {:mvn/version "1.12.5"}
         integrant/integrant {:mvn/version "1.0.1"}
         org.duct-framework/module.cljs {:mvn/version "0.5.2"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
