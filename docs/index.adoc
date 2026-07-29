@@ -231,7 +231,7 @@ Hello World
 :initiated
 ----
 
-The REPL can be left running while source files updated. The `(reset)`
+The REPL can be left running while source files are updated. The `(reset)`
 function will halt the running system, reload any modified source files,
 then initiate the system again.
 
@@ -380,7 +380,7 @@ Then to run the tests you'd use:
 $ clojure -M:duct:test --test
 ----
 
-As this is quite a lot to type, you may want to add an exta shell alias.
+As this is quite a lot to type, you may want to add an extra shell alias.
 For example, `ductt` with an extra '`t`' for '`test`'.
 
 [,shell]
@@ -479,7 +479,7 @@ to the logger. We use `:duct/logger` instead of `:duct.logger/simple`,
 as keys have a logical hierarchy, and `:duct/logger` fulfils a role
 similar to that of an interface or superclass.
 
-NOTE: The '`ig`' in `#ig/var` stands for
+NOTE: The '`ig`' in `#ig/ref` stands for
 https://github.com/weavejester/integrant[Integrant]. This is the
 library that Duct relies on to turn configurations into running
 applications.
@@ -526,7 +526,7 @@ user=> (go)
 ----
 
 TIP: At the Duct REPL you can use the `doc` macro to get information
-about keywords annotated by Integrant. For example, evaluated the
+about keywords annotated by Integrant. For example, evaluating the
 expression `(doc :duct.module/logging)` will describe the logging module.
 
 === Variables
@@ -595,7 +595,7 @@ option keys are supported:
 `:doc`     :: a description of what the var is for
 `:env`     :: an environment variable to take the var's value from
 `:type`    :: a data type to coerce the var into (one of: `:str`, `:int`
-              or `float`)
+              or `:float`)
 
 === Profiles
 
@@ -713,7 +713,7 @@ tag.
 
 If you tag a filepath string with `#duct/include`, it indicates to Duct
 that it should replace the tagged string with the corresponding edn
-file. You can place this anywhere in the your `duct.edn` configuration.
+file. You can place this anywhere in your `duct.edn` configuration.
 
 For example, suppose we want to factor out all of the vars into their
 own configuration file, and also have a separate configuration for the
@@ -761,7 +761,7 @@ We'll begin by creating a new project directory.
 mkdir todo-app && cd todo-app
 ----
 
-The first thing we'll need is a `deps.edn` file that to provide the
+The first thing we'll need is a `deps.edn` file to provide the
 project dependencies. This will include Duct main and two additional
 modules: logging and web.
 
@@ -836,7 +836,7 @@ that for you, but like all modules, we can always override any default
 that we don't like.
 
 For now, we'll tell the web module to configure the application for use
-as a webside, using the `:site` feature, and to use the
+as a website, using the `:site` feature, and to use the
 https://github.com/weavejester/hiccup[Hiccup] format for representing
 HTML, using the `:hiccup` feature. We'll also add in a single route to
 handle a web request to the root of our application.
@@ -911,7 +911,7 @@ including a web server, middleware and error handlers, all which can
 be customized. Amongst these components, it creates a **router** and
 a number of **route handlers**.
 
-A web module configured the following routes:
+A web module configured with the following routes:
 
 [,clojure]
 ----
@@ -927,12 +927,12 @@ Will expand out to:
 ----
 
 The router component uses https://github.com/metosin/reitit[Reitit], a
-popular data-driven routing library for Clojure. Other routing libreries
+popular data-driven routing library for Clojure. Other routing libraries
 can be used, but for this documentation we'll use the default.
 
 === Handlers
 
-Let's take a closer look at function associated with the route.
+Let's take a closer look at the function associated with the route.
 
 .src/todo/routes.clj
 [,clojure]
@@ -958,7 +958,7 @@ by an optional attribute map and then the element body.
 
 The `:hiccup` feature of the web module adds middleware to turn Hiccup
 vectors into HTML response maps. If the response body is a vector, it
-coverts it to a string of HTML. The missing `:status` and `:headers`
+converts it to a string of HTML. The missing `:status` and `:headers`
 keys that are usually present in the response map are given default
 values.
 
@@ -1205,7 +1205,7 @@ shown below.
 
 [,clojure]
 ----
-{:todo.routes/index {:db #ig/ref :duct.database/sql}
+{:todo.routes/index {:db #ig/ref :duct.database/sql}}
 ----
 
 This is useful if only some routes need to access the database. However,
@@ -1392,7 +1392,7 @@ the POST.
                   :post :todo.routes/new-todo}]]}}}
 ----
 
-Then we need incorporate the POST handler and the form into the
+Then we need to incorporate the POST handler and the form into the
 codebase.
 
 .src/todo/routes.clj
@@ -1513,7 +1513,7 @@ JavaScript alert.
 (js/alert "Hello World")
 ----
 
-To test this script compiles correct, we'll add the script to our
+To test this script compiles correctly, we'll add the script to our
 `index` function in the `todo.routes` namespace.
 
 [,clojure]
@@ -1538,7 +1538,7 @@ the alert.
 
 At this point we have all the tools we need to write a web application.
 We can write routes that return HTML, and we write ClojureScript to
-augment those roots.
+augment those routes.
 
 However, there is a common alternative to this '`traditional`'
 architecture. We instead serve up a single, static HTML page, and create
@@ -1591,7 +1591,7 @@ to communicate with the server.
               :delete :todo.routes/remove-todo}]]}}}
 ----
 
-There are now have three RESTful API routes:
+There are now three RESTful API routes:
 
 - `GET /todos`
 - `POST /todos`
@@ -1634,7 +1634,7 @@ into the user's preferred format.
 
 There are three functions for each of the three routes. The `list-todos`
 function returns a map as its body. If JSON is requested, the resulting
-response body will look like something like this:
+response body will look something like this:
 
 [,json]
 ----
@@ -1737,7 +1737,7 @@ explanation of what this file does.
 The `get`, `post` and `delete` functions from the Duct HTTP client
 simplify communication with the server. They communicate using the
 Transit serialization format, and automatically add headers to get
-around the webservers CSRF protection.
+around the web server's CSRF protection.
 
 The `update-todos`, `delete-todo` and `create-todo` functions all update
 the `store` atom, which contains a data structure that represents the
@@ -1822,7 +1822,7 @@ common use-cases.
 
 === Integrant Runner
 
-A common pattern for using Integrant have a `-main` function that loads
+A common pattern for using Integrant is to have a `-main` function that loads
 and initiates an Integrant configuration. In many cases, you can use
 Duct to replace this with a data-driven approach.
 
@@ -1854,8 +1854,8 @@ the `PORT` environment variable.
 
 (defn -main [& _args]
   (let [port (some-> (System/getenv "PORT")
-                     (Integer/parseInt)
-                     (or 3000))
+                     (Integer/parseInt))
+        port (or port 3000)
         config (-> (io/resource "example/app/config.edn")
                    (slurp)
                    (ig/read-string)
@@ -1885,7 +1885,7 @@ environment or from command-line options.
 [,clojure]
 ----
 {:vars
- {port {:env PORT, :type :int, :default 3000}
+ {port {:env PORT, :type :int, :default 3000}}
  :system
  {:example.app/server
   {:port  #ig/var port
@@ -2091,7 +2091,7 @@ use, and `--repl` for development and debugging.
 It's recommended that you use Duct with `deps.edn`, however it is
 possible to use Duct with Leiningen.
 
-To do so, you'll need to update your project file with profile for Duct,
+To do so, you'll need to update your project file with a profile for Duct,
 and an alias to run it:
 
 .project.clj
@@ -2100,7 +2100,7 @@ and an alias to run it:
 (defproject org.example/app "0.1.0-SNAPSHOT"
   ;; the rest of your project file goes here
   :aliases  {"duct" ["trampoline" "with-profile" "+duct" "run"]}
-  :profiles {:duct {:dependencies [[org.duct-framework/main {:mvn/version "0.4.6"]]
+  :profiles {:duct {:dependencies [[org.duct-framework/main "0.4.6"]]
                     :main duct.main}})
 ----
 
