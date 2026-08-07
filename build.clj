@@ -14,8 +14,10 @@
   (str/replace s #"(?m)^  " ""))
 
 (def keywords
-  (sort [:duct.compiler.cljs.simple/build
+  (sort [:duct.client.smtp/postal
+         :duct.compiler.cljs.simple/build
          :duct.compiler.cljs.simple/server
+         :duct.database.datalog/datalevin
          :duct.database/sql
          :duct.database.sql/hikaricp
          :duct.handler/file
@@ -37,7 +39,9 @@
          :duct.middleware.web/hiccup
          :duct.migrator/ragtime
          :duct.module/cljs
+         :duct.module.datalog/datalevin
          :duct.module/logging
+         :duct.module/mail
          :duct.module/sql
          :duct.module/web
          :duct.repl/refers

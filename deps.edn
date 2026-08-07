@@ -1,8 +1,11 @@
 {:paths ["."]
  :deps {org.clojure/clojure {:mvn/version "1.12.5"}
         integrant/integrant {:mvn/version "1.0.1"}
+        org.duct-framework/database.datalog.datalevin {:mvn/version "0.1.3"}
         org.duct-framework/module.cljs {:mvn/version "0.6.1"}
+        org.duct-framework/module.datalog {:mvn/version "0.1.0"}
         org.duct-framework/module.logging {:mvn/version "0.6.6"}
+        org.duct-framework/module.mail {:mvn/version "0.1.0"}
         org.duct-framework/module.web {:mvn/version "0.13.4"}
         org.duct-framework/module.sql {:mvn/version "0.9.0"}
         org.duct-framework/scheduler.simple {:mvn/version "0.2.1"}
